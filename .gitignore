@@ -1,0 +1,17 @@
+# ignore virtual
+/venv
+
+# igrnore db
+db.sqlite3
+
+# ignore idea
+.idea
+
+# ignore media
+media/*
+
+# ignore pyc
+.pyc
+
+# ignore migrate
+*migrations
