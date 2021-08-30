@@ -7,5 +7,6 @@ from .models import *
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['client_name', 'phone', 'address', 'created_at']
+    list_display = ['name', 'phone', 'address', 'created_at']
     readonly_fields = ['id']
+    save_on_top = True
