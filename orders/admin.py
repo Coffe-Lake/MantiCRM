@@ -8,5 +8,5 @@ from .models import *
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['name', 'phone', 'address', 'created_at']
-    readonly_fields = ['id']
+    readonly_fields = ['id', 'created_at']
     save_on_top = True

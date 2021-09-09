@@ -7,10 +7,22 @@ class DeliveryPrice(models.Model):
     class Meta:
         verbose_name = 'стоимость доставки'
         verbose_name_plural = 'стоимости доставок'
+        ordering = ['delivery_price']
 
     def __str__(self):
         return str(self.delivery_price)
 
+
+class PayMethod(models.Model):
+    pay_method = models.CharField("Способ оплаты", max_length=100, db_index=True)
+
+    class Meta:
+        verbose_name = "способ оплаты"
+        verbose_name_plural = "способы оплаты"
+        ordering = ['pay_method']
+
+    def __str__(self):
+        return self.pay_method
 
 # class DeliveryMethod(models.Model):
 #     delivery_method = models.CharField('Способ доставки', max_length=50)

@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class ClientType(models.Model):
     client_type = models.CharField("Тип клиента", max_length=50)
-    orders_count = models.CharField(max_length=100, null=True)
+    orders_count = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         verbose_name = 'тип клиента'
@@ -38,7 +38,7 @@ class Client(models.Model):
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     birthday = models.DateField("Дата рождения", blank=True, null=True)
-    client_type = models.ForeignKey(ClientType, on_delete=models.CASCADE, null=True)
+    client_type = models.ForeignKey(ClientType, verbose_name='Тип клиента', on_delete=models.SET_NULL, null=True)
     orders_count = models.PositiveIntegerField("Количество заказов", blank=True, default=0)
 
     class Meta:

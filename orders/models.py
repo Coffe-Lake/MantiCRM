@@ -14,10 +14,10 @@ from marketing.models import *
 class Order(models.Model):
     client_type = models.ForeignKey(
         ClientType,
-        verbose_name="Имя клиента",
+        verbose_name="Тип клиента",
         on_delete=models.SET_NULL,
         null=True,
-        default=''
+        default=3
     )
     ORDER_STATUS_CHOICES = (
         ("NEW", 'Новый'),
@@ -35,7 +35,7 @@ class Order(models.Model):
         default='Новый'
     )
     name = models.CharField("Имя", max_length=50)
-    phone = PhoneNumberField("Телефон", unique=True, region="RU")
+    phone = PhoneNumberField("Телефон", region="RU")
     address = models.CharField("Адрес", max_length=250, null=True)
     room = models.CharField("Квартира/Комната", max_length=50, blank=True, null=True)
     entrance = models.CharField("Подъезд", max_length=50, blank=True, null=True)
@@ -44,19 +44,32 @@ class Order(models.Model):
     delivery_price = models.ForeignKey(
         DeliveryPrice,
         verbose_name="Стоимость доставки",
-        on_delete=models.CASCADE
+        on_delete=models.SET_NULL,
+        null=True,
+        default=1,
+        db_index=True
     )
     discount_sum = models.ForeignKey(
         Marketing,
+        on_delete=models.SET_NULL,
         verbose_name="Скидка на заказ",
-        on_delete=models.CASCADE,
         blank=True,
-        null=True
+        null=True,
+        db_index=True
     )
+    pay_id = models.ForeignKey(
+        PayMethod,
+        verbose_name="Способ оплаты",
+        on_delete=models.SET_NULL,
+        null=True,
+        default=3,
+        db_index=True
+    )
+
     margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)
     persons = models.PositiveIntegerField("Количество персон", blank=True, null=True, default=0)
     pre_order = models.DateTimeField("Предзаказ", blank=True, null=True)
-    created_at = models.DateTimeField("Создано", default=datetime.now, blank=True)
+    created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
     comment = models.TextField("Комментарий", max_length=250, blank=True, null=True)
     staff_comment = models.TextField("Комментарий для повара", max_length=250, blank=True, null=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -64,3 +77,4 @@ class Order(models.Model):
     class Meta:
         verbose_name = "заказ"
         verbose_name_plural = "заказы"
+        ordering = ['-created_at']
