@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # custom apps
-    'crm.apps.CrmConfig',
     'clients.apps.ClientsConfig',
     'marketing.apps.MarketingConfig',
     'orders.apps.OrdersConfig',
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
 
     # other apps
     'phonenumber_field',
+    'rest_framework',
 
 ]
 
@@ -136,7 +136,6 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # Логгирование БД
 # LOGGING = {
 #     'version': 1,
@@ -154,5 +153,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         'handlers': ['console'],
 #     }
 # }
-
-

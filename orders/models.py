@@ -37,7 +37,8 @@ class Order(models.Model):
     name = models.CharField("Имя", max_length=50)
     phone = PhoneNumberField("Телефон", region="RU")
     address = models.CharField("Адрес", max_length=250, null=True)
-    room = models.CharField("Квартира/Комната", max_length=50, blank=True, null=True)
+    room = models.CharField("Квартира/Комната",
+                            max_length=50, blank=True, null=True)
     entrance = models.CharField("Подъезд", max_length=50, blank=True, null=True)
     floor = models.PositiveIntegerField("Этаж", blank=True, null=True)
     code = models.CharField("Код домофона", max_length=50, blank=True, null=True)
@@ -67,14 +68,19 @@ class Order(models.Model):
     )
 
     margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)
-    persons = models.PositiveIntegerField("Количество персон", blank=True, null=True, default=0)
+    persons = models.PositiveIntegerField("Количество персон",
+                                          blank=True, null=True, default=0)
     pre_order = models.DateTimeField("Предзаказ", blank=True, null=True)
-    created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
     comment = models.TextField("Комментарий", max_length=250, blank=True, null=True)
-    staff_comment = models.TextField("Комментарий для повара", max_length=250, blank=True, null=True)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    staff_comment = models.TextField("Комментарий для повара",
+                                     max_length=250, blank=True, null=True)
+    created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
     class Meta:
         verbose_name = "заказ"
         verbose_name_plural = "заказы"
         ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Заказ №{self.id}"

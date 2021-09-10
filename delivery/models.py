@@ -14,7 +14,8 @@ class DeliveryPrice(models.Model):
 
 
 class PayMethod(models.Model):
-    pay_method = models.CharField("Способ оплаты", max_length=100, db_index=True)
+    pay_method = models.CharField("Способ оплаты",
+                                  max_length=100, db_index=True)
 
     class Meta:
         verbose_name = "способ оплаты"
