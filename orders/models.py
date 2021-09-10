@@ -21,7 +21,7 @@ class Order(models.Model):
     )
     ORDER_STATUS_CHOICES = (
         ("NEW", 'Новый'),
-        ("ACCEPTED", 'Принят'),
+        ("PREORDER", 'Предзаказ'),
         ("PREPARING", 'Готовится'),
         ("ORDER_READY", 'Заказ готов'),
         ("DELIVERED", 'Доставляется'),
@@ -51,7 +51,7 @@ class Order(models.Model):
         db_index=True
     )
     discount_sum = models.ForeignKey(
-        Marketing,
+        Discounts,
         on_delete=models.SET_NULL,
         verbose_name="Скидка на заказ",
         blank=True,
@@ -63,7 +63,7 @@ class Order(models.Model):
         verbose_name="Способ оплаты",
         on_delete=models.SET_NULL,
         null=True,
-        default=3,
+        default=1,
         db_index=True
     )
 
@@ -83,4 +83,4 @@ class Order(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Заказ №{self.id}"
+        return f"Заказ №{self.pk}"

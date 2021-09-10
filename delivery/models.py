@@ -3,6 +3,8 @@ from django.db import models
 
 class DeliveryPrice(models.Model):
     delivery_price = models.PositiveIntegerField('Стоимость доставки', default=0)
+    created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
     class Meta:
         verbose_name = 'стоимость доставки'
@@ -16,6 +18,8 @@ class DeliveryPrice(models.Model):
 class PayMethod(models.Model):
     pay_method = models.CharField("Способ оплаты",
                                   max_length=100, db_index=True)
+    created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
     class Meta:
         verbose_name = "способ оплаты"

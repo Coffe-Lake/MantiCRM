@@ -9,4 +9,5 @@ from .models import *
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'name', 'phone', 'address', 'created_at']
     readonly_fields = ['created_at', 'updated_at']
+    search_fields = ('id', 'name', 'phone', 'address')
     save_on_top = True
