@@ -11,7 +11,7 @@ db.sqlite3
 media/*
 
 # ignore pyc
-.pyc
+*.pyc
 
 # ignore migrate
 *migrations
