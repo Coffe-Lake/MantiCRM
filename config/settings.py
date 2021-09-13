@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt',
 
 ]
 

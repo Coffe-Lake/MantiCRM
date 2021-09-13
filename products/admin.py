@@ -17,3 +17,4 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ['available']
     prepopulated_fields = {'slug': ('name',)}
     readonly_fields = ['created_at', 'updated_at', 'id']
+

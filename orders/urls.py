@@ -1,8 +1,17 @@
 from django.urls import include, path
-from products import views
 
-app_name = "orders"
+from rest_framework import routers
+
+from .views import index, about
+
+# OrderViewSet
+# router = routers.DefaultRouter()
+# router.register(r'orders', OrderViewSet)
+#
+# app_name = "orders"
 
 urlpatterns = [
-    # path('orders/', views.Category)
+    # path('api/', include(router.urls)),
+    path('', index, name='home'),
+    path('1', about, name='about'),
 ]
