@@ -1,16 +1,20 @@
 from django.db import models
-
-AVAILABLE_CHOICES = (
-    ("are_available", 'В наличии'),
-    ("not_available", 'Нет в наличии')
-)
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 # _________________ КАТЕГОРИИ ПРОДУКТОВ/ПРОДУКТЫ _________________
 
-class Category(models.Model):
+class Category(MPTTModel):
+    active = models.BooleanField("Активный", default=0)
     name = models.CharField("Название категории", max_length=50)
-    # description = models.CharField("Описание категории", max_length=100)
+    parent = TreeForeignKey(
+        'self',
+        verbose_name="Родительская категория",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='children'
+    )
     category_picture = models.ImageField("Картинка категории", blank=True)
     slug = models.SlugField("Артикул")
     created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
@@ -20,19 +24,23 @@ class Category(models.Model):
         verbose_name = "категория"
         verbose_name_plural = "категории"
 
+    class MPTTMeta:
+        level_attr = 'mptt_level'
+        order_insertion_by = ['name']
+
     def __str__(self):
         return self.name
 
 
 class Product(models.Model):
-    available = models.BooleanField("В наличии", default=0)
-    # available = models.CharField(
-    #     "Наличие",
-    #     choices=AVAILABLE_CHOICES,
-    #     default=AVAILABLE_CHOICES[0][1],
-    #     max_length=255
-    # )
+    available = models.BooleanField("Активный")
     name = models.CharField("Название", max_length=50)
+    category = models.ForeignKey(
+        Category,
+        verbose_name="Категория",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
     price = models.PositiveIntegerField("Цена", blank=True, default=0)
     composition = models.TextField("Состав", max_length=250)
     description = models.TextField("Описание товара", max_length=250)
@@ -47,4 +55,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-

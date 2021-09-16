@@ -1,14 +1,9 @@
-import uuid
-
 from django.db import models
-
-from datetime import datetime
-
-from phonenumber_field.modelfields import PhoneNumberField
-
 from clients.models import *
 from delivery.models import *
 from marketing.models import *
+
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Order(models.Model):
@@ -32,7 +27,7 @@ class Order(models.Model):
         "Статус заказа",
         max_length=255,
         choices=ORDER_STATUS_CHOICES,
-        default='Новый'
+        default='NEW'
     )
     name = models.CharField("Имя", max_length=50)
     phone = PhoneNumberField("Телефон", region="RU")
@@ -58,15 +53,20 @@ class Order(models.Model):
         null=True,
         db_index=True
     )
-    pay_id = models.ForeignKey(
-        PayMethod,
-        verbose_name="Способ оплаты",
-        on_delete=models.SET_NULL,
-        null=True,
-        default=1,
-        db_index=True
+    PAY_METHOD_CHOICES = (
+        ("CASH", 'Наличными'),
+        ("ONLINE", 'Онлайн'),
+        ("TERMINAL", 'Терминал'),
+        ("TRANSFER", 'Переводом')
     )
-
+    pay = models.CharField(
+        "Способ оплаты",
+        choices=PAY_METHOD_CHOICES,
+        null=True,
+        default="CASH",
+        db_index=True,
+        max_length=255
+    )
     margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)
     persons = models.PositiveIntegerField("Количество персон",
                                           blank=True, null=True, default=0)

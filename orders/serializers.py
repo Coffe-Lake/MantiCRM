@@ -17,7 +17,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'floor',
             'delivery_price',
             'discount_sum',
-            'pay_id',
+            'pay',
             'margin_order',
             'persons',
             'pre_order',

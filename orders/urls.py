@@ -13,5 +13,5 @@ from .views import index, about
 urlpatterns = [
     # path('api/', include(router.urls)),
     path('', index, name='home'),
-    path('1', about, name='about'),
+    path('about/', about, name='about'),
 ]

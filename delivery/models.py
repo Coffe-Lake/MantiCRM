@@ -15,19 +15,19 @@ class DeliveryPrice(models.Model):
         return str(self.delivery_price)
 
 
-class PayMethod(models.Model):
-    pay_method = models.CharField("Способ оплаты",
-                                  max_length=100, db_index=True)
-    created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
-    updated_at = models.DateTimeField("Обновлено", auto_now=True)
-
-    class Meta:
-        verbose_name = "способ оплаты"
-        verbose_name_plural = "способы оплаты"
-        ordering = ['pay_method']
-
-    def __str__(self):
-        return self.pay_method
+# class PayMethod(models.Model):
+#     pay_method = models.CharField("Способ оплаты",
+#                                   max_length=100, db_index=True)
+#     created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
+#     updated_at = models.DateTimeField("Обновлено", auto_now=True)
+#
+#     class Meta:
+#         verbose_name = "способ оплаты"
+#         verbose_name_plural = "способы оплаты"
+#         ordering = ['pay_method']
+#
+#     def __str__(self):
+#         return self.pay_method
 
 # class DeliveryMethod(models.Model):
 #     delivery_method = models.CharField('Способ доставки', max_length=50)
