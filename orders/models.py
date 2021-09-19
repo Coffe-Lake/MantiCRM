@@ -1,4 +1,5 @@
-from django.db import models
+from django.urls import reverse
+
 from clients.models import *
 from delivery.models import *
 from marketing.models import *
@@ -12,7 +13,7 @@ class Order(models.Model):
         verbose_name="Тип клиента",
         on_delete=models.SET_NULL,
         null=True,
-        default=3
+        default=3,
     )
     ORDER_STATUS_CHOICES = (
         ("NEW", 'Новый'),
@@ -29,6 +30,7 @@ class Order(models.Model):
         choices=ORDER_STATUS_CHOICES,
         default='NEW'
     )
+    orders_count = models.PositiveIntegerField("Количество заказов", default=0, blank=True)
     name = models.CharField("Имя", max_length=50)
     phone = PhoneNumberField("Телефон", region="RU")
     address = models.CharField("Адрес", max_length=250, null=True)
@@ -84,3 +86,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ №{self.pk}"
+
+    def get_absolute_url(self):
+        return reverse("order_detail", kwargs={'pk': self.pk})

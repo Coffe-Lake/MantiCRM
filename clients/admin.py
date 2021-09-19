@@ -9,7 +9,7 @@ from .models import *
 @admin.register(Client)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ['name', 'phone', 'address', 'email', 'orders_count', 'id']
-    readonly_fields = ['created_at', 'orders_count', 'id']
+    readonly_fields = ['orders_count', 'created_at', 'id']
     # list_editable = ['phone', 'address', 'email', 'gender']
 
 

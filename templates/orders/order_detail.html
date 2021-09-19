@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+    <ul>
+        <br>
+        <button><a href="{% url 'orders_list' %}">Вернуться назад</a></button>
+        <hr>
+        {% for order in orders.values %}
+            <h2>Заказ №{{ order.id }}</h2>
+            <p><b>Статус заказа :</b> {{ order.order_status }}</p>
+            <p><b>Тип клиента:</b> {{ order.client_type_id }}</p>
+            <p><b>Количество заказов:</b> {{ count_orders.phone }}</p>
+            <p><b>Имя:</b> {{ order.name }}</p>
+            <p><b>Телефон:</b> {{ order.phone }}</p>
+            <p><b>Адрес:</b> {{ order.address }}</p>
+            <p><b>Квартира:</b> {{ order.room }}</p>
+            <p><b>Подъезд:</b> {{ order.entrance }}</p>
+            <p><b>Этаж:</b> {{ order.floor }}</p>
+            <p><b>Код домофона:</b> {{ order.code }}</p>
+            <p><b>Стоимость доставки:</b> {{ order.delivery_price_id }}</p>
+            <p><b>Скидка:</b> {{ order.discount_sum_id }}</p>
+            <p><b>Наценка:</b> {{ order.margin_order }}</p>
+            <p><b>Способ оплаты:</b> {{ order.pay_id_id }}</p>
+            <p><b>Приборы:</b> {{ order.persons }}</p>
+            <p><b>Предзаказ:</b> {{ order.pre_order }}</p>
+            <p><b>Комментарий:</b> {{ order.comment }}</p>
+            <p><b>Комментарий:</b> {{ order.staff_comment }}</p>
+            <p><b>Создано:</b> {{ order.created_at }}</p>
+            <p><b>Обновлено:</b> {{ order.updated_at }}</p>
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
