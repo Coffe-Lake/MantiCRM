@@ -1,14 +1,15 @@
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
+# from orders.models import Order
 
 
 # _________________ КЛИЕНТЫ/ТИПЫ КЛИЕНТОВ _________________
 
 class ClientType(models.Model):
     client_type = models.CharField("Тип клиента", max_length=50)
-    orders_count = models.CharField("Мин. количество заказов",
-                                    max_length=100, blank=True, null=True)
+    min_orders_count = models.CharField("Мин. количество заказов",
+                                        max_length=100, blank=True, null=True)
 
     class Meta:
         verbose_name = 'тип клиента'
@@ -32,7 +33,7 @@ class Client(models.Model):
         null=True
     )
     address = models.CharField("Адрес", max_length=200)
-    email = models.EmailField("Email", blank=True)
+    email = models.EmailField("Email", blank=True, unique=True)
     GENDER_CHOICES = (
         ("M", 'Муж'),
         ("F", 'Жен')

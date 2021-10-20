@@ -1,21 +1,13 @@
-from rest_framework import viewsets
-from .serializers import OrderSerializer
 from .models import Order
-from clients.models import Client
 from orders.forms import NewOrderForm
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect, HttpResponse
-
-# class OrderViewSet(viewsets.ModelViewSet):
-#     queryset = Order.objects.all().order_by('-created_at')
-#     serializer_class = OrderSerializer
-
-# fields = Order.objects.all()
-
+from django.shortcuts import render
+from django.db.models import Count
 from django.views import View
 
 
 class NewOrderView(View):
+    """Новый заказ"""
+
     def get(self, request, *args, **kwargs):
         new_order_form = NewOrderForm()
         return render(request, 'orders/new_order.html', context={
@@ -26,7 +18,6 @@ class NewOrderView(View):
 
 class OrderListView(View):
     """Список заказов"""
-    model = Order
 
     def get(self, request, *args, **kwargs):
         orders = Order.objects.all()
@@ -44,20 +35,23 @@ class OrderDetailView(View):
 
     def get(self, request, pk, *args, **kwargs):
         orders = Order.objects.filter(id=pk)
+        count_orders = Order.objects.values("phone") \
+            .annotate(filter=Count("phone")).order_by("phone")  # ['phone']  # ['filter'] TODO доработать код!
         return render(request, 'orders/order_detail.html', context={
             'orders': orders,
-            "title": "Детали заказа"
+            'count_orders': count_orders,
+            "title": "Детали заказа",
         })
 
-
-class AddClient(View):
-    """Клиент"""
-
-    def post(self, request, pk):
-        form = ClientForm(request.POST)
-        client = Client.objects.create(form)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.client = client
-            form.save()
-        return redirect(client.get_absolute_url())
+# TODO Код ниже перенести в clients и доработать
+# class AddClient(View):
+#     """Добавить клиент"""
+#
+#     def post(self, request, pk):
+#         form = NewOrderForm(request.POST)
+#         client = Client.objects.create(form)
+#         if form.is_valid():
+#             form = form.save(commit=False)
+#             form.client = client
+#             form.save()
+#         return redirect(client.get_absolute_url())

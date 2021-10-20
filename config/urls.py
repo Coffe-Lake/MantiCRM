@@ -21,8 +21,9 @@ from django.urls.conf import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/v1/', include('orders.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name="token"),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/token/', TokenObtainPairView.as_view(), name="token"),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('', include('orders.urls')),
+    path('', include('products.urls'))
 
 ]

@@ -5,15 +5,15 @@ from .models import *
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name', 'parent', 'active', 'id']
-    list_editable = ['active']
-    prepopulated_fields = {'slug': ('name',)}
+    list_display = ['title', 'parent', 'slug', 'available', 'id']
+    list_editable = ['available']
+    prepopulated_fields = {'slug': ('title',)}
     readonly_fields = ['created_at', 'updated_at', 'id']
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'category', 'composition', 'available', 'id']
+    list_display = ['name', 'price', 'category', 'composition', 'slug', 'available', 'id']
     search_fields = ('name', 'price', 'slug')
     list_editable = ['available']
     prepopulated_fields = {'slug': ('name',)}

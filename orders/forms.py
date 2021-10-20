@@ -17,14 +17,17 @@ class NewOrderForm(forms.Form):
             attrs={
                 'placeholder': 'Телефон',
                 'autofocus': True,
+                'type': 'tel',
             }
         )
     )
     phone_2 = forms.CharField(
         label="Доп. телефон",
+        required=False,
         widget=forms.NumberInput(
             attrs={
                 'placeholder': 'Доп. телефон',
+                'type': 'tel',
             }
         )
     )
@@ -38,6 +41,7 @@ class NewOrderForm(forms.Form):
     )
     address = forms.CharField(
         label="Адрес",
+        required=False,
         widget=forms.Textarea(
             attrs={
                 'placeholder': "Адрес",
@@ -48,6 +52,7 @@ class NewOrderForm(forms.Form):
     )
     room = forms.CharField(
         label="Квартира/комната",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'квартира/комната',
@@ -56,6 +61,7 @@ class NewOrderForm(forms.Form):
     )
     entrance = forms.CharField(
         label="Подъезд",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Подъезд',
@@ -64,6 +70,7 @@ class NewOrderForm(forms.Form):
     )
     floor = forms.IntegerField(
         label="Этаж",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Этаж',
@@ -72,6 +79,7 @@ class NewOrderForm(forms.Form):
     )
     code = forms.CharField(
         label="Код домофона",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Код домофона',
@@ -86,18 +94,24 @@ class NewOrderForm(forms.Form):
         ("TRANSFER", 'Переводом')
     )
     pay = forms.ChoiceField(label="Способ оплаты", choices=PAY_METHOD_CHOICES)
-    discount_sum = forms.ModelChoiceField(label="Скидка", queryset=Discounts.objects.all())
-    margin_order = forms.IntegerField(
-        label="Наценка",
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Наценка',
-            }
-        )
+    discount_sum = forms.ModelChoiceField(
+        label="Скидка",
+        required=False,
+        queryset=Discounts.objects.all()
     )
+    # margin_order = forms.IntegerField(
+    #     label="Наценка",
+    #     required=False,
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'placeholder': 'Наценка',
+    #         }
+    #     )
+    # )
     persons = forms.IntegerField(
         label="Количество персон",
         initial=0,
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Персон',
@@ -107,6 +121,7 @@ class NewOrderForm(forms.Form):
 
     pre_order_date = forms.CharField(
         label="Дата",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'type': "date"
@@ -115,6 +130,7 @@ class NewOrderForm(forms.Form):
     )
     pre_order_time = forms.DateTimeField(
         label="Время",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'type': "time"
@@ -123,6 +139,7 @@ class NewOrderForm(forms.Form):
     )
     mark = forms.CharField(
         label="Отметка",
+        required=False,
         widget=forms.Textarea(
             attrs={
                 'placeholder': "Отметка",
@@ -133,6 +150,7 @@ class NewOrderForm(forms.Form):
     )
     comment = forms.CharField(
         label="Комментарий",
+        required=False,
         widget=forms.Textarea(
             attrs={
                 'placeholder': "Комментарий",

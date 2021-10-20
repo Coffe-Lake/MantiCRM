@@ -3,6 +3,7 @@ from django.urls import reverse
 from clients.models import *
 from delivery.models import *
 from marketing.models import *
+from products.models import *
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -44,7 +45,7 @@ class Order(models.Model):
         verbose_name="Стоимость доставки",
         on_delete=models.SET_NULL,
         null=True,
-        default=1,
+        default=0,
         db_index=True
     )
     discount_sum = models.ForeignKey(
@@ -78,6 +79,13 @@ class Order(models.Model):
                                      max_length=250, blank=True, null=True)
     created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
+    products = models.ForeignKey(
+        Product,
+        verbose_name="Продукты",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
 
     class Meta:
         verbose_name = "заказ"
