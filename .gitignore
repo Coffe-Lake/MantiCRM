@@ -1,5 +1,5 @@
 # ignore virtual
-/venv
+*venv
 
 # igrnore db
 db.sqlite3
