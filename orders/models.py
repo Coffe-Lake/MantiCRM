@@ -14,7 +14,8 @@ class Order(models.Model):
         verbose_name="Тип клиента",
         on_delete=models.SET_NULL,
         null=True,
-        default=3,
+        default=0,
+        max_length=255,
     )
     ORDER_STATUS_CHOICES = (
         ("NEW", 'Новый'),
@@ -45,7 +46,7 @@ class Order(models.Model):
         verbose_name="Стоимость доставки",
         on_delete=models.SET_NULL,
         null=True,
-        default=0,
+        default='0',
         db_index=True
     )
     discount_sum = models.ForeignKey(

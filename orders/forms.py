@@ -10,12 +10,22 @@ class NewOrderForm(forms.Form):
         ("NEW", 'Новый'),
         ("PREORDER", 'Предзаказ'),
     )
-    order_status = forms.ChoiceField(label="Статус заказа*", choices=ORDER_STATUS_CHOICES)
+    order_status = forms.ChoiceField(
+        label="Статус заказа*",
+        choices=ORDER_STATUS_CHOICES,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'style': 'width: 190px'
+            }
+        )
+    )
     phone = forms.CharField(
         label="Номер телефона*",
         widget=forms.NumberInput(
             attrs={
                 'placeholder': 'Телефон',
+                'class': 'form-control form-control-md',
                 'autofocus': True,
                 'type': 'tel',
             }
@@ -27,6 +37,7 @@ class NewOrderForm(forms.Form):
         widget=forms.NumberInput(
             attrs={
                 'placeholder': 'Доп. телефон',
+                'class': 'form-control form-control-md',
                 'type': 'tel',
             }
         )
@@ -36,6 +47,7 @@ class NewOrderForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Имя',
+                'class': 'form-control form-control-md',
             }
         )
     )
@@ -45,6 +57,7 @@ class NewOrderForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 'placeholder': "Адрес",
+                'class': 'form-control form-control-md',
                 'cols': 30,
                 'rows': 3
             }
@@ -56,6 +69,7 @@ class NewOrderForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'квартира/комната',
+                'class': 'form-control form-control-md',
             }
         )
     )
@@ -64,7 +78,8 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Подъезд',
+                'class': 'form-control form-control-md',
+                'style': 'width: 110px',
             }
         )
     )
@@ -73,7 +88,8 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Этаж',
+                'class': 'form-control form-control-md',
+                'style': 'width: 110px',
             }
         )
     )
@@ -82,22 +98,48 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Код домофона',
+                'class': 'form-control form-control-md',
+                'style': 'width: 110px',
             }
         )
     )
-    delivery_price = forms.ModelChoiceField(label="Стоимость доставки", initial=0, queryset=DeliveryPrice.objects.all())
+    delivery_price = forms.ModelChoiceField(
+        label="Стоимость доставки",
+        initial=0,
+        queryset=DeliveryPrice.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'style': 'width: 110px'
+            }
+        )
+    )
     PAY_METHOD_CHOICES = (
         ("CASH", 'Наличными'),
         ("ONLINE", 'Онлайн'),
         ("TERMINAL", 'Терминал'),
         ("TRANSFER", 'Переводом')
     )
-    pay = forms.ChoiceField(label="Способ оплаты", choices=PAY_METHOD_CHOICES)
+    pay = forms.ChoiceField(
+        label="Способ оплаты",
+        choices=PAY_METHOD_CHOICES,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'style': 'width: 190px'
+            }
+        )
+    )
     discount_sum = forms.ModelChoiceField(
         label="Скидка",
         required=False,
-        queryset=Discounts.objects.all()
+        queryset=Discounts.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'style': 'width: 100%',
+            }
+        )
     )
     # margin_order = forms.IntegerField(
     #     label="Наценка",
@@ -112,9 +154,13 @@ class NewOrderForm(forms.Form):
         label="Количество персон",
         initial=0,
         required=False,
-        widget=forms.TextInput(
+        widget=forms.NumberInput(
             attrs={
-                'placeholder': 'Персон',
+                'placeholder': 0,
+                'class': 'form-control form-control-md',
+                'style': 'width: 80px',
+                'min': '0',
+                'max': '255',
             }
         )
     )
@@ -124,6 +170,8 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
+                'class': 'form-control form-control-md',
+                'style': 'width: 155px',
                 'type': "date"
             }
         )
@@ -133,6 +181,8 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
+                'class': 'form-control form-control-md',
+                'style': 'width: 120px',
                 'type': "time"
             }
         )
@@ -143,6 +193,7 @@ class NewOrderForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 'placeholder': "Отметка",
+                'class': 'form-control form-control-md',
                 'cols': 30,
                 'rows': 3
             }
@@ -154,6 +205,7 @@ class NewOrderForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 'placeholder': "Комментарий",
+                'class': 'form-control form-control-md',
                 'cols': 30,
                 'rows': 3
             }
