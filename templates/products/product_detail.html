@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock navbar %}
+
 {% block  content %}
     <div style="margin: 20px;">
         <h3>Категория: {{ product.category }}</h3>

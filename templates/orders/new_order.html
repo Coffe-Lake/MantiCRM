@@ -1,12 +1,56 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
-    <form method="POST" action="" class="m-5">
+{% block navbar %}
+    {% include 'navbar.html' %}
+{% endblock navbar %}
+
+{% block  content %}
+    <form method="POST" action="">
         {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" class="btn btn-primary">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- СЕКЦИЯ КЛИЕНТСКИХ ДАННЫХ -->
+                <section class="col-4 scroll">
+                    <h1>Секция клиента</h1>
+                    <div>
+                        <table>
+                            {{ form.as_table }}
+                        </table>
+                    </div>
+                </section>
+
+                <!-- СЕКЦИЯ ТОВАРОВ -->
+                <section class="col scroll">
+                    <h1>Секция товаров</h1>
+                    <!-- КАТЕГОРИИ -->
+                    {% for category in categories %}
+                        <div style="border-bottom: 1px solid grey;margin: 10px auto;">
+                            <h3 style="text-align: center">
+                                {{ category }}
+                            </h3>
+
+                            <!-- ПРОДУКЦИЯ -->
+                            <div class="row row-cols-4">
+                                {% for product in category.p_category.values %}
+                                    <button class="btn btn-primary btn-md p-1 m-1 product_button">
+                                        {{ product.name }}<br>
+                                        Цена: {{ product.price }}₽
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </section>
+
+                <!-- СЕКЦИЯ КОРЗИНЫ -->
+                <section class="col p-0">
+                    <div class="">
+                        <h1>Секция корзины</h1>
+                    </div>
+                </section>
+
+            </div>
+        </div>
     </form>
 {% endblock content %}

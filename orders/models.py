@@ -1,5 +1,3 @@
-from django.urls import reverse
-
 from clients.models import *
 from delivery.models import *
 from marketing.models import *
@@ -9,14 +7,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Order(models.Model):
-    client_type = models.ForeignKey(
-        ClientType,
-        verbose_name="Тип клиента",
-        on_delete=models.SET_NULL,
-        null=True,
-        default=0,
-        max_length=255,
-    )
     ORDER_STATUS_CHOICES = (
         ("NEW", 'Новый'),
         ("PREORDER", 'Предзаказ'),

@@ -1,0 +1,34 @@
+html {
+    overflow: auto;
+}
+
+body {
+}
+
+
+.scroll {
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+    height: 749px;
+    overflow-y: scroll;
+}
+
+.scroll_hide {
+    overflow: hidden;
+}
+
+.nav_button {
+    padding: 20px !important;
+    width: 9em;
+}
+
+.nav_div {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid darkgray;
+    padding: 5px;
+}
+
+.product_button {
+    width: 23% !important;
+}

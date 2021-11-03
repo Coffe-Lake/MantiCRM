@@ -1,27 +1,24 @@
 from .models import *
-from django.views.generic import View, ListView, DetailView
+from orders.forms import NewOrderForm
+from django.views.generic import ListView, DetailView
 
 
 class CategoryListView(ListView):
     model = Category
-    context_object_name = 'category'
-    template_name = "products/products_list.html"
+    context_object_name = 'categories'
+    template_name = "orders/new_order.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryListView,
                         self).get_context_data(**kwargs)
-        context['title'] = 'Продукты'
-        product = Category.objects.filter(available=True)
-        category_slug = self.kwargs.get('slug')
-        # context['product'] = product.get_children.filter(available=True)
-        if category_slug:
-            category = Category.objects.all()
-            context['product'] = category.p_category_set.filter(available=True)
-            return context
+        # categories = Category.objects.filter(available=True) #TODO разобраться с активными продуктами
+        # cat_products = Product.objects.filter(available=True)
+        context["form"] = NewOrderForm
         return context
 
-    def get_queryset(self):
-        return Category.objects.filter(available=True)
+
+def get_queryset(self):
+    return Category.objects.filter(available=True)
 
 
 class ProductDetailView(DetailView):

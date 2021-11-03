@@ -13,6 +13,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    save_as = True
+    save_on_top = True
     list_display = ['name', 'price', 'category', 'composition', 'slug', 'available', 'id']
     search_fields = ('name', 'price', 'slug')
     list_editable = ['available']

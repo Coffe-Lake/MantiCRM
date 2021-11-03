@@ -1,18 +1,21 @@
-from clients.models import Client
-
 from django import forms
 from delivery.models import DeliveryPrice
 from marketing.models import Discounts
 
 
 class NewOrderForm(forms.Form):
-    ORDER_STATUS_CHOICES = (
+    ORDER_STATUS = (
         ("NEW", 'Новый'),
         ("PREORDER", 'Предзаказ'),
+        ("PREPARING", 'Готовится'),
+        ("ORDER_READY", 'Заказ готов'),
+        ("DELIVERED", 'Доставляется'),
+        ("COMPLETED", 'Выполнен'),
+        ("CANCELED", 'Отменен'),
     )
     order_status = forms.ChoiceField(
         label="Статус заказа*",
-        choices=ORDER_STATUS_CHOICES,
+        choices=ORDER_STATUS,
         widget=forms.Select(
             attrs={
                 'class': 'form-select',
@@ -28,6 +31,7 @@ class NewOrderForm(forms.Form):
                 'class': 'form-control form-control-md',
                 'autofocus': True,
                 'type': 'tel',
+                'id': 'phone'
             }
         )
     )
@@ -171,7 +175,7 @@ class NewOrderForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control form-control-md',
-                'style': 'width: 155px',
+                'style': 'width: 170px',
                 'type': "date"
             }
         )

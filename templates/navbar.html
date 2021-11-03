@@ -1,0 +1,15 @@
+{% load static %}
+
+<nav class="nav_div">
+    <div>
+        <a href="{% url "new_order" %}" class="btn btn-primary nav_button">+ НОВЫЙ</a>
+        <a href="/" class="btn btn-info nav_button">В РАБОТЕ</a>
+        <a href="{% url "orders_list" %}" class="btn btn-warning  nav_button">ПРЕДЗАКАЗЫ</a>
+        <a href="{% url "orders_list" %}" class="btn btn-success nav_button">ВЫПОЛНЕНЫЕ</a>
+        <button class="btn btn-secondary  nav_button">КАЛЕНДАРЬ</button>
+    </div>
+    <div>
+        <button class="btn btn-dark nav_button">ДАШБОРД</button>
+        <a href="{% url "admin:index" %}" class="btn btn-dark nav_button">Админка</a>
+    </div>
+</nav>
