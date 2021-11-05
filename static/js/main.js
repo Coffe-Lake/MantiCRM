@@ -1,5 +1,5 @@
 function getClientData(val) {
-    alert("Клиент с номером: " + val + " уже есть в базе!");
+    return alert("Клиент с номером: " + val + " уже есть в базе!");
 }
 
 

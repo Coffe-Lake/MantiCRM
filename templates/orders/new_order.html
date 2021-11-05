@@ -18,8 +18,9 @@
                     <div>
                         <table>
                             <td><label for="phone" class="col fw-bold">Телефон: </label></td>
-                            <td><input type="tel"
-                                       class="col form-control"
+                            <td>
+                                <input type="tel"
+                                       class="col form-control w-75"
                                        data-tel-input
                                        id="phone"
                                        placeholder="+7(___)___-__-__"
@@ -27,10 +28,8 @@
                                        value=""
                                        onchange="getClientData(this.value)"
                                        autofocus
-                                       required/></td>
-                            {#                            <td>#}
-                            {#                                <button class="col btn btn-primary m-1">Проверить</button>#}
-                            {#                            </td>#}
+                                       required/>
+                            </td>
                             {{ form.as_table }}
                         </table>
                     </div>
@@ -47,18 +46,14 @@
                             </h3>
 
                             <!-- ПРОДУКЦИЯ -->
-                            <div class="row row-cols-4">
+                            <div class="row row-cols-4 mb-3">
                                 {% for product in category.p_category.values %}
-                                    <button class="btn btn-warning btn-md p-1 m-1 product_button">
-                                        <span class="">{{ product.name }}</span><br><br>
-                                        <span class="col-7 bg-primary rounded text-white float-end fw-bold"
-                                              style="
-
-                                        display: flex;
-                                        flex-direction: row;
-                                        justify-content: center;
-                                        margin: -8px;
-                                        padding: 4px;">{{ product.price }}₽</span>
+                                    <button class="btn btn-md p-1 m-1 product_button position-relative">
+                                        <span class="position-relative d-block">{{ product.name }}</span><br><br>
+                                        <span class="col-7 bg-primary rounded text-white
+                                                        float-end fw-bold product_price">
+                                            {{ product.price }}₽
+                                        </span>
                                     </button>
                                 {% endfor %}
                             </div>
@@ -70,16 +65,13 @@
                 <section class="col">
                     <div class="">
                         <h1>Секция корзины</h1>
-                        <div class="scroll" style="height: 450px; border: 1px solid">
-                            <table class="table table-bordered table-striped">
+                        <div class="scroll price-list">
+                            <table class="table table-bordered table-striped bg-white">
                                 <thead>
-                                <tr style="
-                                position: sticky;
-                                top: 0;
-                                background-color: gold;">
-                                    <th scope="col">#</th>
+                                <tr class="sticky-top gold">
+                                    <th scope="col" class="text-center">#</th>
                                     <th scope="col">Позиций</th>
-                                    <th scope="col">Кол.</th>
+                                    <th scope="col">Кол.во</th>
                                     <th scope="col">Цена</th>
                                 </tr>
                                 </thead>
@@ -158,9 +150,4 @@
             </div>
         </div>
     </form>
-    <script>
-        function getClientData(val) {
-            alert("Клиент с номером: " + val + " уже есть в базе!");
-        }
-    </script>
 {% endblock content %}
