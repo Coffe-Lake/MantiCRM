@@ -14,30 +14,28 @@
             <div class="row">
                 <!-- СЕКЦИЯ КЛИЕНТСКИХ ДАННЫХ -->
                 <section class="col-4 scroll">
-                    <h1>Секция клиента</h1>
-                    <div>
-                        <table>
-                            <td><label for="phone" class="col fw-bold">Телефон: </label></td>
-                            <td>
-                                <input type="tel"
-                                       class="col form-control w-75"
-                                       data-tel-input
-                                       id="phone"
-                                       placeholder="+7(___)___-__-__"
-                                       maxlength="18"
-                                       value=""
-                                       onchange="getClientData(this.value)"
-                                       autofocus
-                                       required/>
-                            </td>
-                            {{ form.as_table }}
-                        </table>
-                    </div>
+                    {#                    <h1>Секция клиента</h1>#}
+                    <table class="mb-3 mt-3">
+                        <td><label for="phone" class="col fw-bold">Телефон: </label></td>
+                        <td>
+                            <input type="tel"
+                                   class="col form-control w-75"
+                                   data-tel-input
+                                   id="phone"
+                                   placeholder="+7(___)___-__-__"
+                                   maxlength="18"
+                                   value=""
+                                   onchange="getClientData(this.value)"
+                                   autofocus
+                                   required/>
+                        </td>
+                        {{ form.as_table }}
+                    </table>
                 </section>
 
                 <!-- СЕКЦИЯ ТОВАРОВ -->
                 <section class="col scroll">
-                    <h1>Секция товаров</h1>
+                    {#<h1>Секция товаров</h1>#}
                     <!-- КАТЕГОРИИ -->
                     {% for category in categories %}
                         <div style="border-bottom: 1px solid grey;margin: 10px auto;">
@@ -63,88 +61,86 @@
 
                 <!-- СЕКЦИЯ КОРЗИНЫ -->
                 <section class="col">
-                    <div class="">
-                        <h1>Секция корзины</h1>
-                        <div class="scroll price-list">
-                            <table class="table table-bordered table-striped bg-white">
-                                <thead>
-                                <tr class="sticky-top gold">
-                                    <th scope="col" class="text-center">#</th>
-                                    <th scope="col">Позиций</th>
-                                    <th scope="col">Кол.во</th>
-                                    <th scope="col">Цена</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row" class="text-center">1</th>
-                                    <td class="col-9">Гранде-Ман (с говядиной)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">2</th>
-                                    <td class="col-9">Спайси-Ман (острые с говядиной)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">3</th>
-                                    <td class="col-9">Чикен-Ман (с курицей)</td>
-                                    <td class="text-center">1</td>
-                                    <td>299₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">4</th>
-                                    <td class="col-9">Веджи-Ман (с тыквой)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">5</th>
-                                    <td class="col-9">Тейсти-Ман (с бараниной)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">6</th>
-                                    <td class="col-9">Картоф-Ман (с картофелем)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">7</th>
-                                    <td class="col-9">Ман-Гетсы (жареные пельмени 12 шт.)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">8</th>
-                                    <td class="col-9">Греческий салат (200 г.)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">9</th>
-                                    <td class="col-9">Свекольный салат (200 г.)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">10</th>
-                                    <td class="col-9">Coca-Cola Classic (500 мл)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="text-center">11</th>
-                                    <td class="col-9">Sprite (500 мл)</td>
-                                    <td class="text-center">2</td>
-                                    <td>798₽</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    {#                    <h1>Секция корзины</h1>#}
+                    <div class="scroll price-list mb-3 mt-3">
+                        <table class="table table-bordered table-striped bg-white">
+                            <thead>
+                            <tr class="sticky-top gold">
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col">Позиций</th>
+                                <th scope="col">Кол.во</th>
+                                <th scope="col">Цена</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row" class="text-center">1</th>
+                                <td class="col-9">Гранде-Ман (с говядиной)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">2</th>
+                                <td class="col-9">Спайси-Ман (острые с говядиной)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">3</th>
+                                <td class="col-9">Чикен-Ман (с курицей)</td>
+                                <td class="text-center">1</td>
+                                <td>299₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">4</th>
+                                <td class="col-9">Веджи-Ман (с тыквой)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">5</th>
+                                <td class="col-9">Тейсти-Ман (с бараниной)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">6</th>
+                                <td class="col-9">Картоф-Ман (с картофелем)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">7</th>
+                                <td class="col-9">Ман-Гетсы (жареные пельмени 12 шт.)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">8</th>
+                                <td class="col-9">Греческий салат (200 г.)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">9</th>
+                                <td class="col-9">Свекольный салат (200 г.)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">10</th>
+                                <td class="col-9">Coca-Cola Classic (500 мл)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">11</th>
+                                <td class="col-9">Sprite (500 мл)</td>
+                                <td class="text-center">2</td>
+                                <td>798₽</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
             </div>

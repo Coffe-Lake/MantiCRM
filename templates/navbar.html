@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="shadow-sm p-1 bg-white sticky-top rounded">
+<nav class="shadow-sm p-1 bg-white sticky-top rounded" style="z-index: 1999">
     <div>
         <a href="{% url "new_order" %}" class="btn btn-primary nav_button">+ НОВЫЙ</a>
         <a href="/" class="btn btn-info ">
@@ -9,11 +9,11 @@
         </a>
         <a href="{% url "orders_list" %}" class="btn btn-warning">
             <span class="fw-bold">2</span><br>
-            <span class="border-top border-dark m-4">ПРЕДЗАКАЗЫ</span>
+            <span class="border-top border-dark m-2">ПРЕДЗАКАЗЫ</span>
         </a>
-        <a href="{% url "orders_list" %}" class="btn btn-success">
+        <a href="{% url "orders_list" %}" class="btn btn-success active">
             <span class="fw-bold">7</span><br>
-            <span class="border-top m-4">ЗАВЕРШЕННЫЕ</span>
+            <span class="border-top m-2">ЗАВЕРШЕННЫЕ</span>
         </a>
         <button class="btn btn-secondary  nav_button">КАЛЕНДАРЬ</button>
     </div>
