@@ -23,31 +23,23 @@ class NewOrderForm(forms.Form):
             }
         )
     )
-    phone = forms.CharField(
-        label="Номер телефона*",
-        widget=forms.NumberInput(
-            attrs={
-                'placeholder': 'Телефон',
-                'class': 'form-control form-control-md',
-                'autofocus': True,
-                'type': 'tel',
-                'id': 'phone'
-            }
-        )
-    )
-    phone_2 = forms.CharField(
-        label="Доп. телефон",
-        required=False,
-        widget=forms.NumberInput(
-            attrs={
-                'placeholder': 'Доп. телефон',
-                'class': 'form-control form-control-md',
-                'type': 'tel',
-            }
-        )
-    )
+    # phone = forms.CharField(
+    #     label="Номер телефона*",
+    #     widget=forms.NumberInput(
+    #         attrs={
+    #             'placeholder': 'Телефон',
+    #             'class': 'form-control form-control-md',
+    #             'autofocus': True,
+    #             'type': 'tel',
+    #             'id': 'phone',
+    #             'maxlength': '18',
+    #         }
+    #     )
+    # )
+
     name = forms.CharField(
         label="Имя*",
+        required=False,
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Имя',
@@ -68,7 +60,7 @@ class NewOrderForm(forms.Form):
         )
     )
     room = forms.CharField(
-        label="Квартира/комната",
+        label="Квартира",
         required=False,
         widget=forms.TextInput(
             attrs={

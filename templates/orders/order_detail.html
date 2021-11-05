@@ -3,31 +3,27 @@
 {% block navbar %}
     {% include 'navbar.html' %}
 {% endblock navbar %}
-{% block title %}Заказ №{{ order.id }}{% endblock title %}
+{% block title %}Детали заказа{% endblock title %}
 
 {% block content %}
     <ul>
-        <br>
-        <button><a href="{% url 'orders_list' %}">Назад</a></button>
-        <hr>
         {% for order in orders.values %}
             <h2>Заказ №{{ order.id }}</h2>
             <p><b>Статус заказа :</b> {{ order.order_status }}</p>
             <p><b>Тип клиента:</b> {{ order.client_type_id }}</p>
             <p><b>Количество заказов:</b> {{ count_orders }}</p>
-            <p><b>Имя:</b> {{ order.name }}</p>
-            <p><b>Телефон:</b> {{ order.phone }}</p>
-            <p><b>Адрес:</b> {{ order.address }}</p>
-            <p><b>Квартира:</b> {{ order.room }}</p>
-            <p><b>Подъезд:</b> {{ order.entrance }}</p>
-            <p><b>Этаж:</b> {{ order.floor }}</p>
-            <p><b>Код домофона:</b> {{ order.code }}</p>
-            <p><b>Стоимость доставки:</b> {{ order.delivery_price_id }}</p>
-            <p><b>Скидка:</b> {{ order.discount_sum_id }}</p>
-            <p><b>Наценка:</b> {{ order.margin_order }}</p>
-            <p><b>Способ оплаты:</b> {{ order.pay_id_id }}</p>
+            <p><b>Имя:</b> {{ order.name|default_if_none:"" }}</p>
+            <p><b>Телефон:</b> {{ order.phone|default_if_none:"" }}</p>
+            <p><b>Адрес:</b> {{ order.address|default_if_none:"" }}</p>
+            <p><b>Квартира:</b> {{ order.room|default_if_none:"" }}</p>
+            <p><b>Подъезд:</b> {{ order.entrance|default_if_none:"" }}</p>
+            <p><b>Этаж:</b> {{ order.floor|default_if_none:"" }}</p>
+            <p><b>Код домофона:</b> {{ order.code|default_if_none:"" }}</p>
+            <p><b>Стоимость доставки:</b> {{ order.delivery_price_id|default_if_none:"0" }}</p>
+            <p><b>Скидка:</b> {{ order.discount_sum_id|default_if_none:"" }}</p>
+            <p><b>Способ оплаты:</b> {{ order.pay_id_id|default_if_none:"" }}</p>
             <p><b>Приборы:</b> {{ order.persons }}</p>
-            <p><b>Предзаказ:</b> {{ order.pre_order }}</p>
+            <p><b>Предзаказ:</b> {{ order.pre_order|default_if_none:"" }}</p>
             <p><b>Комментарий:</b> {{ order.comment }}</p>
             <p><b>Комментарий:</b> {{ order.staff_comment }}</p>
             <p><b>Создано:</b> {{ order.created_at }}</p>
@@ -35,4 +31,6 @@
         {% endfor %}
     </ul>
 
+
+    <div class="alert alert-secondary m-auto mb-5 w-75" role="alert">{{ orders.values }}</div>
 {% endblock content %}

@@ -35,15 +35,16 @@ class Client(models.Model):
         null=True
     )
     address = models.CharField("Адрес", max_length=200)
-    email = models.EmailField("Email", blank=True, unique=True)
-    GENDER_CHOICES = (
-        ("M", 'Муж'),
-        ("F", 'Жен')
-    )
-    gender = models.CharField("Пол", max_length=1, choices=GENDER_CHOICES, blank=True)
+    email = models.EmailField("Email", blank=True, null=True)
     birthday = models.DateField("Дата рождения", blank=True, null=True)
     orders_count = models.PositiveIntegerField("Количество заказов", blank=True, default=0)
-    client_type = models.ForeignKey(ClientType, verbose_name='Тип клиента', on_delete=models.SET_NULL, null=True)
+    client_type = models.ForeignKey(
+        ClientType,
+        verbose_name='Тип клиента',
+        on_delete=models.SET_NULL,
+        default="1",
+        null=True
+    )
     created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
