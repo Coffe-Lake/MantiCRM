@@ -44,7 +44,7 @@ class Product(models.Model):
         verbose_name="Категория",
         on_delete=models.SET_NULL,
         null=True,
-        related_name='p_category'
+        related_name='products'
     )
     price = models.PositiveIntegerField("Цена", blank=True, default=0)
     composition = models.TextField("Состав", max_length=250)

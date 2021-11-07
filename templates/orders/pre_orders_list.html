@@ -7,11 +7,11 @@
 {% endblock navbar %}
 
 {% block content %}
-    {% for order in orders %}
+    {% for pre_order in pre_orders %}
         <ul>
             <li>
-                <a href="{{ order.get_absolute_url }}" style="display: inline-block;">
-                    <h2>{{ order }}</h2>
+                <a href="{{ pre_order.get_absolute_url }}" style="display: inline-block;">
+                    <h2>{{ pre_order }}</h2>
                 </a>
             </li>
         </ul>

@@ -28,12 +28,6 @@ class Client(models.Model):
         region='RU',
         unique=True
     )
-    phone_2 = PhoneNumberField(
-        "Доп.Телефон",
-        region='RU',
-        blank=True,
-        null=True
-    )
     address = models.CharField("Адрес", max_length=200)
     email = models.EmailField("Email", blank=True, null=True)
     birthday = models.DateField("Дата рождения", blank=True, null=True)
@@ -42,7 +36,7 @@ class Client(models.Model):
         ClientType,
         verbose_name='Тип клиента',
         on_delete=models.SET_NULL,
-        default="1",
+        default="Новый",
         null=True
     )
     created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True, null=True)

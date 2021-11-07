@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Новый заказ{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 
 {% block navbar %}
     {% include 'navbar.html' %}
@@ -13,9 +13,9 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- СЕКЦИЯ КЛИЕНТСКИХ ДАННЫХ -->
-                <section class="col-4 scroll">
-                    {#                    <h1>Секция клиента</h1>#}
-                    <table class="mb-3 mt-3">
+                <section class="col-4 hide_scroll block_shadow">
+                    {#<h1>Секция клиента</h1>#}
+                    <table class="mb-3 mt-4">
                         <td><label for="phone" class="col fw-bold">Телефон: </label></td>
                         <td>
                             <input type="tel"
@@ -27,32 +27,43 @@
                                    value=""
                                    onchange="getClientData(this.value)"
                                    autofocus
-                                   required/>
+                            />
                         </td>
-                        {{ form.as_table }}
+                        {{ form.as_table.format }}
                     </table>
                 </section>
 
                 <!-- СЕКЦИЯ ТОВАРОВ -->
-                <section class="col scroll">
+                <section class="col scroll block_shadow">
                     {#<h1>Секция товаров</h1>#}
                     <!-- КАТЕГОРИИ -->
                     {% for category in categories %}
-                        <div style="border-bottom: 1px solid grey;margin: 10px auto;">
+                        <div class="product_block">
                             <h3 style="text-align: center">
                                 {{ category }}
                             </h3>
 
                             <!-- ПРОДУКЦИЯ -->
-                            <div class="row row-cols-4 mb-3">
-                                {% for product in category.p_category.values %}
-                                    <button class="btn btn-md p-1 m-1 product_button position-relative">
-                                        <span class="position-relative d-block">{{ product.name }}</span><br><br>
+                            <div class="row row-cols-4 mb-3 justify-content-center">
+                                {% for product in category.products.values %}
+                                    {% if product.available == True %}
+                                        <button class="btn btn-sm p-1 m-1 product_button position-relative shadow-sm">
+                                        <span class="position-relative d-block mb-5 line_break">{{ product.name }}</span>
                                         <span class="col-7 bg-primary rounded text-white
                                                         float-end fw-bold product_price">
-                                            {{ product.price }}₽
+                                        {{ product.price }}₽
+                                    {% else %}
+                                        <button class="btn btn-sm p-1 m-1 prod_not_available
+                                        disabled position-relative shadow-sm">
+                                        <span class="position-relative d-block mb-5 line_break">
+                                            {{ product.name }}
                                         </span>
-                                    </button>
+                                        <span class="col-7 bg-primary rounded text-white
+                                                        float-end fw-bold product_price">
+                                        {{ product.price }}₽
+                                    {% endif %}
+                                </span>
+                                </button>
                                 {% endfor %}
                             </div>
                         </div>
@@ -61,18 +72,32 @@
 
                 <!-- СЕКЦИЯ КОРЗИНЫ -->
                 <section class="col">
-                    {#                    <h1>Секция корзины</h1>#}
-                    <div class="scroll price-list mb-3 mt-3">
-                        <table class="table table-bordered table-striped bg-white">
+                    {#<h1>Секция корзины</h1>#}
+                    <div class="mt-5">
+                        <table>
+                            <tr>
+                                <th><label for="id_discount_sum">Скидка:</label></th>
+                                <td>
+                                    <select name="discount_sum" class="form-select" style="width: 100%"
+                                            id="id_discount_sum">
+                                        <option value="" selected="">---------</option>
+                                        <option value="1">Постоянный клиент 20%</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="scroll price_list shadow-sm mb-3 mt-3">
+                        <table class="table table-bordered table-striped bg-white ">
                             <thead>
-                            <tr class="sticky-top gold">
+                            <tr class="sticky-top price_list_thead">
                                 <th scope="col" class="text-center">#</th>
                                 <th scope="col">Позиций</th>
                                 <th scope="col">Кол.во</th>
                                 <th scope="col">Цена</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="font-size: 14px">
                             <tr>
                                 <th scope="row" class="text-center">1</th>
                                 <td class="col-9">Гранде-Ман (с говядиной)</td>
@@ -138,6 +163,44 @@
                                 <td class="col-9">Sprite (500 мл)</td>
                                 <td class="text-center">2</td>
                                 <td>798₽</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th><label for="id_persons">Количество персон:</label></th>
+                                <td><input type="number" name="persons" value="0" placeholder="0"
+                                           class="form-control form-control-md" style="width: 80px" min="0" max="255"
+                                           id="id_persons"></td>
+                            </tr>
+                            <tr>
+                                <th><label for="id_delivery_price">Стоимость доставки:</label></th>
+                                <td><select name="delivery_price" class="form-select" style="width: 110px"
+                                            id="id_delivery_price">
+                                    <option value="0">0</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="300">300</option>
+                                    <option value="400">400</option>
+                                    <option value="500">500</option>
+
+                                </select></td>
+                            </tr>
+                            <tr>
+                                <th><label for="id_pay">Способ оплаты:</label></th>
+                                <td><select name="pay" class="form-select" style="width: 190px" id="id_pay">
+                                    <option value="CASH">Наличными</option>
+
+                                    <option value="ONLINE">Онлайн</option>
+
+                                    <option value="TERMINAL">Терминал</option>
+
+                                    <option value="TRANSFER">Переводом</option>
+
+                                </select></td>
                             </tr>
                             </tbody>
                         </table>

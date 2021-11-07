@@ -1,10 +1,12 @@
-from django.urls import path, include
+from django.urls import path
 
-from .views import OrderDetailView, OrderListView, NewOrderView
+from .views import *
 from products.views import CategoryListView
 
 urlpatterns = [
+    path('', OrdersListView.as_view(), name='orders_list'),
+    path('pre_orders/', PreOrdersListView.as_view(), name='pre_orders_list'),
+    path('completed_orders/', CompletedOrdersListView.as_view(), name='completed_orders_list'),
     path('new_order/', CategoryListView.as_view(), name='new_order'),
-    path('', OrderListView.as_view(), name='orders_list'),
-    path('orders_list/<int:pk>/', OrderDetailView.as_view(), name='order_detail'),
+    path('order_detail/<int:pk>/', OrderDetailView.as_view(), name='order_detail'),
 ]

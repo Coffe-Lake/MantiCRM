@@ -1,5 +1,4 @@
 from clients.models import *
-from delivery.models import *
 from marketing.models import *
 from products.models import *
 
@@ -7,6 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Order(models.Model):
+    # client_pk = models.ForeignKey(Client, on_delete=models.CASCADE, primary_key=True, default='')
     ORDER_STATUS_CHOICES = (
         ("NEW", 'Новый'),
         ("PREORDER", 'Предзаказ'),
@@ -20,24 +20,30 @@ class Order(models.Model):
         "Статус заказа",
         max_length=255,
         choices=ORDER_STATUS_CHOICES,
-        default='NEW'
+        default=ORDER_STATUS_CHOICES[0],
     )
     orders_count = models.PositiveIntegerField("Количество заказов", default=0, blank=True)
     name = models.CharField("Имя", max_length=50)
     phone = PhoneNumberField("Телефон", region="RU")
-    address = models.CharField("Адрес", max_length=250, null=True)
+    address = models.CharField("Адрес", max_length=250, blank=True, null=True)
     room = models.CharField("Квартира/Комната",
                             max_length=50, blank=True, null=True)
     entrance = models.CharField("Подъезд", max_length=50, blank=True, null=True)
     floor = models.PositiveIntegerField("Этаж", blank=True, null=True)
     code = models.CharField("Код домофона", max_length=50, blank=True, null=True)
-    delivery_price = models.ForeignKey(
-        DeliveryPrice,
-        verbose_name="Стоимость доставки",
-        on_delete=models.SET_NULL,
-        null=True,
-        default='0',
-        db_index=True
+    DELIVERY_COST = (
+        ("0", '0'),
+        ("100", '100'),
+        ("200", '200'),
+        ("300", '300'),
+        ("400", '400'),
+        ("500", '500')
+    )
+    delivery_price = models.CharField(
+        "Стоимость доставки",
+        max_length=255,
+        choices=DELIVERY_COST,
+        default=DELIVERY_COST[0],
     )
     discount_sum = models.ForeignKey(
         Discounts,
@@ -45,7 +51,6 @@ class Order(models.Model):
         verbose_name="Скидка на заказ",
         blank=True,
         null=True,
-        db_index=True
     )
     PAY_METHOD_CHOICES = (
         ("CASH", 'Наличными'),
@@ -57,8 +62,7 @@ class Order(models.Model):
         "Способ оплаты",
         choices=PAY_METHOD_CHOICES,
         null=True,
-        default="CASH",
-        db_index=True,
+        default=PAY_METHOD_CHOICES[0],
         max_length=255
     )
     margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)

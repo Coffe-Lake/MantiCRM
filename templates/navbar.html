@@ -4,15 +4,15 @@
     <div>
         <a href="{% url "new_order" %}" class="btn btn-primary nav_button">+ НОВЫЙ</a>
         <a href="/" class="btn btn-info ">
-            <span class="fw-bold">3</span><br>
+            <span class="fw-bold">{{ count_orders }}</span><br>
             <span class="border-top border-dark m-4">В РАБОТЕ</span>
         </a>
-        <a href="{% url "orders_list" %}" class="btn btn-warning">
-            <span class="fw-bold">2</span><br>
+        <a href="{% url "pre_orders_list" %}" class="btn btn-warning">
+            <span class="fw-bold">{{ count_pre_orders }}</span><br>
             <span class="border-top border-dark m-2">ПРЕДЗАКАЗЫ</span>
         </a>
-        <a href="{% url "orders_list" %}" class="btn btn-success active">
-            <span class="fw-bold">7</span><br>
+        <a href="{% url "completed_orders_list" %}" class="btn btn-success active">
+            <span class="fw-bold">{{ count_completed_orders }}</span><br>
             <span class="border-top m-2">ЗАВЕРШЕННЫЕ</span>
         </a>
         <button class="btn btn-secondary  nav_button">КАЛЕНДАРЬ</button>
