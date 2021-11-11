@@ -2,9 +2,11 @@
 
 {% block title %}{{ title }}{% endblock title %}
 
-{% block navbar %}
-    {% include 'navbar.html' %}
-{% endblock navbar %}
+{% block navbar %}{% include 'navbar.html' %}{% endblock navbar %}
+
+{% block table_description %}
+    {% include 'orders/orders_table_description.html' %}
+{% endblock table_description %}
 
 {% block content %}
     {% for pre_order in pre_orders %}

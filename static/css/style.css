@@ -75,3 +75,9 @@ nav {
 .price_list_thead {
     background-color: gold;
 }
+
+.sticky_description {
+    position: sticky;
+    top: 80px;
+}
+

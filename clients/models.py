@@ -1,6 +1,7 @@
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
+from orders.models import Order
 
 
 # from orders.models import Order
@@ -41,6 +42,7 @@ class Client(models.Model):
     )
     created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True, null=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
+    customer_orders = models.ForeignKey(Order, verbose_name="Заказы клиента", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "клиент"

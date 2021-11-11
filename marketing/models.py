@@ -21,3 +21,16 @@ class Discounts(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+# _________________ КАНАЛЫ ПРОДАЖ _________________
+
+class SalesChannel(models.Model):
+    title = models.CharField('Название', max_length=50)
+
+    class Meta:
+        verbose_name = "канал продаж"
+        verbose_name_plural = "каналы продаж"
+
+    def __str__(self):
+        return self.title

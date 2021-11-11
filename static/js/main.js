@@ -1,7 +1,32 @@
+
 function getClientData(val) {
     return alert("Клиент с номером: " + val + " уже есть в базе!");
 }
 
+
+function getDiscount(coupon) {
+    return alert(coupon + " активирован")
+}
+
+
+function getPayMethod(pay_method) {
+    return alert("Способ оплаты: " + pay_method)
+}
+
+
+function getDeliveryCost(delivery_cost) {
+    return alert("Стоимость доставки: " + delivery_cost + "₽")
+}
+
+
+function getCourier(courier) {
+    return alert("Заказ доставит курьер : " + courier)
+}
+
+
+function getOrderStatus(status) {
+    return alert("Статус заказа: " + status)
+}
 
 // $(document).ready(function () {
 //     $('form').submit(function () {

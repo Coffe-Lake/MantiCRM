@@ -1,23 +1,31 @@
-from orders.models import Order
+from django.contrib.auth.decorators import login_required
+
+from .models import Order
 from orders.forms import NewOrderForm
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db.models import Count, Q
 from django.views import View
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class NewOrderView(View):
+
+class NewOrderView(LoginRequiredMixin, View):
     """Новый заказ"""
+    raise_exception = True
 
+    @login_required()
     def get(self, request, *args, **kwargs):
         new_order_form = NewOrderForm()
         return render(request, 'orders/new_order.html', context={
             'form': new_order_form,
+            'title': "Новый заказ",
         })
 
 
-class OrdersListView(View):
+class OrdersListView(LoginRequiredMixin, View):
     """Список заказов"""
+    raise_exception = True
 
     def get(self, request, *args, **kwargs):
         orders = Order.objects.exclude(
@@ -31,8 +39,9 @@ class OrdersListView(View):
         })
 
 
-class PreOrdersListView(View):
+class PreOrdersListView(LoginRequiredMixin, View):
     """Предзаказы"""
+    raise_exception = True
 
     def get(self, request, *args, **kwargs):
         pre_orders = Order.objects.filter(order_status="PREORDER")
@@ -42,43 +51,22 @@ class PreOrdersListView(View):
         })
 
 
-class CompletedOrdersListView(View):
+class CompletedOrdersListView(LoginRequiredMixin, View):
     """Завершенные"""
+    raise_exception = True
 
     def get(self, request, *args, **kwargs):
-        completed_orders = Order.objects.filter(
-            Q(order_status="COMPLETED") |
-            Q(order_status="CANCELED")
-        )
+        completed_orders = Order.objects.filter(Q(order_status="COMPLETED") |
+                                                Q(order_status="CANCELED"))
         return render(request, 'orders/complete_orders_list.html', context={
             'completed_orders': completed_orders,
             'title': "Завершенные"
         })
 
 
-def orders_count(request):
-    count_orders = Order.objects.exclude(
-        Q(order_status="PREORDER") |
-        Q(order_status="COMPLETED") |
-        Q(order_status="CANCELED")
-    )
-    count_pre_orders = Order.objects.filter(order_status="PREORDER")
-    count_completed_orders = completed_orders = Order.objects.filter(
-        Q(order_status="COMPLETED") |
-        Q(order_status="CANCELED")
-    )
-
-    return render(request, 'navbar.html', context={
-        'count_orders': count_orders,
-        'count_completed_orders': count_completed_orders,
-        'count_pre_orders': count_pre_orders,
-    })
-
-
-class OrderDetailView(View):
+class OrderDetailView(LoginRequiredMixin, View):
     """Детали заказа"""
-    model = Order
-    extra_context = {'title': 'Детали заказа'}
+    raise_exception = True
 
     def get(self, request, pk, *args, **kwargs):
         orders = Order.objects.filter(id=pk)
@@ -89,3 +77,21 @@ class OrderDetailView(View):
             'count_client_orders': count_client_orders,
             'title': "Детали заказа",
         })
+
+
+# def orders_count(request):
+#     count_orders = Order.objects.exclude(
+#         Q(order_status="PREORDER") |
+#         Q(order_status="COMPLETED") |
+#         Q(order_status="CANCELED")
+#     )
+#     count_pre_orders = Order.objects.filter(order_status="PREORDER")
+#     count_completed_orders = Order.objects.filter(
+#         Q(order_status="COMPLETED") |
+#         Q(order_status="CANCELED")
+#     )
+#     return render(request, 'navbar.html', context={
+#         'count_orders': count_orders,
+#         'count_completed_orders': count_completed_orders,
+#         'count_pre_orders': count_pre_orders,
+#     })

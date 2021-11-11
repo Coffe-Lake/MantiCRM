@@ -1,6 +1,7 @@
 from django import forms
 from marketing.models import Discounts
 from staff.models import Courier
+from marketing.models import SalesChannel
 
 
 class NewOrderForm(forms.Form):
@@ -20,6 +21,7 @@ class NewOrderForm(forms.Form):
             attrs={
                 'class': 'form-select',
                 'style': 'width: 190px',
+                'onchange': "getOrderStatus(this.value)",
             }
         )
     )
@@ -197,6 +199,18 @@ class NewOrderForm(forms.Form):
             }
         )
     )
+    sales_channel = forms.ModelChoiceField(
+        label="Канал продаж",
+        required=False,
+        queryset=SalesChannel.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'style': 'width: 100%',
+                'onchange': "getSalesChannel(this.value)",
+            }
+        )
+    )
     courier = forms.ModelChoiceField(
         label="Курьер",
         required=False,
@@ -205,6 +219,7 @@ class NewOrderForm(forms.Form):
             attrs={
                 'class': 'form-select',
                 'style': 'width: 100%',
+                'onchange': "getCourier(this.value)",
             }
         )
     )
