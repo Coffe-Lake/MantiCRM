@@ -1,1 +1,1 @@
-# MantIS CRM 
+# MantiCRM 
