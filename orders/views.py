@@ -25,7 +25,7 @@ class NewOrderView(LoginRequiredMixin, View):
 
 class OrdersListView(LoginRequiredMixin, View):
     """Список заказов"""
-    raise_exception = True
+    redirect_to_login = True
 
     def get(self, request, *args, **kwargs):
         orders = Order.objects.exclude(
@@ -77,7 +77,6 @@ class OrderDetailView(LoginRequiredMixin, View):
             'count_client_orders': count_client_orders,
             'title': "Детали заказа",
         })
-
 
 # def orders_count(request):
 #     count_orders = Order.objects.exclude(

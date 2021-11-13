@@ -1,10 +1,17 @@
 html {
     overflow: auto;
+    height: 100%;
 }
 
 body {
     background-image: url("/static/image/back.jpg");
     background-size: cover;
+    height: 100%;
+}
+
+
+.new_order_section {
+    height: 91vh;
 }
 
 nav {
@@ -22,12 +29,7 @@ nav {
 }
 
 .scroll {
-    height: 750px;
     overflow-y: scroll;
-}
-
-.scroll_hide {
-    overflow: hidden;
 }
 
 .block_shadow {
