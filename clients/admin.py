@@ -7,8 +7,8 @@ from .models import *
 
 
 @admin.register(Client)
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ['name', 'phone', 'address', 'email', 'orders_count', 'id']
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ['name', 'phone', 'address', 'orders_count', 'id']
     readonly_fields = ['orders_count', 'created_at', 'id']
     search_fields = ['name', 'phone', 'orders_count', 'address', 'email']
     # list_editable = ['phone', 'address', 'email', 'gender']

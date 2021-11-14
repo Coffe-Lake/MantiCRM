@@ -1,5 +1,6 @@
 from django import forms
 from marketing.models import Discounts
+from orders.models import Order
 from staff.models import Courier
 from marketing.models import SalesChannel
 
@@ -9,7 +10,7 @@ class NewOrderForm(forms.Form):
         ("NEW", 'Новый'),
         ("PREORDER", 'Предзаказ'),
         ("PREPARING", 'Готовится'),
-        ("ORDER_READY", 'Заказ готов'),
+        ("READY", 'Заказ готов'),
         ("DELIVERED", 'Доставляется'),
         ("COMPLETED", 'Выполнен'),
         ("CANCELED", 'Отменен'),
@@ -40,7 +41,7 @@ class NewOrderForm(forms.Form):
     # )
 
     name = forms.CharField(
-        label="Имя*",
+        label="Имя",
         required=False,
         widget=forms.TextInput(
             attrs={

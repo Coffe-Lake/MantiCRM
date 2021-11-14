@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
 
+from clients.models import Client
 from .models import Order
 from orders.forms import NewOrderForm
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.db.models import Count, Q
 from django.views import View
 
@@ -64,19 +66,23 @@ class CompletedOrdersListView(LoginRequiredMixin, View):
         })
 
 
-class OrderDetailView(LoginRequiredMixin, View):
+class OrderDetailView(LoginRequiredMixin, DetailView):
     """Детали заказа"""
+    model = Order
+    extra_context = {'title': "Детали заказа"}
     raise_exception = True
+    #
+    # def get_queryset(self):
+    #     return Order.objects.all()
 
-    def get(self, request, pk, *args, **kwargs):
-        orders = Order.objects.filter(id=pk)
-        count_client_orders = Order.objects.values("phone") \
-            .annotate(filter=Count("phone")).order_by("phone")  # ['phone']  # ['filter'] TODO доработать код!
-        return render(request, 'orders/order_detail.html', context={
-            'orders': orders,
-            'count_client_orders': count_client_orders,
-            'title': "Детали заказа",
-        })
+    # def get(self, request, pk, *args, **kwargs):
+    #     orders = Order.objects.filter(id=pk)
+    #     client_orders_count = Client.objects.values("phone").annotate(filter=Count(""))
+    #     return render(request, 'orders/order_detail.html', context={
+    #         'orders': orders,
+    #         'count_client_orders': client_orders_count,
+    #         'title': "Детали заказа",
+    #     })
 
 # def orders_count(request):
 #     count_orders = Order.objects.exclude(

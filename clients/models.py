@@ -1,10 +1,7 @@
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
-from orders.models import Order
-
-
-# from orders.models import Order
+from django.utils.functional import cached_property
 
 
 # _________________ КЛИЕНТЫ/ТИПЫ КЛИЕНТОВ _________________
@@ -23,26 +20,26 @@ class ClientType(models.Model):
 
 
 class Client(models.Model):
+    CLIENT_TYPE_DEFAULT = 'NEW'
+
     name = models.CharField("Имя", max_length=50)
-    phone = PhoneNumberField(
-        "Телефон",
-        region='RU',
-        unique=True
-    )
-    address = models.CharField("Адрес", max_length=200)
-    email = models.EmailField("Email", blank=True, null=True)
-    birthday = models.DateField("Дата рождения", blank=True, null=True)
-    orders_count = models.PositiveIntegerField("Количество заказов", blank=True, default=0)
+    phone = PhoneNumberField("Телефон", region="RU", unique=True)
+    address = models.CharField("Адрес", max_length=250, blank=True, null=True)
+    room = models.CharField("Квартира/Комната",
+                            max_length=50, blank=True, null=True)
+    entrance = models.CharField("Подъезд", max_length=50, blank=True, null=True)
+    floor = models.PositiveIntegerField("Этаж", blank=True, null=True)
+    code = models.CharField("Код домофона", max_length=50, blank=True, null=True)
+    orders_count = models.PositiveIntegerField("Количество заказов", default='1', blank=True)
     client_type = models.ForeignKey(
         ClientType,
         verbose_name='Тип клиента',
-        on_delete=models.SET_NULL,
-        default="Новый",
-        null=True
+        on_delete=models.SET_DEFAULT,
+        default=CLIENT_TYPE_DEFAULT,
+        null=True,
     )
-    created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True, null=True)
+    created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
-    customer_orders = models.ForeignKey(Order, verbose_name="Заказы клиента", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "клиент"
@@ -50,3 +47,8 @@ class Client(models.Model):
 
     def __str__(self):
         return self.name
+
+    @cached_property
+    def client_orders_count(self):
+        self.orders_count = Client.objects.filter(orders=self.phone).count()
+        return map(int, self.orders_count)

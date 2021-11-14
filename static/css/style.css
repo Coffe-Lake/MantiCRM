@@ -11,7 +11,8 @@ body {
 
 
 .new_order_section {
-    height: 91vh;
+    height: 91.7vh;
+    overflow-y: scroll;
 }
 
 nav {

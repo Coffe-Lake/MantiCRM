@@ -47,11 +47,11 @@ class Product(models.Model):
         related_name='products'
     )
     price = models.PositiveIntegerField("Цена", blank=True, default=0)
-    composition = models.TextField("Состав", max_length=250)
-    description = models.TextField("Описание товара", max_length=250)
+    composition = models.TextField("Состав", max_length=250, blank=True)
+    description = models.TextField("Описание товара", max_length=250, blank=True)
     image = models.ImageField("Картинка", upload_to='products-img/', blank=True)
     slug = models.SlugField("Артикул")
-    created_at = models.DateTimeField("Создано", auto_now_add=True, blank=True)
+    created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
     class Meta:
