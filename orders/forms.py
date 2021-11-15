@@ -26,20 +26,6 @@ class NewOrderForm(forms.Form):
             }
         )
     )
-    # phone = forms.CharField(
-    #     label="Номер телефона*",
-    #     widget=forms.NumberInput(
-    #         attrs={
-    #             'placeholder': 'Телефон',
-    #             'class': 'form-control form-control-md',
-    #             'autofocus': True,
-    #             'type': 'tel',
-    #             'id': 'phone',
-    #             'maxlength': '18',
-    #         }
-    #     )
-    # )
-
     name = forms.CharField(
         label="Имя",
         required=False,

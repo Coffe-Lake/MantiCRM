@@ -1,18 +1,20 @@
 html {
     overflow: auto;
     height: 100%;
+    background-image: linear-gradient(
+            0deg, #fdfbfb 0%, #dddddd 100%);
 }
 
 body {
-    background-image: url("/static/image/back.jpg");
-    background-size: cover;
+    background-image: linear-gradient(
+            175deg, #fdfbfb 0%, #dddddd 100%);
     height: 100%;
 }
 
 
 .new_order_section {
     height: 91.7vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 nav {

@@ -2,7 +2,9 @@ from clients.models import *
 from delivery.models import *
 from marketing.models import *
 from products.models import *
-from staff.models import Courier
+from staff.models import *
+
+from django.utils.functional import cached_property
 
 
 class Order(models.Model):
@@ -15,13 +17,13 @@ class Order(models.Model):
     CANCELED = 'CAN'
 
     ORDER_STATUS_CHOICES = (
-        ("NEW", 'Новый'),
-        ("PREORDER", 'Предзаказ'),
-        ("PREPARING", 'Готовится'),
-        ("READY", 'Готов'),
-        ("DELIVERED", 'Доставляется'),
-        ("COMPLETED", 'Выполнен'),
-        ("CANCELED", 'Отменен')
+        (NEW, 'Новый'),
+        (PREORDER, 'Предзаказ'),
+        (PREPARING, 'Готовится'),
+        (READY, 'Готов'),
+        (DELIVERED, 'Доставляется'),
+        (COMPLETED, 'Выполнен'),
+        (CANCELED, 'Отменен')
     )
 
     CASH = 'CAS'
@@ -30,10 +32,10 @@ class Order(models.Model):
     TRANSFER = 'TRN'
 
     PAY_METHOD_CHOICES = (
-        ("CASH", 'Наличными'),
-        ("ONLINE", 'Онлайн'),
-        ("TERMINAL", 'Терминал'),
-        ("TRANSFER", 'Переводом')
+        (CASH, 'Наличными'),
+        (ONLINE, 'Онлайн'),
+        (TERMINAL, 'Терминал'),
+        (TRANSFER, 'Переводом')
     )
 
     client = models.ForeignKey(
@@ -44,7 +46,7 @@ class Order(models.Model):
     )
     order_status = models.CharField(
         "Статус заказа",
-        max_length=255,
+        max_length=3,
         choices=ORDER_STATUS_CHOICES,
         default=NEW,
     )
@@ -68,7 +70,7 @@ class Order(models.Model):
         choices=PAY_METHOD_CHOICES,
         null=True,
         default=CASH,
-        max_length=255
+        max_length=3
     )
     margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)
     persons = models.PositiveIntegerField("Количество персон",
@@ -114,6 +116,52 @@ class Order(models.Model):
     def get_absolute_url(self):
         return reverse("order_detail", kwargs={'pk': self.pk})
 
-    # @cached_property
-    # def order_items(self):
-    #     return self.clients_order.select_related('client').all()
+    @cached_property
+    def is_new(self):
+        return self.order_status == self.NEW
+
+    @cached_property
+    def order_items(self):
+        return self.orderitems.select_related('product').all()
+
+    @cached_property
+    def total_quantity(self):
+        return sum(list(map(lambda x: x.quantity, self.order_items)))
+
+    @cached_property
+    def total_cost(self):
+        return sum(list(map(lambda x: x.quantity * x.product.price, self.order_items)))
+
+    @property
+    def summary(self):
+        items = self.orderitems.select_related('product').all()
+        return {
+            'total_cost': sum(list(map(lambda x: x.quantity * x.product.price, items))),
+            'total_quantity': sum(list(map(lambda x: x.quantity, self.order_items)))
+        }
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        Order,
+        related_name='orderitems',
+        on_delete=models.CASCADE,
+        verbose_name='Заказ'
+    )
+    products = models.ForeignKey(
+        Product,
+        verbose_name='Продукт',
+        on_delete=models.CASCADE
+    )
+    quantity = models.PositiveIntegerField(
+        verbose_name='Количество',
+        default=0
+    )
+
+    @cached_property
+    def production_cost(self):
+        return self.products.price * self.quantity
+
+    @classmethod
+    def get_item(cls, pk):
+        return cls.objects.filter(pk=pk).first()

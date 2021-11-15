@@ -5,55 +5,57 @@
 {% block navbar %}{% include 'navbar.html' %}{% endblock navbar %}
 
 {% block content %}
-    <div class="row">
-        <div class="col m-3 text-center d-flex justify-content-center">
-            <h2 class="alert alert-info text-center">
-                {{ object }} <br>
-                <span class="h5">от {{ object.created_at|date:"d-M-Y H:i:s" }}</span>
-            </h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col m-3 text-center d-flex justify-content-center">
+                <h2 class="alert alert-info text-center">
+                    {{ object }} <br>
+                    <span class="h5">от {{ object.created_at|date:"d-M-Y H:i:s" }}</span>
+                </h2>
+            </div>
         </div>
-    </div>
-    <div class="row m-auto bg-white border-1 rounded-3 w-75" style="border: 1px solid">
-        <div class="col" style="border: 2px solid">
-            <h5 class="text-center p-3 border-bottom">Данные клиента</h5>
-            <table>
-                <tbody>
-                <tr class="row text-start p-3">
-                    <td class=""><b>Имя:</b> {{ object.client.name|default_if_none:'' }}</td>
-                    <td><b>Телефон:</b> {{ object.client.phone|default_if_none:'' }}</td>
-                    <td><b>Адрес:</b> {{ object.client.address|default_if_none:'' }}</td>
-                    <td><b>Подъезд:</b> {{ object.client.entrance|default_if_none:'' }}</td>
-                    <td><b>Этаж:</b> {{ object.client.floor|default_if_none:'' }}</td>
-                    <td><b>Квартира:</b> {{ object.client.room|default_if_none:'' }}</td>
-                    <td><b>Комментарий:</b> {{ object.staff_comment|default_if_none:'' }}</td>
-                    <td><b>Домофон:</b> {{ object.client.code|default_if_none:'' }}</td>
-                    <td><b>Стоимость доставки:</b> {{ object.delivery_price|default_if_none:'' }} руб.</td>
-                    <td><b>Скидка:</b>
-                        {% if object.discount_sum.discount_type == 'SUM' %}
-                            {{ object.discount_sum.discount|default:'0' }} руб.
-                        {% else %}
-                            {{ object.discount_sum.discount|default:'0' }}%
-                        {% endif %}
-                    </td>
-                    <td><b>Способ оплаты:</b>
-                        {% if object.pay  == 'CASH' %}
-                            Наличными
-                        {% elif object.pay  == 'ONLINE' %}
-                            Онлайн
-                        {% elif object.pay  == 'TERMINAL' %}
-                            Терминал
-                        {% elif object.pay  == 'TRANSFER' %}
-                            Переводом
-                        {% endif %}
-                    </td>
+        <div class="row m-auto bg-white  w-75">
+            <div class="col rounded-start" style="border: 2px solid">
+                <h5 class="text-center p-3 border-bottom">Данные клиента</h5>
+                <table>
+                    <tbody>
+                    <tr class="row text-start p-3">
+                        <td class=""><b>Имя:</b> {{ object.client.name|default_if_none:'' }}</td>
+                        <td><b>Телефон:</b> {{ object.client.phone|default_if_none:'' }}</td>
+                        <td><b>Адрес:</b> {{ object.client.address|default_if_none:'' }}</td>
+                        <td><b>Подъезд:</b> {{ object.client.entrance|default_if_none:'' }}</td>
+                        <td><b>Этаж:</b> {{ object.client.floor|default_if_none:'' }}</td>
+                        <td><b>Квартира:</b> {{ object.client.room|default_if_none:'' }}</td>
+                        <td><b>Комментарий:</b> {{ object.staff_comment|default_if_none:'' }}</td>
+                        <td><b>Домофон:</b> {{ object.client.code|default_if_none:'' }}</td>
+                        <td><b>Стоимость доставки:</b> {{ object.delivery_price|default_if_none:'' }} руб.</td>
+                        <td><b>Скидка:</b>
+                            {% if object.discount_sum.discount_type == 'SUM' %}
+                                {{ object.discount_sum.discount|default:'0' }} руб.
+                            {% else %}
+                                {{ object.discount_sum.discount|default:'0' }}%
+                            {% endif %}
+                        </td>
+                        <td><b>Способ оплаты:</b>
+                            {% if object.pay  == 'CASH' %}
+                                Наличными
+                            {% elif object.pay  == 'ONLINE' %}
+                                Онлайн
+                            {% elif object.pay  == 'TERMINAL' %}
+                                Терминал
+                            {% elif object.pay  == 'TRANSFER' %}
+                                Переводом
+                            {% endif %}
+                        </td>
 
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="col" style="border: 2px solid">
-            <h5 class="text-center p-3 border-bottom">Товары</h5>
+            <div class="col rounded-end" style="border: 2px solid">
+                <h5 class="text-center p-3 border-bottom">Товары</h5>
+            </div>
         </div>
     </div>
 {% endblock content %}
