@@ -16,12 +16,12 @@ class NewOrderForm(forms.Form):
         ("CANCELED", 'Отменен'),
     )
     order_status = forms.ChoiceField(
-        label="Статус заказа*",
+        label="Статус заказа",
         choices=ORDER_STATUS,
         widget=forms.Select(
             attrs={
-                'class': 'form-select',
-                'style': 'width: 190px',
+                'class': "form-select",
+                'style': "width: 190px",
                 'onchange': "getOrderStatus(this.value)",
             }
         )
@@ -31,8 +31,8 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Имя',
-                'class': 'form-control form-control-md',
+                'placeholder': "Имя",
+                'class': "form-control form-control-md",
             }
         )
     )
@@ -42,7 +42,7 @@ class NewOrderForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 'placeholder': "Адрес",
-                'class': 'form-control form-control-md',
+                'class': "form-control form-control-md",
                 'cols': 30,
                 'rows': 3,
             }
@@ -53,8 +53,8 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'квартира/комната',
-                'class': 'form-control form-control-md',
+                'placeholder': "квартира/комната",
+                'class': "form-control form-control-md",
             }
         )
     )
@@ -63,8 +63,8 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control form-control-md',
-                'style': 'width: 110px',
+                'class': "form-control form-control-md",
+                'style': "width: 110px",
             }
         )
     )
@@ -73,8 +73,8 @@ class NewOrderForm(forms.Form):
         required=False,
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control form-control-md',
-                'style': 'width: 110px',
+                'class': "form-control form-control-md",
+                'style': "width: 110px",
             }
         )
     )

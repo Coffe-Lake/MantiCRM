@@ -6,10 +6,6 @@ from products.models import Product
 
 # _________________ ЗАКАЗЫ _________________
 
-# class OrderInline(admin.TabularInline):
-#     model = Order
-
-
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'client', 'order_status', 'created_at']
@@ -18,6 +14,3 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ('id', 'client')
     list_filter = ('created_at', 'updated_at')
     save_on_top = True
-    # inlines = [
-    #     OrderInline,
-    # ]

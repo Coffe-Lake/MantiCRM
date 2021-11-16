@@ -12,8 +12,8 @@ class ClientType(models.Model):
                                         max_length=100, blank=True, null=True)
 
     class Meta:
-        verbose_name = 'тип клиента'
-        verbose_name_plural = 'типы клиентов'
+        verbose_name = "тип клиента"
+        verbose_name_plural = "типы клиентов"
 
     def __str__(self):
         return self.client_type
@@ -33,7 +33,7 @@ class Client(models.Model):
     orders_count = models.PositiveIntegerField("Количество заказов", default='1', blank=True)
     client_type = models.ForeignKey(
         ClientType,
-        verbose_name='Тип клиента',
+        verbose_name="Тип клиента",
         on_delete=models.SET_DEFAULT,
         default=CLIENT_TYPE_DEFAULT,
         null=True,

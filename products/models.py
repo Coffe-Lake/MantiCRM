@@ -44,7 +44,7 @@ class Product(models.Model):
         verbose_name="Категория",
         on_delete=models.SET_NULL,
         null=True,
-        related_name='products'
+        related_name="products"
     )
     price = models.PositiveIntegerField("Цена", blank=True, default=0)
     composition = models.TextField("Состав", max_length=250, blank=True)
@@ -62,4 +62,4 @@ class Product(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('products', kwargs={'slug': self.slug})
+        return reverse("products", kwargs={'slug': self.slug})

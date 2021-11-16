@@ -41,8 +41,8 @@ class Order(models.Model):
     client = models.ForeignKey(
         Client,
         on_delete=models.CASCADE,
-        verbose_name='Клиент',
-        related_name='clients_order'
+        verbose_name="Клиент",
+        related_name="clients_order"
     )
     order_status = models.CharField(
         "Статус заказа",
@@ -54,14 +54,14 @@ class Order(models.Model):
         DeliveryPrice,
         on_delete=models.CASCADE,
         verbose_name="Стоимость доставки",
-        related_name='shipping_cost',
+        related_name="shipping_cost",
         default='0'
     )
     discount_sum = models.ForeignKey(
         Discounts,
         on_delete=models.CASCADE,
         verbose_name="Скидка на заказ",
-        related_name='orders_discount',
+        related_name="orders_discount",
         blank=True,
         null=True,
     )
@@ -83,7 +83,7 @@ class Order(models.Model):
         SalesChannel,
         on_delete=models.CASCADE,
         verbose_name="Канал продаж",
-        related_name='channels',
+        related_name="channels",
         blank=True,
         null=True,
     )
@@ -91,7 +91,7 @@ class Order(models.Model):
         Courier,
         on_delete=models.CASCADE,
         verbose_name="Курьер",
-        related_name='courier',
+        related_name="courier",
         blank=True,
         null=True,
     )
@@ -136,25 +136,25 @@ class Order(models.Model):
     def summary(self):
         items = self.orderitems.select_related('product').all()
         return {
-            'total_cost': sum(list(map(lambda x: x.quantity * x.product.price, items))),
-            'total_quantity': sum(list(map(lambda x: x.quantity, self.order_items)))
+            "total_cost": sum(list(map(lambda x: x.quantity * x.product.price, items))),
+            "total_quantity": sum(list(map(lambda x: x.quantity, self.order_items)))
         }
 
 
 class OrderItem(models.Model):
     order = models.ForeignKey(
         Order,
-        related_name='orderitems',
+        related_name="orderitems",
         on_delete=models.CASCADE,
-        verbose_name='Заказ'
+        verbose_name="Заказ"
     )
     products = models.ForeignKey(
         Product,
-        verbose_name='Продукт',
+        verbose_name="Продукт",
         on_delete=models.CASCADE
     )
     quantity = models.PositiveIntegerField(
-        verbose_name='Количество',
+        verbose_name="Количество",
         default=0
     )
 

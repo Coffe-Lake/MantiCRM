@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class CategoryListView(LoginRequiredMixin, ListView):
     model = Category
-    context_object_name = 'categories'
+    context_object_name = "categories"
     template_name = "orders/new_order.html"
     raise_exception = True
 
