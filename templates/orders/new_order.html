@@ -5,7 +5,7 @@
 {% block navbar %}{% include 'navbar.html' %}{% endblock navbar %}
 
 {% block  content %}
-    <form method="post" action="">
+    <form method="get" action="" id="order">
         {% csrf_token %}
         <div class="container-fluid">
             <div class="row">
@@ -13,20 +13,7 @@
                 <section class="col-4 hide_scroll new_order_section block_shadow">
                     {#<h1>Секция клиента</h1>#}
                     <table class="mb-3 mt-3">
-                        <td><label for="phone" class="col fw-bold">Телефон: </label></td>
-                        <td>
-                            <input type="tel"
-                                   class="col form-control w-75"
-                                   data-tel-input
-                                   id="phone"
-                                   placeholder="+7(___)___-__-__"
-                                   maxlength="18"
-                                   value
-                                   onchange="getClientData(this.value)"
-                                   autofocus
-                            />
-                        </td>
-                        {{ form.as_table.format }}
+                        {{ form.as_table }}
                     </table>
                 </section>
 
@@ -168,7 +155,6 @@
                     </div>
                     <div>
                         <table>
-                            <tbody>
                             <tr>
                                 <th><label for="id_persons">Количество персон:</label></th>
                                 <td><input type="number" name="persons" value="0" placeholder="0"
@@ -190,20 +176,27 @@
                             </tr>
                             <tr>
                                 <th><label for="id_pay">Способ оплаты:</label></th>
-                                <td><select name="pay" class="form-select" style="width: 190px" id="id_pay"
+                                {{ client_form }}
+
+                                <td>
+                                    <select name="pay" class="form-select" style="width: 190px" id="id_pay"
                                             onchange="getPayMethod(this.value)">
-                                    <option value="CASH">Наличными</option>
+                                        <option value="CASH">Наличными</option>
 
-                                    <option value="ONLINE">Онлайн</option>
+                                        <option value="ONLINE">Онлайн</option>
 
-                                    <option value="TERMINAL">Терминал</option>
+                                        <option value="TERMINAL">Терминал</option>
 
-                                    <option value="TRANSFER">Переводом</option>
+                                        <option value="TRANSFER">Переводом</option>
 
-                                </select></td>
+                                    </select>
+                                </td>
                             </tr>
-                            </tbody>
                         </table>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-success" id="print" value onclick="printOrder('order')">Печатать</button>
+                        <input type="submit" class="btn btn-primary m-5" value="Сохранить"/>
                     </div>
                 </section>
             </div>

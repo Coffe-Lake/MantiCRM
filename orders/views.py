@@ -1,15 +1,13 @@
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from clients.models import Client
 from .models import Order
-from orders.forms import NewOrderForm
+from orders.forms import ClientDataForm, CartForm
 
 from django.shortcuts import render
-from django.db.models import Count, Q
+from django.db.models import Q
 from django.views import View
-
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import DetailView
 
 
 class NewOrderView(LoginRequiredMixin, View):
@@ -18,9 +16,11 @@ class NewOrderView(LoginRequiredMixin, View):
 
     @login_required()
     def get(self, request, *args, **kwargs):
-        new_order_form = NewOrderForm()
+        client_data_form = ClientDataForm()
+        cart_form = CartForm()
         return render(request, 'orders/new_order.html', context={
-            'form': new_order_form,
+            'client_form': client_data_form,
+            'cart_form': cart_form,
             'title': "Новый заказ",
         })
 

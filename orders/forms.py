@@ -1,11 +1,13 @@
 from django import forms
+from django.forms import formset_factory
+
+from delivery.models import DeliveryPrice
 from marketing.models import Discounts
-from orders.models import Order
 from staff.models import Courier
 from marketing.models import SalesChannel
 
 
-class NewOrderForm(forms.Form):
+class ClientDataForm(forms.Form):
     ORDER_STATUS = (
         ("NEW", 'Новый'),
         ("PREORDER", 'Предзаказ'),
@@ -20,9 +22,24 @@ class NewOrderForm(forms.Form):
         choices=ORDER_STATUS,
         widget=forms.Select(
             attrs={
-                'class': "form-select",
-                'style': "width: 190px",
+                'class': "form-select w-75 fw-bold text-center",
                 'onchange': "getOrderStatus(this.value)",
+            }
+        )
+    )
+    phone = forms.CharField(
+        label='Телефон',
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'type': "tel",
+                'class': "col form-control w-75 fw-bold text-center",
+                'placeholder': "+7(___)___-__-__",
+                'max-length': '18',
+                'value': '',
+                'onchange': "getClientData(this.value)",
+                'autofocus': "True",
+                'data-tel-input': 'True',
             }
         )
     )
@@ -32,7 +49,7 @@ class NewOrderForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'placeholder': "Имя",
-                'class': "form-control form-control-md",
+                'class': "form-control form-control-md w-75",
             }
         )
     )
@@ -42,7 +59,7 @@ class NewOrderForm(forms.Form):
         widget=forms.Textarea(
             attrs={
                 'placeholder': "Адрес",
-                'class': "form-control form-control-md",
+                'class': "form-control form-control-md w-75",
                 'cols': 30,
                 'rows': 3,
             }
@@ -54,7 +71,7 @@ class NewOrderForm(forms.Form):
         widget=forms.TextInput(
             attrs={
                 'placeholder': "квартира/комната",
-                'class': "form-control form-control-md",
+                'class': "form-control form-control-md w-75",
             }
         )
     )
@@ -88,68 +105,6 @@ class NewOrderForm(forms.Form):
             }
         )
     )
-    # delivery_price = forms.ModelChoiceField(
-    #     label="Стоимость доставки",
-    #     initial=0,
-    #     queryset=DeliveryPrice.objects.all(),
-    #     widget=forms.Select(
-    #         attrs={
-    #             'class': 'form-select',
-    #             'style': 'width: 110px'
-    #         }
-    #     )
-    # )
-    # PAY_METHOD_CHOICES = (
-    #     ("CASH", 'Наличными'),
-    #     ("ONLINE", 'Онлайн'),
-    #     ("TERMINAL", 'Терминал'),
-    #     ("TRANSFER", 'Переводом')
-    # )
-    # pay = forms.ChoiceField(
-    #     label="Способ оплаты",
-    #     choices=PAY_METHOD_CHOICES,
-    #     widget=forms.Select(
-    #         attrs={
-    #             'class': 'form-select',
-    #             'style': 'width: 190px'
-    #         }
-    #     )
-    # )
-    # discount_sum = forms.ModelChoiceField(
-    #     label="Скидка",
-    #     required=False,
-    #     queryset=Discounts.objects.all(),
-    #     widget=forms.Select(
-    #         attrs={
-    #             'class': 'form-select',
-    #             'style': 'width: 100%',
-    #         }
-    #     )
-    # )
-    # margin_order = forms.IntegerField(
-    #     label="Наценка",
-    #     required=False,
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             'placeholder': 'Наценка',
-    #         }
-    #     )
-    # )
-    # persons = forms.IntegerField(
-    #     label="Количество персон",
-    #     initial=0,
-    #     required=False,
-    #     widget=forms.NumberInput(
-    #         attrs={
-    #             'placeholder': 0,
-    #             'class': 'form-control form-control-md',
-    #             'style': 'width: 80px',
-    #             'min': '0',
-    #             'max': '255',
-    #         }
-    #     )
-    # )
-
     pre_order_date = forms.CharField(
         label="Дата",
         required=False,
@@ -211,7 +166,61 @@ class NewOrderForm(forms.Form):
         )
     )
 
+    class Meta:
+        model = Discounts
+        fields = ('coupon', 'name')
 
-class Meta:
-    model = Discounts
-    fields = ('coupon', 'name')
+
+class CartForm(forms.Form):
+    delivery_price = forms.ModelChoiceField(
+        label="Стоимость доставки",
+        initial=0,
+        queryset=DeliveryPrice.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'style': 'width: 110px'
+            }
+        )
+    )
+    PAY_METHOD_CHOICES = (
+        ("CASH", 'Наличными'),
+        ("ONLINE", 'Онлайн'),
+        ("TERMINAL", 'Терминал'),
+        ("TRANSFER", 'Переводом')
+    )
+    pay = forms.ChoiceField(
+        label="Способ оплаты",
+        choices=PAY_METHOD_CHOICES,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'style': 'width: 190px'
+            }
+        )
+    )
+    discount_sum = forms.ModelChoiceField(
+        label="Скидка",
+        required=False,
+        queryset=Discounts.objects.all(),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-select',
+                'style': 'width: 100%',
+            }
+        )
+    )
+    persons = forms.IntegerField(
+        label="Количество персон",
+        initial=0,
+        required=False,
+        widget=forms.NumberInput(
+            attrs={
+                'placeholder': 0,
+                'class': 'form-control form-control-md',
+                'style': 'width: 80px',
+                'min': '0',
+                'max': '255',
+            }
+        )
+    )

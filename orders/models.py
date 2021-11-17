@@ -42,7 +42,7 @@ class Order(models.Model):
         Client,
         on_delete=models.CASCADE,
         verbose_name="Клиент",
-        related_name="clients_order"
+        related_name="client"
     )
     order_status = models.CharField(
         "Статус заказа",
@@ -72,6 +72,7 @@ class Order(models.Model):
         default=CASH,
         max_length=3
     )
+    paid = models.BooleanField(verbose_name="Оплачено", default=False)
     margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)
     persons = models.PositiveIntegerField("Количество персон",
                                           blank=True, null=True, default=0)
@@ -97,13 +98,6 @@ class Order(models.Model):
     )
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
-    products = models.ForeignKey(
-        Product,
-        verbose_name="Продукты",
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True
-    )
 
     class Meta:
         verbose_name = "заказ"
@@ -122,7 +116,7 @@ class Order(models.Model):
 
     @cached_property
     def order_items(self):
-        return self.orderitems.select_related('product').all()
+        return self.order_items.select_related('product').all()
 
     @cached_property
     def total_quantity(self):
@@ -134,7 +128,7 @@ class Order(models.Model):
 
     @property
     def summary(self):
-        items = self.orderitems.select_related('product').all()
+        items = self.order_items.select_related('product').all()
         return {
             "total_cost": sum(list(map(lambda x: x.quantity * x.product.price, items))),
             "total_quantity": sum(list(map(lambda x: x.quantity, self.order_items)))
@@ -144,23 +138,29 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(
         Order,
-        related_name="orderitems",
         on_delete=models.CASCADE,
+        related_name="items",
         verbose_name="Заказ"
     )
-    products = models.ForeignKey(
+    product = models.ForeignKey(
         Product,
-        verbose_name="Продукт",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='order_items',
+        verbose_name="Продукт"
     )
     quantity = models.PositiveIntegerField(
         verbose_name="Количество",
         default=0
     )
+    price = models.PositiveIntegerField(verbose_name="Цена")
+
+    class Meta:
+        verbose_name = "товар"
+        verbose_name_plural = "товары"
 
     @cached_property
-    def production_cost(self):
-        return self.products.price * self.quantity
+    def get_cost(self):
+        return self.product.price * self.quantity
 
     @classmethod
     def get_item(cls, pk):

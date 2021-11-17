@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'staff.apps.StaffConfig',
     'delivery.apps.DeliveryConfig',
+    'cart.apps.CartConfig',
 
     # other apps
     'phonenumber_field',

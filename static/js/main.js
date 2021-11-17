@@ -1,4 +1,3 @@
-
 function getClientData(val) {
     return alert("Клиент с номером: " + val + " уже есть в базе!");
 }
@@ -9,23 +8,35 @@ function getDiscount(coupon) {
 }
 
 
-function getPayMethod(pay_method) {
-    return alert("Способ оплаты: " + pay_method)
-}
+// function getPayMethod(pay_method) {
+//     return alert("Способ оплаты: " + pay_method)
+// }
 
 
-function getDeliveryCost(delivery_cost) {
-    return alert("Стоимость доставки: " + delivery_cost + "₽")
-}
+// function getDeliveryCost(delivery_cost) {
+//     return alert("Стоимость доставки: " + delivery_cost + "₽")
+// }
 
 
-function getCourier(courier) {
-    return alert("Заказ доставит курьер : " + courier)
-}
+// function getCourier(courier) {
+//     return alert("Заказ доставит курьер : " + courier)
+// }
 
 
-function getOrderStatus(status) {
-    return alert("Статус заказа: " + status)
+// function getOrderStatus(status) {
+//     return alert("Статус заказа: " + status)
+// }
+
+
+function printOrder(order) {
+    let printContents = document.getElementById(order).innerHTML;
+    let originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
 }
 
 // $(document).ready(function () {
