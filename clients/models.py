@@ -36,6 +36,7 @@ class Client(models.Model):
         verbose_name="Тип клиента",
         on_delete=models.SET_DEFAULT,
         default=CLIENT_TYPE_DEFAULT,
+        blank=True,
         null=True,
     )
     created_at = models.DateTimeField("Создано", auto_now_add=True)
@@ -47,8 +48,3 @@ class Client(models.Model):
 
     def __str__(self):
         return self.name
-
-    @cached_property
-    def client_orders_count(self):
-        self.orders_count = Client.objects.filter(orders=self.phone).count()
-        return map(int, self.orders_count)

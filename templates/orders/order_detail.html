@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ title }}{% endblock title %}
+{% block title %}
+    {{ title }}
+{% endblock title %}
 
-{% block navbar %}{% include 'navbar.html' %}{% endblock navbar %}
+{% block navbar %}
+    {% include 'orders/includes/navbar.html' %}
+{% endblock navbar %}
 
 {% block content %}
     <div class="container-fluid">
@@ -11,6 +15,7 @@
                 <h2 class="alert alert-info text-center">
                     {{ object }} <br>
                     <span class="h5">от {{ object.created_at|date:"d-M-Y H:i:s" }}</span>
+                    <p class="h5 mt-2">Статус: {{ object.get_order_status_display }}</p>
                 </h2>
             </div>
         </div>
@@ -37,16 +42,14 @@
                             {% endif %}
                         </td>
                         <td><b>Способ оплаты:</b>
-                            {% if object.pay  == 'CASH' %}
-                                Наличными
-                            {% elif object.pay  == 'ONLINE' %}
-                                Онлайн
-                            {% elif object.pay  == 'TERMINAL' %}
-                                Терминал
-                            {% elif object.pay  == 'TRANSFER' %}
-                                Переводом
+                            {{ object.get_pay_display }}
+                            {% if object.paid == True %}
+                                <b style="background-color: lawngreen; padding: 4px; border-radius: 7px">ОПЛАЧЕНО</b>
+                            {% else %}
+                                <b style="color: white; background-color: red; padding: 4px; border-radius: 7px">НЕ ОПЛАЧЕНО</b>
                             {% endif %}
                         </td>
+
 
                     </tr>
                     </tbody>

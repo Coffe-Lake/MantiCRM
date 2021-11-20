@@ -1,3 +1,5 @@
+from django.urls import reverse_lazy
+
 from clients.models import *
 from delivery.models import *
 from marketing.models import *
@@ -42,20 +44,27 @@ class Order(models.Model):
         Client,
         on_delete=models.CASCADE,
         verbose_name="Клиент",
-        related_name="client"
+        related_name="c_order",
+        blank=True,
+        null=True,
+
     )
     order_status = models.CharField(
         "Статус заказа",
         max_length=3,
         choices=ORDER_STATUS_CHOICES,
         default=NEW,
+        blank=True,
+        null=True,
     )
     delivery_price = models.ForeignKey(
         DeliveryPrice,
         on_delete=models.CASCADE,
         verbose_name="Стоимость доставки",
         related_name="shipping_cost",
-        default='0'
+        default='0',
+        blank=True,
+        null=True,
     )
     discount_sum = models.ForeignKey(
         Discounts,
@@ -68,12 +77,13 @@ class Order(models.Model):
     pay = models.CharField(
         "Способ оплаты",
         choices=PAY_METHOD_CHOICES,
-        null=True,
         default=CASH,
-        max_length=3
+        max_length=3,
+        blank=True,
+        null=True,
     )
     paid = models.BooleanField(verbose_name="Оплачено", default=False)
-    margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)
+    # margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)
     persons = models.PositiveIntegerField("Количество персон",
                                           blank=True, null=True, default=0)
     pre_order = models.DateTimeField("Предзаказ", blank=True, null=True)
@@ -107,32 +117,33 @@ class Order(models.Model):
     def __str__(self):
         return f"Заказ №{self.pk}"
 
-    def get_absolute_url(self):
-        return reverse("order_detail", kwargs={'pk': self.pk})
-
-    @cached_property
-    def is_new(self):
-        return self.order_status == self.NEW
-
-    @cached_property
-    def order_items(self):
-        return self.order_items.select_related('product').all()
-
-    @cached_property
-    def total_quantity(self):
-        return sum(list(map(lambda x: x.quantity, self.order_items)))
-
-    @cached_property
-    def total_cost(self):
-        return sum(list(map(lambda x: x.quantity * x.product.price, self.order_items)))
-
-    @property
-    def summary(self):
-        items = self.order_items.select_related('product').all()
-        return {
-            "total_cost": sum(list(map(lambda x: x.quantity * x.product.price, items))),
-            "total_quantity": sum(list(map(lambda x: x.quantity, self.order_items)))
-        }
+    # def get_absolute_url(self):
+    #     return reverse("order_detail", kwargs={'pk': self.pk})
+    #
+    # @cached_property
+    # def is_new(self):
+    #     return self.order_status == self.NEW
+    #
+    # @cached_property
+    # def order_items(self):
+    #     return self.order_items.select_related('product').all()
+    #
+    # @cached_property
+    # def total_quantity(self):
+    #     return sum(list(map(lambda x: x.quantity, self.order_items)))
+    #
+    # @cached_property
+    # def total_cost(self):
+    #     return sum(list(map(lambda x: x.quantity * x.product.price, self.order_items)))
+    #
+    # @property
+    # def summary(self):
+    #     items = self.order_items.select_related('product').all()
+    #     return {
+    #         "total_cost": sum(list(map(lambda x: x.quantity * x.product.price, items))),
+    #         "total_quantity": sum(list(map(lambda x: x.quantity, self.order_items)))
+    #     }
+    #
 
 
 class OrderItem(models.Model):
@@ -140,17 +151,20 @@ class OrderItem(models.Model):
         Order,
         on_delete=models.CASCADE,
         related_name="items",
-        verbose_name="Заказ"
+        verbose_name="Заказ",
+        blank=True,
     )
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='order_items',
-        verbose_name="Продукт"
+        verbose_name="Продукт",
+        blank=True,
     )
     quantity = models.PositiveIntegerField(
         verbose_name="Количество",
-        default=0
+        default=1,
+        blank=True,
     )
     price = models.PositiveIntegerField(verbose_name="Цена")
 
@@ -158,10 +172,10 @@ class OrderItem(models.Model):
         verbose_name = "товар"
         verbose_name_plural = "товары"
 
-    @cached_property
-    def get_cost(self):
-        return self.product.price * self.quantity
-
-    @classmethod
-    def get_item(cls, pk):
-        return cls.objects.filter(pk=pk).first()
+    # @cached_property
+    # def get_cost(self):
+    #     return self.product.price * self.quantity
+    #
+    # @classmethod
+    # def get_item(cls, pk):
+    #     return cls.objects.filter(pk=pk).first()

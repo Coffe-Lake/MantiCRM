@@ -2,7 +2,7 @@
 
 {% block title %}{{ title }}{% endblock title %}
 
-{% block navbar %}{% include 'navbar.html' %}{% endblock navbar %}
+{% block navbar %}{% include 'orders/includes/navbar.html' %}{% endblock navbar %}
 
 {% block table_description %}
     {% include 'orders/orders_table_description.html' %}
@@ -12,7 +12,7 @@
     {% for pre_order in pre_orders %}
         <ul>
             <li>
-                <a href="{{ pre_order.get_absolute_url }}" style="display: inline-block;">
+                <a href="{% url 'orders:order_detail' pre_order.id %}" style="display: inline-block;">
                     <h2>{{ pre_order }}</h2>
                 </a>
             </li>

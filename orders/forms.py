@@ -1,9 +1,9 @@
 from django import forms
-from django.forms import formset_factory
 
 from delivery.models import DeliveryPrice
 from marketing.models import Discounts
 from staff.models import Courier
+from .models import Order
 from marketing.models import SalesChannel
 
 
@@ -20,6 +20,7 @@ class ClientDataForm(forms.Form):
     order_status = forms.ChoiceField(
         label="Статус заказа",
         choices=ORDER_STATUS,
+        required=False,
         widget=forms.Select(
             attrs={
                 'class': "form-select w-75 fw-bold text-center",
@@ -149,7 +150,6 @@ class ClientDataForm(forms.Form):
             attrs={
                 'class': 'form-select',
                 'style': 'width: 100%',
-                'onchange': "getSalesChannel(this.value)",
             }
         )
     )
@@ -161,17 +161,16 @@ class ClientDataForm(forms.Form):
             attrs={
                 'class': 'form-select',
                 'style': 'width: 100%',
-                'onchange': "getCourier(this.value)",
             }
         )
     )
 
     class Meta:
-        model = Discounts
-        fields = ('coupon', 'name')
+        model = Order
+        # fields = ('order_status', 'client', 'courier',)
 
 
-class CartForm(forms.Form):
+class CartForm(forms.ModelForm):
     delivery_price = forms.ModelChoiceField(
         label="Стоимость доставки",
         initial=0,
@@ -224,3 +223,7 @@ class CartForm(forms.Form):
             }
         )
     )
+
+    class Meta:
+        model = Order
+        fields = ('pay', 'paid', 'delivery_price', 'discount_sum', 'persons',)
