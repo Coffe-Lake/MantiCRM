@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 from .models import Order
 from clients.models import Client
-from orders.forms import ClientDataForm, CartForm
+from orders.forms import OrdersForm
 
 from django.shortcuts import render, redirect
 from django.db.models import Q
@@ -68,25 +69,16 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
     extra_context = {'title': "Детали заказа"}
     raise_exception = True
-
-
-def addpage(request):
-    client_form = ClientDataForm()
-    cart_form = CartForm()
-    return render(request, 'orders/order_form.html', context={
-        # 'menu': menu,
-        'title': 'Добавление статьи',
-        'client_form': client_form,
-        # 'cart_form': cart_form,
-    })
+    success_url = reverse_lazy('order_detail')
 
 
 def createOrder(request):
-    form = ClientDataForm()
+    form = OrdersForm()
     if request.method == 'POST':
-        form = ClientDataForm(request.POST)
+        form = OrdersForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/')
-    context = {'form': form}
-    return render(request, 'orders/order_form.html', context)
+    return render(request, 'orders/new_order.html', context={
+        'form': form,
+    })

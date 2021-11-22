@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'mptt',
     'django_extensions',
+    'crispy_forms',
+    'crispy_bootstrap5',
 
 ]
 
@@ -73,10 +75,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'config.urls'
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,6 +143,7 @@ USE_TZ = True
 
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 
 STATIC_URL = '/static/'
 

@@ -12,6 +12,6 @@ urlpatterns = [
     path('completed_orders/', CompletedOrdersListView.as_view(), name='completed_orders_list'),
     path('order_detail/<int:pk>/', OrderDetailView.as_view(), name='order_detail'),
 
+    # ________ CRUD ________
     path('create_order/', createOrder, name='create_order'),
-    path('add/', addpage, name='create_order')
 ]

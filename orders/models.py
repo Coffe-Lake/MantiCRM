@@ -1,12 +1,8 @@
-from django.urls import reverse_lazy
-
 from clients.models import *
 from delivery.models import *
 from marketing.models import *
 from products.models import *
 from staff.models import *
-
-from django.utils.functional import cached_property
 
 
 class Order(models.Model):
@@ -40,14 +36,13 @@ class Order(models.Model):
         (TRANSFER, 'Переводом')
     )
 
-    client = models.ForeignKey(
+    client_data = models.ForeignKey(
         Client,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Клиент",
         related_name="c_order",
         blank=True,
         null=True,
-
     )
     order_status = models.CharField(
         "Статус заказа",
@@ -62,7 +57,6 @@ class Order(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Стоимость доставки",
         related_name="shipping_cost",
-        default='0',
         blank=True,
         null=True,
     )
@@ -74,7 +68,7 @@ class Order(models.Model):
         blank=True,
         null=True,
     )
-    pay = models.CharField(
+    pay_method = models.CharField(
         "Способ оплаты",
         choices=PAY_METHOD_CHOICES,
         default=CASH,
@@ -153,6 +147,7 @@ class OrderItem(models.Model):
         related_name="items",
         verbose_name="Заказ",
         blank=True,
+        null=True,
     )
     product = models.ForeignKey(
         Product,
@@ -160,11 +155,13 @@ class OrderItem(models.Model):
         related_name='order_items',
         verbose_name="Продукт",
         blank=True,
+        null=True,
     )
     quantity = models.PositiveIntegerField(
         verbose_name="Количество",
         default=1,
         blank=True,
+        null=True,
     )
     price = models.PositiveIntegerField(verbose_name="Цена")
 

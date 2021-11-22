@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 {% load static %}
 
 {% block navbar %}
     {% include 'orders/includes/navbar.html' %}
 {% endblock %}
 {% block content %}
-    <form method="post" action="{% url 'orders:create_order' %}">
+    <form method="post" action="">
         {% csrf_token %}
-
-        <table class="mb-3 mt-3">
-            <tr>{{ client_form.as_table }}</tr>
-{#            <tr>{{ cart_form.as_table }}</tr>#}
-        </table>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col w-25">
+                    {{ client_form|crispy }}
+                </div>
+                <div class="col w-25">
+                    {{ cart_form }}
+                </div>
+            </div>
+        </div>
 
 
         <input type="submit" name="Submit">

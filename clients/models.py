@@ -20,8 +20,6 @@ class ClientType(models.Model):
 
 
 class Client(models.Model):
-    CLIENT_TYPE_DEFAULT = 'NEW'
-
     name = models.CharField("Имя", max_length=50)
     phone = PhoneNumberField("Телефон", region="RU", unique=True)
     address = models.CharField("Адрес", max_length=250, blank=True, null=True)
@@ -34,8 +32,7 @@ class Client(models.Model):
     client_type = models.ForeignKey(
         ClientType,
         verbose_name="Тип клиента",
-        on_delete=models.SET_DEFAULT,
-        default=CLIENT_TYPE_DEFAULT,
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
     )

@@ -5,23 +5,30 @@
 {% block navbar %}{% include 'orders/includes/navbar.html' %}{% endblock navbar %}
 
 {% block  content %}
-    <form method="post" action="" id="order">
+    <form method="post" action="{% url 'orders:create_order' %}" id="order">
         {% csrf_token %}
         <div class="container-fluid">
             <div class="row">
                 <!-- СЕКЦИЯ КЛИЕНТСКИХ ДАННЫХ -->
-                {% block client_data %}
-                    {% include 'orders/client_data.html' %}
-                {% endblock client_data %}
+                {#                {% block client_data %}#}
+                {#                    {% include 'orders/client_section.html' %}#}
+                {#                {% endblock client_data %}#}
+                <section class="col hide_scroll new_order_section block_shadow ">
+                    <div class="d-flex justify-content-center">
+                        <table class="mb-3 mt-3">
+                            {{ form.as_table }}
+                        </table>
+                    </div>
+                </section>
 
                 <!-- СЕКЦИЯ ТОВАРОВ -->
                 {% block products %}
-                    {% include 'products/products_list.html' %}
+                    {% include 'products/products_section.html' %}
                 {% endblock products %}
 
                 <!-- КАТЕГОРИИ -->
                 {% block cart %}
-                    {% include 'cart/cart_detail.html' %}
+                    {% include 'cart/cart_section.html' %}
                 {% endblock cart %}
 
             </div>
