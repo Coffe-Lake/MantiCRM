@@ -2,9 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-from .models import Order
-from clients.models import Client
-from orders.forms import OrdersForm
+from orders.forms import *
 
 from django.shortcuts import render, redirect
 from django.db.models import Q
@@ -72,13 +70,16 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     success_url = reverse_lazy('order_detail')
 
 
+@login_required()
 def createOrder(request):
-    form = OrdersForm()
+    order_form = OrderForm()
     if request.method == 'POST':
-        form = OrdersForm(request.POST)
-        if form.is_valid():
-            form.save()
+        order_form = OrderForm(request.POST)
+        if order_form.is_valid():
+            instance = order_form.save(commit=False)
+            instance.operator = request.user
+            order_form.save()
             return redirect('/')
     return render(request, 'orders/new_order.html', context={
-        'form': form,
+        'order_form': order_form,
     })

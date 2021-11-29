@@ -25,14 +25,15 @@
                 <table>
                     <tbody>
                     <tr class="row text-start p-3">
-                        <td class=""><b>Имя:</b> {{ object.client.name|default_if_none:'' }}</td>
-                        <td><b>Телефон:</b> {{ object.client.phone|default_if_none:'' }}</td>
-                        <td><b>Адрес:</b> {{ object.client.address|default_if_none:'' }}</td>
-                        <td><b>Подъезд:</b> {{ object.client.entrance|default_if_none:'' }}</td>
-                        <td><b>Этаж:</b> {{ object.client.floor|default_if_none:'' }}</td>
-                        <td><b>Квартира:</b> {{ object.client.room|default_if_none:'' }}</td>
+                        <td><b>Имя:</b> {{ object.client_data.name|default_if_none:'' }}</td>
+                        <td><b>Телефон:</b> {{ object.client_data.phone|default_if_none:'' }}</td>
+                        <td><b>Адрес:</b> {{ object.client_data.address|default_if_none:'' }}</td>
+                        <td><b>Подъезд:</b> {{ object.client_data.entrance|default_if_none:'' }}</td>
+                        <td><b>Этаж:</b> {{ object.client_data.floor|default_if_none:'' }}</td>
+                        <td><b>Квартира:</b> {{ object.client_data.room|default_if_none:'' }}</td>
                         <td><b>Комментарий:</b> {{ object.staff_comment|default_if_none:'' }}</td>
                         <td><b>Домофон:</b> {{ object.client.code|default_if_none:'' }}</td>
+                        <td><b>Предзаказ:</b> {{ object.pre_order|default_if_none:'' }}</td>
                         <td><b>Стоимость доставки:</b> {{ object.delivery_price|default_if_none:'' }} руб.</td>
                         <td><b>Скидка:</b>
                             {% if object.discount_sum.discount_type == 'SUM' %}
@@ -42,20 +43,18 @@
                             {% endif %}
                         </td>
                         <td><b>Способ оплаты:</b>
-                            {{ object.get_pay_display }}
+                            {{ object.get_pay_method_display }}
                             {% if object.paid == True %}
-                                <b style="background-color: lawngreen; padding: 4px; border-radius: 7px">ОПЛАЧЕНО</b>
+                                <b style="background-color: lawngreen; padding: 3px; border-radius: 7px">ОПЛАЧЕНО</b>
                             {% else %}
-                                <b style="color: white; background-color: red; padding: 4px; border-radius: 7px">НЕ ОПЛАЧЕНО</b>
+                                <b style="color: white; background-color: red; padding: 3px; border-radius: 7px">НЕ
+                                    ОПЛАЧЕНО</b>
                             {% endif %}
                         </td>
-
-
                     </tr>
                     </tbody>
                 </table>
             </div>
-
             <div class="col rounded-end" style="border: 2px solid">
                 <h5 class="text-center p-3 border-bottom">Товары</h5>
             </div>

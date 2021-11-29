@@ -1,5 +1,5 @@
 from products.models import *
-from orders.forms import OrdersForm
+from orders.forms import OrderForm
 
 from django.views.generic import ListView, DetailView
 
@@ -15,7 +15,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryListView,
                         self).get_context_data(**kwargs)
-        context['form'] = OrdersForm
+        context['form'] = OrderForm
         context['title'] = "Новый заказ"
         return context
 

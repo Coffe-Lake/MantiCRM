@@ -9,14 +9,38 @@
         {% csrf_token %}
         <div class="container-fluid">
             <div class="row">
-                <!-- СЕКЦИЯ КЛИЕНТСКИХ ДАННЫХ -->
-                {#                {% block client_data %}#}
-                {#                    {% include 'orders/client_section.html' %}#}
-                {#                {% endblock client_data %}#}
+                <!-- СЕКЦИЯ КЛИЕНТА -->
                 <section class="col hide_scroll new_order_section block_shadow ">
                     <div class="d-flex justify-content-center">
                         <table class="mb-3 mt-3">
-                            {{ form.as_table }}
+                            <tr>
+                                <th class="pe-2 fw-bold">Статус заказа:</th>
+                                <td>{{ form.order_status }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Телефон:</th>
+                                <td>__</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Предзаказ:</th>
+                                <td>{{ form.pre_order }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Отметка:</th>
+                                <td>{{ form.mark }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Комментарий:</th>
+                                <td>{{ form.staff_comment }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Канал продаж:</th>
+                                <td>{{ form.sales_channel }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Курьер:</th>
+                                <td>{{ form.courier }}</td>
+                            </tr>
                         </table>
                     </div>
                 </section>
@@ -26,11 +50,123 @@
                     {% include 'products/products_section.html' %}
                 {% endblock products %}
 
-                <!-- КАТЕГОРИИ -->
-                {% block cart %}
-                    {% include 'cart/cart_section.html' %}
-                {% endblock cart %}
-
+                <!-- СЕКЦИЯ КОРЗИНЫ -->
+                <section class="col col-sm new_order_section hide_scroll">
+                    <div class="mt-3">
+                        <table>
+                            <tr>
+                                <th>Скидка:</th>
+                                <td>{{ form.discount_sum }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="scroll price_list shadow-sm mb-3 mt-3">
+                        <table class="table table-sm table-bordered table-striped bg-white ">
+                            <thead>
+                            <tr class="sticky-top price_list_thead">
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col">Позиций</th>
+                                <th scope="col">Кол.во</th>
+                                <th scope="col">Цена</th>
+                            </tr>
+                            </thead>
+                            <tbody style="font-size: 14px">
+                            <tr>
+                                <th scope="row" class="text-center">1</th>
+                                <td class="col-9">{{ cart.get_total_price }} (с говядиной)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">2</th>
+                                <td class="col-9">Спайси-Ман (острые с говядиной)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">3</th>
+                                <td class="col-9">Чикен-Ман (с курицей)</td>
+                                <td class="text-center">1</td>
+                                <td>299 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">4</th>
+                                <td class="col-9">Веджи-Ман (с тыквой)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">5</th>
+                                <td class="col-9">Тейсти-Ман (с бараниной)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">6</th>
+                                <td class="col-9">Картоф-Ман (с картофелем)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">7</th>
+                                <td class="col-9">Ман-Гетсы (жареные пельмени 12 шт.)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">8</th>
+                                <td class="col-9">Греческий салат (200 г.)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">9</th>
+                                <td class="col-9">Свекольный салат (200 г.)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">10</th>
+                                <td class="col-9">Coca-Cola Classic (500 мл)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-center">11</th>
+                                <td class="col-9">Sprite (500 мл)</td>
+                                <td class="text-center">2</td>
+                                <td>798 ₽</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <table>
+                            <tr>
+                                <th>Количество персон:</th>
+                                <td>{{ form.persons }}</td>
+                            </tr>
+                            <tr>
+                                <th>Стоимость доставки:</th>
+                                <td>{{ form.delivery_price }}</td>
+                            </tr>
+                            <tr>
+                                <th>Способ оплаты:</th>
+                                <td>{{ form.pay_method }}</td>
+                                <th><label for="id_paid" style="cursor: pointer">Оплачено:</label></th>
+                                <td>{{ form.paid }}</td>
+                            </tr>
+                        </table>
+                        <div class="mt-5 text-center">
+                            <h3 class="fw-bold">К оплате: 512 ₽</h3>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-success" id="print" value onclick="printOrder('order')">Печатать
+                            </button>
+                            <input type="submit" class="btn btn-primary m-5" value="Сохранить"/>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
 

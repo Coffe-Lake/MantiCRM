@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+
 from clients.models import *
 from delivery.models import *
 from marketing.models import *
@@ -54,7 +56,7 @@ class Order(models.Model):
     )
     delivery_price = models.ForeignKey(
         DeliveryPrice,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Стоимость доставки",
         related_name="shipping_cost",
         blank=True,
@@ -62,7 +64,7 @@ class Order(models.Model):
     )
     discount_sum = models.ForeignKey(
         Discounts,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Скидка на заказ",
         related_name="orders_discount",
         blank=True,
@@ -86,7 +88,7 @@ class Order(models.Model):
                                      max_length=150, blank=True, null=True)
     sales_channel = models.ForeignKey(
         SalesChannel,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         verbose_name="Канал продаж",
         related_name="channels",
         blank=True,
@@ -102,6 +104,12 @@ class Order(models.Model):
     )
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
+    operator = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Оператор",
+    )
 
     class Meta:
         verbose_name = "заказ"

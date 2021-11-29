@@ -9,14 +9,12 @@
 {% endblock table_description %}
 
 {% block content %}
-    {% for pre_order in pre_orders %}
-        <ul>
-            <li>
-                <a href="{% url 'orders:order_detail' pre_order.id %}" style="display: inline-block;">
-                    <h2>{{ pre_order }}</h2>
-                </a>
-            </li>
-        </ul>
-    {% endfor %}
+    <section class="container-fluid">
+        <div class="row m-1 bg-white sticky_description">
+            {% for order in pre_orders %}
+                {% include 'orders/includes/orders.html' %}
+            {% endfor %}
+        </div>
+    </section>
 
 {% endblock content %}

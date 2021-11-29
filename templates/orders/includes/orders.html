@@ -1,0 +1,61 @@
+<a href="{% url 'orders:order_detail' order.id %}" style="text-decoration: none;">
+    <table class="table table-bordered mb-1 mt-1 ">
+        <tr class="text-center" style="vertical-align: middle;">
+            <th scope="col" class="col-1"># {{ order.id }}</th>
+            <th scope="col" class="col-1">{{ order.get_order_status_display }}</th>
+
+            <td class="col-1">
+                <table class="m-auto">
+                    <tbody>
+                    <tr>
+                        <td class="">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        17:54
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        29.11
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="ps-4">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        {{ order.create}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        29.11
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <th scope="col" class="col-2">{{ order.client_data.address.capitalize }}</th>
+            <th scope="col" class="col-1">
+                <span>{{ order.client_data.name.title|default_if_none:'' }}</span><br>
+                <span>{{ order.client_data.phone|default_if_none:'' }}</span>
+            </th>
+            {% if order.paid == True %}
+                <th scope="col" class="col-1 fs-3" style="background-color: limegreen">1616 ₽</th>
+            {% else %}
+                <th scope="col" class="col-1 fs-3" style="background-color: indianred">1616 ₽</th>
+            {% endif %}
+            <th scope="col" class="col-1">{{ order.courier|default_if_none:'--------' }}</th>
+            <th scope="col" class="col-1">{{ order.operator }}</th>
+        </tr>
+    </table>
+</a>
