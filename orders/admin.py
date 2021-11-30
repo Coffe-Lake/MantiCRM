@@ -12,7 +12,7 @@ class OrderItemLine(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'client_data', 'order_status', 'paid', 'created_at', 'updated_at', 'operator']
+    list_display = ['__str__', 'client_data', 'order_status', 'paid', 'created_at', 'pre_order', 'operator']
     list_editable = ['order_status']
     readonly_fields = ['created_at', 'updated_at', 'operator']
     search_fields = ('id', 'client')

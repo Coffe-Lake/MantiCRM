@@ -13,28 +13,28 @@
                                 <tbody>
                                 <tr>
                                     <td>
-                                        17:54
+                                        {{ order.created_at|time:'H:i' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        29.11
+                                        {{ order.updated_at|date:'d.m' }}
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </td>
-                        <td class="ps-4">
+                        <td class="ps-4 pe-0">
                             <table>
                                 <tbody>
                                 <tr>
                                     <td>
-                                        {{ order.create}}
+                                        {{ order.pre_order|time:'H:i'|default:'-------' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        29.11
+                                        {{ order.pre_order|date:'d.m'|default:'-------' }}
                                     </td>
                                 </tr>
                                 </tbody>
@@ -55,7 +55,7 @@
                 <th scope="col" class="col-1 fs-3" style="background-color: indianred">1616 ₽</th>
             {% endif %}
             <th scope="col" class="col-1">{{ order.courier|default_if_none:'--------' }}</th>
-            <th scope="col" class="col-1">{{ order.operator }}</th>
+            <th scope="col" class="col-1">{{ order.operator.first_name }}</th>
         </tr>
     </table>
 </a>

@@ -7,7 +7,7 @@ from orders.forms import *
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.views import View
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 
 
 class NewOrderView(LoginRequiredMixin, View):
@@ -72,14 +72,27 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 @login_required()
 def createOrder(request):
-    order_form = OrderForm()
+    form_order = OrderForm()
     if request.method == 'POST':
-        order_form = OrderForm(request.POST)
-        if order_form.is_valid():
-            instance = order_form.save(commit=False)
+        form_order = OrderForm(request.POST)
+        if form_order.is_valid():
+            instance = form_order.save(commit=False)
             instance.operator = request.user
-            order_form.save()
+            form_order.save()
             return redirect('/')
     return render(request, 'orders/new_order.html', context={
-        'order_form': order_form,
+        'form_order': form_order,
+    })
+
+
+@login_required()
+def createClient(request):
+    form_client = ClientForm()
+    if request.method == 'POST':
+        form_client = OrderForm(request.POST)
+        if form_client.is_valid():
+            form_client.save()
+            return redirect('/')
+    return render(request, 'orders/new_order.html', context={
+        'form_client': form_client,
     })
