@@ -14,5 +14,4 @@ urlpatterns = [
 
     # ________ CRUD ________
     path('create_order/', createOrder, name='create_order'),
-    path('create_client/', createClient, name='create_client'),
 ]

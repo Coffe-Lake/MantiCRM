@@ -15,31 +15,55 @@
                         <table class="mb-3 mt-3">
                             <tr>
                                 <th class="pe-2 fw-bold">Статус заказа:</th>
-                                <td>{{ form.order_status }}</td>
+                                <td>{{ form_order.order_status }}</td>
                             </tr>
                             <tr>
                                 <th class="pe-2 fw-bold">Телефон:</th>
-                                <td>{{ form_client }}</td>
+                                <td>{{ form_client.phone }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Имя:</th>
+                                <td>{{ form_client.name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Адрес:</th>
+                                <td>{{ form_client.address }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Квартира/комната:</th>
+                                <td>{{ form_client.room }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Подъезд:</th>
+                                <td>{{ form_client.entrance }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Этаж:</th>
+                                <td>{{ form_client.floor }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pe-2 fw-bold">Домофон:</th>
+                                <td>{{ form_client.code }}</td>
                             </tr>
                             <tr>
                                 <th class="pe-2 fw-bold">Предзаказ:</th>
-                                <td>{{ form.pre_order }}</td>
+                                <td>{{ form_order.pre_order }}</td>
                             </tr>
                             <tr>
                                 <th class="pe-2 fw-bold">Отметка:</th>
-                                <td>{{ form.mark }}</td>
+                                <td>{{ form_order.mark }}</td>
                             </tr>
                             <tr>
                                 <th class="pe-2 fw-bold">Комментарий:</th>
-                                <td>{{ form.staff_comment }}</td>
+                                <td>{{ form_order.staff_comment }}</td>
                             </tr>
                             <tr>
                                 <th class="pe-2 fw-bold">Канал продаж:</th>
-                                <td>{{ form.sales_channel }}</td>
+                                <td>{{ form_order.sales_channel }}</td>
                             </tr>
                             <tr>
                                 <th class="pe-2 fw-bold">Курьер:</th>
-                                <td>{{ form.courier }}</td>
+                                <td>{{ form_order.courier }}</td>
                             </tr>
                         </table>
                     </div>
@@ -56,7 +80,7 @@
                         <table>
                             <tr>
                                 <th>Скидка:</th>
-                                <td>{{ form.discount_sum }}</td>
+                                <td>{{ form_order.discount_sum }}</td>
                             </tr>
                         </table>
                     </div>
@@ -144,17 +168,17 @@
                         <table>
                             <tr>
                                 <th>Количество персон:</th>
-                                <td>{{ form.persons }}</td>
+                                <td>{{ form_order.persons }}</td>
                             </tr>
                             <tr>
                                 <th>Стоимость доставки:</th>
-                                <td>{{ form.delivery_price }}</td>
+                                <td>{{ form_order.delivery_price }}</td>
                             </tr>
                             <tr>
                                 <th>Способ оплаты:</th>
-                                <td>{{ form.pay_method }}</td>
+                                <td>{{ form_order.pay_method }}</td>
                                 <th><label for="id_paid" style="cursor: pointer">Оплачено:</label></th>
-                                <td>{{ form.paid }}</td>
+                                <td>{{ form_order.paid }}</td>
                             </tr>
                         </table>
                         <div class="mt-5 text-center">

@@ -79,7 +79,6 @@ class Order(models.Model):
         null=True,
     )
     paid = models.BooleanField(verbose_name="Оплачено", default=False)
-    # margin_order = models.PositiveIntegerField("Наценка на заказ", blank=True, null=True)
     persons = models.PositiveIntegerField("Количество персон",
                                           blank=True, null=True, default=0)
     pre_order = models.DateTimeField("Предзаказ", blank=True, null=True)

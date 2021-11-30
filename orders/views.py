@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -14,11 +16,11 @@ class NewOrderView(LoginRequiredMixin, View):
     """Новый заказ"""
     raise_exception = True
 
-    @login_required()
-    def get(self, request, *args, **kwargs):
-        return render(request, 'orders/new_order.html', context={
-            'title': "Новый заказ",
-        })
+    # @login_required()
+    # def get(self, request, *args, **kwargs):
+    #     return render(request, 'orders/new_order.html', context={
+    #         'title': "Новый заказ",
+    #     })
 
 
 class OrdersListView(LoginRequiredMixin, View):
@@ -72,27 +74,14 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 @login_required()
 def createOrder(request):
-    form_order = OrderForm()
     if request.method == 'POST':
+        form_client = ClientForm(request.POST)
         form_order = OrderForm(request.POST)
-        if form_order.is_valid():
-            instance = form_order.save(commit=False)
-            instance.operator = request.user
-            form_order.save()
-            return redirect('/')
-    return render(request, 'orders/new_order.html', context={
-        'form_order': form_order,
-    })
-
-
-@login_required()
-def createClient(request):
-    form_client = ClientForm()
-    if request.method == 'POST':
-        form_client = OrderForm(request.POST)
-        if form_client.is_valid():
-            form_client.save()
-            return redirect('/')
-    return render(request, 'orders/new_order.html', context={
-        'form_client': form_client,
-    })
+        pprint(request.POST)
+        if form_client.is_valid() and form_order.is_valid():
+            client_instance = form_client.save(commit=False)
+            order_instance = form_order.save(commit=False)
+            order_instance.operator = request.user
+            print(form_client.save())
+            print(form_order.save())
+        return redirect('orders:new_order')
