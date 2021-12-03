@@ -1,7 +1,7 @@
-<a href="{% url 'orders:order_detail' order.id %}" style="text-decoration: none;">
-    <table class="table table-bordered mb-1 mt-1 ">
+<a href="{% url 'orders:order_detail' order.id %}" style="text-decoration: none" class="mt-2 mb-2">
+    <table class="table table-bordered mb-1 mt-1" style="background-color: #e3e1d0; border-color: darkblue">
         <tr class="text-center" style="vertical-align: middle;">
-            <th scope="col" class="col-1"># {{ order.id }}</th>
+            <th scope="col" class="col-1" style="width: 5%">#{{ order.id }}</th>
             <th scope="col" class="col-1">{{ order.get_order_status_display }}</th>
 
             <td class="col-1">
@@ -44,7 +44,7 @@
                     </tbody>
                 </table>
             </td>
-            <th scope="col" class="col-2">{{ order.client_data.address.capitalize }}</th>
+            <th scope="col" class="col-2 text-start">{{ order.client_data.address|default_if_none:'' }}</th>
             <th scope="col" class="col-1">
                 <span>{{ order.client_data.name.title|default_if_none:'' }}</span><br>
                 <span>{{ order.client_data.phone|default_if_none:'' }}</span>

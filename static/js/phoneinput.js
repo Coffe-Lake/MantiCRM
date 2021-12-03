@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        if (["7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
+        if (["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
             if (inputNumbersValue[0] === "9") inputNumbersValue = "7" + inputNumbersValue;
             let firstSymbols = (inputNumbersValue[0] === "8") ? "8" : "+7";
             formattedInputValue = input.value = firstSymbols + " ";

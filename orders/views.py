@@ -1,4 +1,5 @@
 from pprint import pprint
+import phonenumbers
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,11 +17,19 @@ class NewOrderView(LoginRequiredMixin, View):
     """Новый заказ"""
     raise_exception = True
 
-    # @login_required()
-    # def get(self, request, *args, **kwargs):
-    #     return render(request, 'orders/new_order.html', context={
-    #         'title': "Новый заказ",
-    #     })
+    def post(self, request):
+        form_client = ClientForm(request.POST)
+        form_order = OrderForm(request.POST)
+        pprint(request.POST)
+        if form_client.is_valid() and form_order.is_valid():  # Валидация формы клиента и заказа
+            client_instance = form_client.save(commit=False)  # Экземпляр клиента
+            form_client.save()  # Сохраняем клиента перед оформлением заказа
+            client_pk = Client.objects.get(phone=client_instance.phone).id  # Возвращаем из БД "ID" клиента
+            order_instance = form_order.save(commit=False)  # Экземпляр заказа
+            order_instance.operator = request.user  # Сохраняем в экземпляр оператора, юзера создавшего заказ
+            order_instance.client_data_id = client_pk  # Присваиваем заказ клиенту по id клиента
+            form_order.save()  # Сохраняем заказа
+        return redirect('orders:orders_list')
 
 
 class OrdersListView(LoginRequiredMixin, View):
@@ -70,18 +79,3 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     extra_context = {'title': "Детали заказа"}
     raise_exception = True
     success_url = reverse_lazy('order_detail')
-
-
-@login_required()
-def createOrder(request):
-    if request.method == 'POST':
-        form_client = ClientForm(request.POST)
-        form_order = OrderForm(request.POST)
-        pprint(request.POST)
-        if form_client.is_valid() and form_order.is_valid():
-            client_instance = form_client.save(commit=False)
-            order_instance = form_order.save(commit=False)
-            order_instance.operator = request.user
-            print(form_client.save())
-            print(form_order.save())
-        return redirect('orders:new_order')

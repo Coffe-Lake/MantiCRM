@@ -21,7 +21,7 @@ class ClientType(models.Model):
 
 class Client(models.Model):
     name = models.CharField("Имя", max_length=50)
-    phone = PhoneNumberField("Телефон", region="RU", unique=True)
+    phone = PhoneNumberField("Телефон", region="RU", unique=True, db_index=True)
     address = models.CharField("Адрес", max_length=250, blank=True, null=True)
     room = models.CharField("Квартира/Комната",
                             max_length=50, blank=True, null=True)

@@ -13,5 +13,5 @@ urlpatterns = [
     path('order_detail/<int:pk>/', OrderDetailView.as_view(), name='order_detail'),
 
     # ________ CRUD ________
-    path('create_order/', createOrder, name='create_order'),
+    path('create_order/', NewOrderView.as_view(), name='create_order'),
 ]
