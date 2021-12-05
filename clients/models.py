@@ -21,12 +21,13 @@ class ClientType(models.Model):
 
 class Client(models.Model):
     name = models.CharField("Имя", max_length=50)
-    phone = PhoneNumberField("Телефон", region="RU", unique=True, db_index=True)
+    phone = PhoneNumberField("Телефон", region="RU", db_index=True)
     address = models.CharField("Адрес", max_length=250, blank=True, null=True)
-    room = models.CharField("Квартира/Комната",
-                            max_length=50, blank=True, null=True)
+    home = models.CharField("Дом", max_length=250, blank=True, null=True)
+    building = models.CharField("Корпус", max_length=250, blank=True, null=True)
+    room = models.CharField("Квартира", max_length=50, blank=True, null=True)
     entrance = models.CharField("Подъезд", max_length=50, blank=True, null=True)
-    floor = models.PositiveIntegerField("Этаж", blank=True, null=True)
+    floor = models.CharField("Этаж", max_length=10, blank=True, null=True)
     code = models.CharField("Код домофона", max_length=50, blank=True, null=True)
     orders_count = models.PositiveIntegerField("Количество заказов", default='1', blank=True)
     client_type = models.ForeignKey(

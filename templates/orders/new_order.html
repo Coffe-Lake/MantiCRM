@@ -13,58 +13,62 @@
                 <section class="col hide_scroll new_order_section block_shadow ">
                     <div class="d-flex justify-content-center">
                         <table class="mb-3 mt-3">
+                            <tbody>
                             <tr>
-                                <th class="pe-2 fw-bold">Статус заказа:</th>
-                                <td>{{ form_order.order_status }}</td>
+                                <th colspan="1">Статус заказа:</th>
+                                <td colspan="2">{{ form_order.order_status }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Телефон:</th>
-                                <td>{{ form_client.phone }}</td>
+                                <th colspan="1">Телефон:</th>
+                                <td colspan="3">{{ form_client.phone }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Имя:</th>
-                                <td>{{ form_client.name }}</td>
+                                <th colspan="1">Имя:</th>
+                                <td colspan="3">{{ form_client.name }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Адрес:</th>
-                                <td>{{ form_client.address }}</td>
+                                <th colspan="1">Адрес:</th>
+                                <td colspan="3">{{ form_client.address }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Квартира/комната:</th>
-                                <td>{{ form_client.room }}</td>
+                                <th style="width: 0">Дом</th>
+                                <td style="width: 130px">{{ form_client.home }}</td>
+                                <th style="width: 0">Корпус</th>
+                                <td style="width: 130px">{{ form_client.building }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Подъезд:</th>
-                                <td>{{ form_client.entrance }}</td>
+                                <th style="width: 0">Квартира:</th>
+                                <td style="width: 130px">{{ form_client.room }}</td>
+                                <th style="width: 0">Подъезд</th>
+                                <td style="width: 130px">{{ form_client.entrance }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Этаж:</th>
-                                <td>{{ form_client.floor }}</td>
+                                <th>Этаж:</th>
+                                <td style="width: 130px">{{ form_client.floor }}</td>
+                                <th style="width: 0">Домофон:</th>
+                                <td style="width: 130px">{{ form_client.code }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Домофон:</th>
-                                <td>{{ form_client.code }}</td>
+                                <th colspan="1">Предзаказ:</th>
+                                <td colspan="2">{{ form_order.pre_order }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Предзаказ:</th>
-                                <td>{{ form_order.pre_order }}</td>
+                                <th colspan="1">Отметка:</th>
+                                <td colspan="3">{{ form_order.mark }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Отметка:</th>
-                                <td>{{ form_order.mark }}</td>
+                                <th colspan="1">Комментарий:</th>
+                                <td colspan="3">{{ form_order.staff_comment }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Комментарий:</th>
-                                <td>{{ form_order.staff_comment }}</td>
+                                <th colspan="1">Канал продаж:</th>
+                                <td colspan="3">{{ form_order.sales_channel }}</td>
                             </tr>
                             <tr>
-                                <th class="pe-2 fw-bold">Канал продаж:</th>
-                                <td>{{ form_order.sales_channel }}</td>
+                                <th colspan="1">Курьер:</th>
+                                <td colspan="3">{{ form_order.courier }}</td>
                             </tr>
-                            <tr>
-                                <th class="pe-2 fw-bold">Курьер:</th>
-                                <td>{{ form_order.courier }}</td>
-                            </tr>
+                            </tbody>
                         </table>
                     </div>
                 </section>
@@ -97,7 +101,7 @@
                             <tbody style="font-size: 14px">
                             <tr>
                                 <th scope="row" class="text-center">1</th>
-                                <td class="col-9">{{ cart.get_total_price }} (с говядиной)</td>
+                                <td class="col-9">Гранде-Ман (с говядиной)</td>
                                 <td class="text-center">2</td>
                                 <td>798 ₽</td>
                             </tr>

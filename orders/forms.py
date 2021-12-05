@@ -1,6 +1,6 @@
-import multipleformwizard as mf
+from django.utils.translation import ugettext_lazy as _
+
 from django import forms
-from django.forms import formset_factory
 
 from .models import Order
 from .models import Client
@@ -31,7 +31,7 @@ class OrderForm(forms.ModelForm):
             'pre_order': forms.TextInput(
                 attrs={
                     'type': "datetime-local",
-                    'class': "col form-control w-75 fw-bold",
+                    'class': "col form-control w-100 fw-bold",
 
                 }
             ),
@@ -69,7 +69,7 @@ class OrderForm(forms.ModelForm):
             ),
             'discount_sum': forms.Select(
                 attrs={
-                    'class': "form-select"
+                    'class': "form-select w-100"
                 }
             ),
             'pay_method': forms.Select(
@@ -97,49 +97,60 @@ class ClientForm(forms.ModelForm):
                     'type': "tel",
                     'class': "col form-control w-75 fw-bold text-center",
                     'placeholder': "+7(___)___-__-__",
-                    'max-length': '16',
+                    'max-length': "16",
                     'onchange': "getClientData(this.value)",
                     'autofocus': "True",
-                    'data-tel-input': 'True',
-                    'mask': '8(999)999-99-99'
+                    'data-tel-input': "True",
+                    'autocomplete': "False"
                 }
             ),
             'name': forms.TextInput(
                 attrs={
-                    'placeholder': "Имя",
                     'class': "form-control form-control-md w-75",
                 }
             ),
-            'address': forms.Textarea(
+            'address': forms.TextInput(
                 attrs={
-                    'placeholder': "Адрес",
-                    'class': "form-control form-control-md w-75",
+                    'class': "form-control form-control-md",
+                    'style': 'width: 393px',
                     'cols': "30",
                     'rows': "3",
                 }
             ),
+            'home': forms.TextInput(
+                attrs={
+                    'class': "form-control form-control-md",
+                    'style': 'width: 130px',
+                }
+            ),
+            'building': forms.TextInput(
+                attrs={
+                    'class': "form-control form-control-md",
+                    'style': 'width: 130px',
+                }
+            ),
             'room': forms.TextInput(
                 attrs={
-                    'placeholder': "квартира/комната",
-                    'class': "form-control form-control-md w-75",
+                    'class': "form-control form-control-md",
+                    'style': 'width: 130px',
                 }
             ),
             'entrance': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-md",
-                    'style': "width: 110px",
+                    'style': 'width: 130px',
                 }
             ),
             'floor': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md",
-                    'style': "width: 110px",
+                    'class': "form-control form-control-md ",
+                    'style': 'width: 130px',
                 }
             ),
             'code': forms.TextInput(
                 attrs={
-                    'class': 'form-control form-control-md w-50',
+                    'class': 'form-control form-control-md',
+                    'style': 'width: 130px',
                 }
             ),
-            'id': forms.HiddenInput(),
         }

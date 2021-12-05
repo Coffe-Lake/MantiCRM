@@ -23,7 +23,26 @@ class NewOrderView(LoginRequiredMixin, View):
         pprint(request.POST)
         if form_client.is_valid() and form_order.is_valid():  # Валидация формы клиента и заказа
             client_instance = form_client.save(commit=False)  # Экземпляр клиента
-            form_client.save()  # Сохраняем клиента перед оформлением заказа
+            update_values = {
+                'name': form_client.cleaned_data['name'],
+                'address': form_client.cleaned_data['address'],
+                'home': form_client.cleaned_data['home'],
+                'building': form_client.cleaned_data['building'],
+                'room': form_client.cleaned_data['room'],
+                'entrance': form_client.cleaned_data['entrance'],
+                'floor': form_client.cleaned_data['floor'],
+                'code': form_client.cleaned_data['code'],
+            }
+            update_client, created = Client.objects.update_or_create(
+                phone=client_instance.phone,
+                defaults=update_values
+            )  # Создание и обновление клиента
+            if created:
+                print(f"Клиент {update_client} создан ")
+            else:
+                print(f"Клиент {update_client} обновлен")
+            update_client.save()  # Сохраняем клиента перед сохранением заказа для передачи ему id клиента
+
             client_pk = Client.objects.get(phone=client_instance.phone).id  # Возвращаем из БД "ID" клиента
             order_instance = form_order.save(commit=False)  # Экземпляр заказа
             order_instance.operator = request.user  # Сохраняем в экземпляр оператора, юзера создавшего заказ

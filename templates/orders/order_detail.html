@@ -32,7 +32,7 @@
                         <td><b>Этаж:</b> {{ object.client_data.floor|default_if_none:'' }}</td>
                         <td><b>Квартира:</b> {{ object.client_data.room|default_if_none:'' }}</td>
                         <td><b>Комментарий:</b> {{ object.staff_comment|default_if_none:'' }}</td>
-                        <td><b>Домофон:</b> {{ object.client.code|default_if_none:'' }}</td>
+                        <td><b>Домофон:</b> {{ object.client_data.code|default_if_none:'' }}</td>
                         <td><b>Предзаказ:</b> {{ object.pre_order|default_if_none:'' }}</td>
                         <td><b>Стоимость доставки:</b> {{ object.delivery_price|default_if_none:'' }} руб.</td>
                         <td><b>Скидка:</b>
