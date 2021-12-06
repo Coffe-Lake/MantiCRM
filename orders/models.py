@@ -82,7 +82,6 @@ class Order(models.Model):
     persons = models.PositiveIntegerField("Количество персон",
                                           blank=True, null=True, default=0)
     pre_order = models.DateTimeField("Предзаказ", blank=True, null=True)
-    mark = models.TextField("Отметка", max_length=150, blank=True, null=True)
     staff_comment = models.TextField("Комментарий для повара",
                                      max_length=150, blank=True, null=True)
     sales_channel = models.ForeignKey(
@@ -117,6 +116,11 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ №{self.pk}"
+
+    def ordersCount(self):
+        orders_count = Order.objects.filter(id=self.client_data_id).count()
+
+
 
     # def get_absolute_url(self):
     #     return reverse("order_detail", kwargs={'pk': self.pk})

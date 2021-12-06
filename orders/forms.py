@@ -1,5 +1,3 @@
-from django.utils.translation import ugettext_lazy as _
-
 from django import forms
 
 from .models import Order
@@ -17,7 +15,6 @@ class OrderForm(forms.ModelForm):
             'paid',
             'persons',
             'pre_order',
-            'mark',
             'staff_comment',
             'sales_channel',
             'courier',
@@ -32,13 +29,6 @@ class OrderForm(forms.ModelForm):
                 attrs={
                     'type': "datetime-local",
                     'class': "col form-control w-100 fw-bold",
-
-                }
-            ),
-            'mark': forms.Textarea(
-                attrs={
-                    'class': "col form-control w-75",
-                    'rows': '3',
                 }
             ),
             'staff_comment': forms.Textarea(
@@ -94,14 +84,14 @@ class ClientForm(forms.ModelForm):
         widgets = {
             'phone': forms.TextInput(
                 attrs={
-                    'type': "tel",
-                    'class': "col form-control w-75 fw-bold text-center",
-                    'placeholder': "+7(___)___-__-__",
-                    'max-length': "16",
-                    'onchange': "getClientData(this.value)",
-                    'autofocus': "True",
-                    'data-tel-input': "True",
-                    'autocomplete': "False"
+                    "type": "tel",
+                    "class": "col form-control w-75 fw-bold text-center",
+                    "placeholder": "+7(___)___-__-__",
+                    "max-length": "11",
+                    "onchange": "getClientData(this.value)",
+                    "autofocus": "True",
+                    "data-tel-input": "True",
+                    "autocomplete": "False"
                 }
             ),
             'name': forms.TextInput(
@@ -120,37 +110,43 @@ class ClientForm(forms.ModelForm):
             'home': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-md",
-                    'style': 'width: 130px',
+                    'style': "width: 130px",
                 }
             ),
             'building': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-md",
-                    'style': 'width: 130px',
+                    'style': "width: 130px",
                 }
             ),
             'room': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-md",
-                    'style': 'width: 130px',
+                    'style': "width: 130px",
                 }
             ),
             'entrance': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-md",
-                    'style': 'width: 130px',
+                    'style': "width: 130px",
                 }
             ),
             'floor': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-md ",
-                    'style': 'width: 130px',
+                    'style': "width: 130px",
                 }
             ),
             'code': forms.TextInput(
                 attrs={
-                    'class': 'form-control form-control-md',
-                    'style': 'width: 130px',
+                    'class': "form-control form-control-md",
+                    'style': "width: 130px",
+                }
+            ),
+            'mark': forms.Textarea(
+                attrs={
+                    'class': "col form-control w-75",
+                    'rows': '3',
                 }
             ),
         }

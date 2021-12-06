@@ -1,0 +1,174 @@
+/* Стили чека */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: block !important;
+    margin: 8px !important;
+}
+
+.print {
+    width: 70mm;
+    font-size: 13px;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.print_logo {
+    width: 70mm;
+    font-size: 36px;
+    text-align: center;
+    overflow: hidden;
+    border-top: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+}
+
+.print_contact {
+    width: 70mm;
+    text-align: center;
+    border-bottom: 1px dashed #000000;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    overflow: hidden;
+}
+
+.pr_name {
+    font-size: 13px;
+    width: 175px;
+    min-height: 15px;
+    margin-top: 5px;
+}
+
+.pr_desc {
+    font-size: 10px;
+    font-style: italic;
+    width: 70mm;
+    min-height: 15px;
+    margin-top: 5px;
+}
+
+.pr_kol {
+    font-size: 13px;
+    width: 40px;
+    margin-left: 175px;
+    height: 15px;
+    margin-top: -15px;
+    text-align: center;
+}
+
+.pr_price {
+    font-size: 13px;
+    width: 50px;
+    margin-left: 215px;
+    height: 15px;
+    margin-top: -15px;
+    text-align: right;
+}
+
+.pr_itog {
+    width: 185px;
+    min-height: 15px;
+    margin-top: 5px;
+}
+
+.pr_promo {
+    width: 55mm;
+    padding: 20px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.pr_separator {
+    width: 70mm;
+    height: 1px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #000000;
+}
+
+.break_check {
+    width: 70mm;
+    text-align: center;
+    border-bottom: 3px dashed #000000;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    overflow: hidden;
+}
+
+.prc_name {
+    font-size: 15px;
+    width: 210px;
+    min-height: 20px;
+    margin-top: 5px;
+    border: 0px black solid;
+}
+
+.prc_kol {
+    font-size: 15px;
+    width: 40px;
+    margin-left: 210px;
+    height: 20px;
+    margin-top: -20px;
+    text-align: center;
+    border: 0px black solid;
+}
+
+
+.prt {
+    width: 180mm;
+    font-size: 13px;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.prt_title {
+    width: 250px;
+    height: 25px;
+    margin: auto;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.prt_date {
+    width: 120px;
+    height: 18px;
+    margin-top: 5px;
+    float: right;
+    font-size: 14px;
+    text-align: right;
+    border-bottom: 1px solid #000000;
+}
+
+.prt_partner {
+    width: 100%;
+    height: 18px;
+    margin-top: 40px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid #000000;
+}
+
+.prt_delivery {
+    width: 100%;
+    height: 18px;
+    margin-top: 10px;
+    font-size: 13px;
+    text-align: left;
+    border-bottom: 1px solid #000000;
+}
+
+.prt_table {
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.prt_client {
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.prt_promo {
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+}

@@ -21,8 +21,10 @@ class NewOrderView(LoginRequiredMixin, View):
         form_client = ClientForm(request.POST)
         form_order = OrderForm(request.POST)
         pprint(request.POST)
-        if form_client.is_valid() and form_order.is_valid():  # Валидация формы клиента и заказа
-            client_instance = form_client.save(commit=False)  # Экземпляр клиента
+        if form_client.is_valid() and form_order.is_valid():
+            # Валидация формы клиента и заказа
+            client_instance = form_client.save(commit=False)
+            # Экземпляр клиента
             update_values = {
                 'name': form_client.cleaned_data['name'],
                 'address': form_client.cleaned_data['address'],
@@ -32,21 +34,29 @@ class NewOrderView(LoginRequiredMixin, View):
                 'entrance': form_client.cleaned_data['entrance'],
                 'floor': form_client.cleaned_data['floor'],
                 'code': form_client.cleaned_data['code'],
+                'mark': form_client.cleaned_data['mark'],
             }
+            # Словарь данных из формы
             update_client, created = Client.objects.update_or_create(
                 phone=client_instance.phone,
                 defaults=update_values
-            )  # Создание и обновление клиента
+            )
+            # Создание и обновление клиента
             if created:
                 print(f"Клиент {update_client} создан ")
             else:
-                print(f"Клиент {update_client} обновлен")
-            update_client.save()  # Сохраняем клиента перед сохранением заказа для передачи ему id клиента
+                print(f"Данные {update_client} обновлены")
+            update_client.save()
+            # Сохраняем клиента перед сохранением заказа, для передачи заказу id клиента
 
-            client_pk = Client.objects.get(phone=client_instance.phone).id  # Возвращаем из БД "ID" клиента
-            order_instance = form_order.save(commit=False)  # Экземпляр заказа
-            order_instance.operator = request.user  # Сохраняем в экземпляр оператора, юзера создавшего заказ
-            order_instance.client_data_id = client_pk  # Присваиваем заказ клиенту по id клиента
+            client_pk = Client.objects.get(phone=client_instance.phone).id
+            # Возвращаем из БД "ID" клиента
+            order_instance = form_order.save(commit=False)
+            # Экземпляр заказа
+            order_instance.operator = request.user
+            # Сохраняем в экземпляр оператора создавшего заказ
+            order_instance.client_data_id = client_pk
+            # Присваиваем клиенту заказ по client_id
             form_order.save()  # Сохраняем заказа
         return redirect('orders:orders_list')
 
@@ -98,3 +108,11 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     extra_context = {'title': "Детали заказа"}
     raise_exception = True
     success_url = reverse_lazy('order_detail')
+
+
+class CheckDetailView(LoginRequiredMixin, DetailView):
+    model = Order
+    template_name = 'orders/invoice/check.html'
+    extra_context = {'title': "Печать чека"}
+    raise_exception = True
+    success_url = reverse_lazy('check')

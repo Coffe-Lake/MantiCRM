@@ -2,7 +2,11 @@
     <div>
         <a href="{% url "orders:new_order" %}" class="btn btn-primary nav_button">+ НОВЫЙ</a>
         <a href="{% url "orders:orders_list" %}" class="btn btn-info ">
-            <span class="fw-bold">{{ orders.count }}</span><br>
+            <span class="fw-bold">
+{#                {% if  %}#}
+{##}
+{#                {% endif %}#}
+            </span><br>
             <span class="border-top border-dark m-4">В РАБОТЕ</span>
         </a>
         <a href="{% url "orders:pre_orders_list" %}" class="btn btn-warning">
@@ -12,11 +16,6 @@
         <a href="{% url "orders:completed_orders_list" %}" class="btn btn-success active">
             <span class="fw-bold">{{ completed_orders.count }}</span><br>
             <span class="border-top m-2">ЗАВЕРШЕННЫЕ</span>
-        </a>
-
-
-        <a href="{% url "orders:create_order" %}" class="btn btn-success active">
-            ЗАКАЗ ФОРМА
         </a>
 
 

@@ -28,12 +28,12 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                    <td>
+                                    <td style="color: blue">
                                         {{ order.pre_order|time:'H:i'|default:'-------' }}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td style="color: blue">
                                         {{ order.pre_order|date:'d.m'|default:'-------' }}
                                     </td>
                                 </tr>
@@ -55,7 +55,7 @@
                 <th scope="col" class="col-1 fs-3" style="background-color: indianred">1616 ₽</th>
             {% endif %}
             <th scope="col" class="col-1">{{ order.courier|default_if_none:'--------' }}</th>
-            <th scope="col" class="col-1">{{ order.operator.first_name }}</th>
+            <th scope="col" class="col-1">{{ order.operator.first_name|default:order.operator }}</th>
         </tr>
     </table>
 </a>

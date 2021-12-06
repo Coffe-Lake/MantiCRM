@@ -54,7 +54,7 @@
                             </tr>
                             <tr>
                                 <th colspan="1">Отметка:</th>
-                                <td colspan="3">{{ form_order.mark }}</td>
+                                <td colspan="3">{{ form_client.mark }}</td>
                             </tr>
                             <tr>
                                 <th colspan="1">Комментарий:</th>
@@ -68,8 +68,17 @@
                                 <th colspan="1">Курьер:</th>
                                 <td colspan="3">{{ form_order.courier }}</td>
                             </tr>
+                            <tr>
+                                <th colspan="1">Количество заказов:</th>
+                                <td colspan="3">3</td>
+                            </tr>
+                            <tr>
+                                <th colspan="1">Общ. сумма заказов:</th>
+                                <td colspan="3">16.845₽</td>
+                            </tr>
                             </tbody>
                         </table>
+
                     </div>
                 </section>
 
@@ -82,6 +91,10 @@
                 <section class="col col-sm new_order_section hide_scroll">
                     <div class="mt-3">
                         <table>
+                            <tr>
+                                <th>Промокод:</th>
+                                <td>{{ form_order.discount_sum.coupon }}</td>
+                            </tr
                             <tr>
                                 <th>Скидка:</th>
                                 <td>{{ form_order.discount_sum }}</td>
@@ -189,6 +202,7 @@
                             <h3 class="fw-bold">К оплате: 512 ₽</h3>
                         </div>
                         <div class="text-center">
+                            {#                            <a class ="btn btn-success" href="{% url "orders:invoice_detail" order.pk %}" target="_blank">Чек</a>#}
                             <button class="btn btn-success" id="print" value onclick="printOrder('order')">
                                 Печатать
                             </button>

@@ -28,16 +28,18 @@
                         <td><b>Имя:</b> {{ object.client_data.name|default_if_none:'' }}</td>
                         <td><b>Телефон:</b> {{ object.client_data.phone|default_if_none:'' }}</td>
                         <td><b>Адрес:</b> {{ object.client_data.address|default_if_none:'' }}</td>
+                        <td><b>Дом:</b> {{ object.client_data.home|default_if_none:'' }}</td>
+                        <td><b>Корпус:</b> {{ object.client_data.building|default_if_none:'' }}</td>
                         <td><b>Подъезд:</b> {{ object.client_data.entrance|default_if_none:'' }}</td>
                         <td><b>Этаж:</b> {{ object.client_data.floor|default_if_none:'' }}</td>
                         <td><b>Квартира:</b> {{ object.client_data.room|default_if_none:'' }}</td>
                         <td><b>Комментарий:</b> {{ object.staff_comment|default_if_none:'' }}</td>
                         <td><b>Домофон:</b> {{ object.client_data.code|default_if_none:'' }}</td>
                         <td><b>Предзаказ:</b> {{ object.pre_order|default_if_none:'' }}</td>
-                        <td><b>Стоимость доставки:</b> {{ object.delivery_price|default_if_none:'' }} руб.</td>
+                        <td><b>Стоимость доставки:</b> {{ object.delivery_price|default_if_none:'0 ₽' }}</td>
                         <td><b>Скидка:</b>
                             {% if object.discount_sum.discount_type == 'SUM' %}
-                                {{ object.discount_sum.discount|default:'0' }} руб.
+                                {{ object.discount_sum.discount|default:'0 ₽' }} руб.
                             {% else %}
                                 {{ object.discount_sum.discount|default:'0' }}%
                             {% endif %}
@@ -58,6 +60,9 @@
             <div class="col rounded-end" style="border: 2px solid">
                 <h5 class="text-center p-3 border-bottom">Товары</h5>
             </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'orders:check' order.id %}" class="btn btn-success text-center" target="_blank">Печать чека</a>
         </div>
     </div>
 {% endblock content %}

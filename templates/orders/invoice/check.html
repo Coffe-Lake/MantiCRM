@@ -1,0 +1,75 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/check.css' %}" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous">
+    <title>Чек</title>
+
+</head>
+<body>
+<div>
+    <input type="button"
+           class="btn btn-success mb-2 mt-2 pe-5 ps-5 text-center"
+           style="width: 70mm"
+           value="Печать"
+           onclick="printOrder('check_print')">
+</div>
+
+<div class="print" id="check_print">
+    <div class="print_logo">Манты-Ман</div>
+    <br>Заказ: <b>#{{ order.id }}</b>
+    <br>Оформлен: {{ order.created_at|date:'d.m.y H:i'|default_if_none:'' }}
+    <br>Доставить: {{ order.pre_order|date:'d.m к H:i'|default_if_none:'' }}
+    <br>
+    <br>Заказчик: <b>{{ order.client_data.name|default_if_none:'' }}</b>
+    <br>Телефон: <b>{{ order.client_data.phone|default_if_none:'' }}</b>
+    <br>
+    <br>Улица: <b>{{ order.client_data.address|default_if_none:'' }}</b>
+    <br>Дом: <b>{{ order.client_data.home|default_if_none:'' }}</b>
+    <br>Корпус: <b>{{ order.client_data.building|default_if_none:'' }}</b>
+    <br>Подъезд: <b>{{ order.client_data.entrance|default_if_none:'' }}</b>
+    <br>Этаж: <b>{{ order.client_data.floor|default_if_none:'' }}</b>
+    <br>Кв. (офис): <b>{{ order.client_data.room|default_if_none:'' }}</b>
+    <br>домофон: <b>{{ order.client_data.code|default_if_none:'' }}</b>
+    <br>
+    <br>
+    <div class="pr_name"><strong>Товар</strong></div>
+    <div class="pr_kol"><strong>Кол</strong></div>
+    <div class="pr_price"><strong>Сумма</strong></div>
+    <div class="pr_separator mt-2"></div>
+    <div class="pr_name">Чесночный кисл-мол. соус</div>
+    <div class="pr_kol">2</div>
+    <div class="pr_price">118.00</div>
+    <div class="pr_name">Спайси-Ман (острые с гов.)</div>
+    <div class="pr_kol">1</div>
+    <div class="pr_price">469.00</div>
+    <div class="pr_name">Тейсти-Ман (с бараниной)</div>
+    <div class="pr_kol">2</div>
+    <div class="pr_price">998.00</div>
+    <div class="pr_separator mt-3"></div>
+    <div class="d-flex justify-content-between" style="width: 70mm">
+        <div>ИТОГО</div>
+        <div>1585.00</div>
+    </div>
+    <div class="d-flex justify-content-between" style="width: 70mm">
+        <div>Скидка</div>
+        <div class="fw-bold">0.00</div>
+    </div>
+    <div class="d-flex justify-content-between" style="width: 70mm">
+        <div class="fw-bold">К ОПЛАТЕ</div>
+        <div class="fw-bold">1585.00</div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-between" style="width: 70mm">Способ оплаты:
+        <div class="fw-bold">{{ order.get_pay_method_display }}</div>
+    </div>
+    <div class="pr_name">Приборы</div>
+    <div class="pr_price">{{ order.persons|default_if_none:'' }}</div>
+    <br>
+    <div class="print_comment2 fw-bold">{{ order.staff_comment|default_if_none:'' }}</div>
+    <div class="break_check"></div>
+</div>
+</body>
+<script src="{% static 'js/oder_scripts.js' %}"></script>

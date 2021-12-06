@@ -1,7 +1,6 @@
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
-from django.utils.functional import cached_property
 
 
 # _________________ КЛИЕНТЫ/ТИПЫ КЛИЕНТОВ _________________
@@ -29,7 +28,8 @@ class Client(models.Model):
     entrance = models.CharField("Подъезд", max_length=50, blank=True, null=True)
     floor = models.CharField("Этаж", max_length=10, blank=True, null=True)
     code = models.CharField("Код домофона", max_length=50, blank=True, null=True)
-    orders_count = models.PositiveIntegerField("Количество заказов", default='1', blank=True)
+    mark = models.TextField("Отметка", max_length=150, blank=True, null=True)
+    orders_count = models.PositiveIntegerField("Количество заказов", default='0', blank=True)
     client_type = models.ForeignKey(
         ClientType,
         verbose_name="Тип клиента",
