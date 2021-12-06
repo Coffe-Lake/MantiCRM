@@ -30,6 +30,16 @@ body {
     overflow: hidden;
 }
 
+.sum_left {
+    left: -5px;
+    position: relative;
+}
+
+.method_left {
+    left: -25px;
+    position: relative;
+}
+
 .pr_name {
     font-size: 13px;
     width: 175px;
@@ -98,7 +108,7 @@ body {
     width: 210px;
     min-height: 20px;
     margin-top: 5px;
-    border: 0px black solid;
+    border: 0 black solid;
 }
 
 .prc_kol {
@@ -108,7 +118,7 @@ body {
     height: 20px;
     margin-top: -20px;
     text-align: center;
-    border: 0px black solid;
+    border: 0 black solid;
 }
 
 

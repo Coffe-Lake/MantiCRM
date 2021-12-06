@@ -14,14 +14,17 @@
            class="btn btn-success mb-2 mt-2 pe-5 ps-5 text-center"
            style="width: 70mm"
            value="Печать"
-           onclick="printOrder('check_print')">
+           onclick="CallPrint('check_print')">
 </div>
 
 <div class="print" id="check_print">
     <div class="print_logo">Манты-Ман</div>
     <br>Заказ: <b>#{{ order.id }}</b>
-    <br>Оформлен: {{ order.created_at|date:'d.m.y H:i'|default_if_none:'' }}
-    <br>Доставить: {{ order.pre_order|date:'d.m к H:i'|default_if_none:'' }}
+    <br>Оформлен: {{ order.created_at|date:'d-m-y H:i'|default_if_none:'' }}
+    <br>
+    {% if order.pre_order.date != None %}
+        Доставить: <strong>{{ order.pre_order|date:'d.m к H:i'|default_if_none:'' }}</strong>
+    {% endif %}
     <br>
     <br>Заказчик: <b>{{ order.client_data.name|default_if_none:'' }}</b>
     <br>Телефон: <b>{{ order.client_data.phone|default_if_none:'' }}</b>
@@ -41,34 +44,33 @@
     <div class="pr_separator mt-2"></div>
     <div class="pr_name">Чесночный кисл-мол. соус</div>
     <div class="pr_kol">2</div>
-    <div class="pr_price">118.00</div>
+    <div class="pr_price">118.0</div>
     <div class="pr_name">Спайси-Ман (острые с гов.)</div>
     <div class="pr_kol">1</div>
-    <div class="pr_price">469.00</div>
+    <div class="pr_price">469.0</div>
     <div class="pr_name">Тейсти-Ман (с бараниной)</div>
     <div class="pr_kol">2</div>
-    <div class="pr_price">998.00</div>
+    <div class="pr_price">998.0</div>
     <div class="pr_separator mt-3"></div>
-    <div class="d-flex justify-content-between" style="width: 70mm">
-        <div>ИТОГО</div>
-        <div>1585.00</div>
-    </div>
-    <div class="d-flex justify-content-between" style="width: 70mm">
-        <div>Скидка</div>
-        <div class="fw-bold">0.00</div>
-    </div>
-    <div class="d-flex justify-content-between" style="width: 70mm">
-        <div class="fw-bold">К ОПЛАТЕ</div>
-        <div class="fw-bold">1585.00</div>
+    <div class="pr_name">ИТОГО</div>
+    <div class="pr_price sum_left">1066.0</div>
+    <div class="pr_name">Скидка</div>
+    <div class="pr_price sum_left">0.0</div>
+    <div class="print_contact" style="text-align: left;">
+        <div class="pr_name"><strong>К ОПЛАТЕ</strong></div>
+        <div class="pr_price sum_left"><strong>1066.0</strong></div>
     </div>
     <br>
-    <div class="d-flex justify-content-between" style="width: 70mm">Способ оплаты:
-        <div class="fw-bold">{{ order.get_pay_method_display }}</div>
+    <div class="pr_name">Способ оплаты:</div>
+    <div class="pr_price method_left">
+        <strong>
+            {{ order.get_pay_method_display }}
+        </strong>
     </div>
     <div class="pr_name">Приборы</div>
     <div class="pr_price">{{ order.persons|default_if_none:'' }}</div>
     <br>
-    <div class="print_comment2 fw-bold">{{ order.staff_comment|default_if_none:'' }}</div>
+    <div class="print_comment2"><strong>{{ order.staff_comment|default_if_none:'' }}</strong></div>
     <div class="break_check"></div>
 </div>
 </body>
