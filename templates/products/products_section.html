@@ -6,7 +6,7 @@
                 <div class="row row-cols-4 mb-3 justify-content-center">
                     {% for product in category.products.values %}
                         {% if product.available == True %}
-                            <button class="btn btn-sm p-1 m-1 product_button position-relative shadow-sm">
+                            <button type="button" class="btn btn-sm p-1 m-1 product_button position-relative shadow-sm">
                             <span class="position-relative d-block mb-5 line_break">{{ product.name }}</span>
                             <span class="col-7 bg-primary rounded text-white
                                                             float-end fw-bold product_price">

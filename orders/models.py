@@ -81,7 +81,7 @@ class Order(models.Model):
     paid = models.BooleanField(verbose_name="Оплачено", default=False)
     persons = models.PositiveIntegerField("Количество персон",
                                           blank=True, null=True, default=0)
-    pre_order = models.DateTimeField("Предзаказ", blank=True, null=True)
+    pre_order = models.DateTimeField("Доставить", blank=True, null=True)
     staff_comment = models.TextField("Комментарий для повара",
                                      max_length=150, blank=True, null=True)
     sales_channel = models.ForeignKey(

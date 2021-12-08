@@ -86,8 +86,8 @@ class ClientForm(forms.ModelForm):
                 attrs={
                     "type": "tel",
                     "class": "col form-control w-75 fw-bold text-center",
-                    "placeholder": "+7(___)___-__-__",
-                    "max-length": "11",
+                    "placeholder": "+7 (___) ___-__-__",
+                    "max-length": "18",
                     "onchange": "getClientData(this.value)",
                     "autofocus": "True",
                     "data-tel-input": "True",
@@ -97,6 +97,7 @@ class ClientForm(forms.ModelForm):
             'name': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-md w-75",
+                    "max-length": "30",
                 }
             ),
             'address': forms.TextInput(

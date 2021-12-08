@@ -30,11 +30,6 @@ body {
     overflow: hidden;
 }
 
-.sum_left {
-    left: -5px;
-    position: relative;
-}
-
 .method_left {
     left: -25px;
     position: relative;

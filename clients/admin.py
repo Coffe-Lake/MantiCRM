@@ -10,7 +10,8 @@ from .models import *
 class ClientAdmin(admin.ModelAdmin):
     list_display = ['name', 'phone', 'address', 'orders_count', 'id']
     readonly_fields = ['orders_count', 'created_at', 'id']
-    search_fields = ['name', 'phone', 'orders_count', 'address', 'email']
+    search_fields = ['name', 'phone', 'orders_count', 'address']
+    list_filter = ('created_at', 'updated_at')
     # list_editable = ['phone', 'address', 'email', 'gender']
 
 

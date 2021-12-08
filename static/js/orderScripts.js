@@ -1,11 +1,19 @@
-function getClientData(val) {
-    return alert("Клиент с номером: " + val + " уже есть в базе!");
-}
-
-
-function getDiscount(coupon) {
-    return alert(coupon + " активирован")
-}
+// function getClientData(val) {
+//     let settings = {
+//         "async": true,
+//         "crossDomain": true,
+//         "url": "/new_order",
+//         "method": "GET",
+//         "client": {
+//
+//         }
+//     }
+//
+//     $.ajax(settings).done(function (response) {
+//         console.log(response);
+//     });
+// }
+//
 
 //
 // $(document).ready(function () {
@@ -24,3 +32,5 @@ function getDiscount(coupon) {
 //         return false;
 //     });
 // });
+
+

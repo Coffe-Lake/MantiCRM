@@ -1,6 +1,7 @@
+from datetime import datetime, timedelta
 from pprint import pprint
-import phonenumbers
 
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
@@ -84,10 +85,12 @@ class OrdersListView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         orders = Order.objects.exclude(
-            Q(order_status="PRO") |
+            Q(pre_order__gt=timezone.now() + timedelta(hours=2)) |
+            # Q(order_status="PRO") |
             Q(order_status="COM") |
             Q(order_status="CAN")
         )
+
         return render(request, 'orders/orders_list.html', context={
             'orders': orders,
             'title': "Заказы"
@@ -98,8 +101,25 @@ class PreOrdersListView(LoginRequiredMixin, View):
     """Предзаказы"""
     redirect_to_login = True
 
+    # TODO решить время предзаказа
     def get(self, request, *args, **kwargs):
-        pre_orders = Order.objects.filter(order_status="PRO")
+        current_time = timezone.localtime()
+        before_time_preparing = current_time + timedelta(hours=2)
+        pre_orders = Order.objects.filter(
+            Q(pre_order__gt=before_time_preparing)
+            # Q(order_status='NEW')
+            # Q(order_status="PRO")
+        )
+        for item in pre_orders:
+            if item.pre_order > before_time_preparing:
+                print("\n___________")
+                print('Доставить к', item.pre_order.time())
+                print('Через 2 часа', before_time_preparing.time())
+                print("Текущее время", current_time.time())
+                pre_orders.update(order_status="PRO")
+            else:
+                pre_orders.update(order_status="NEW")
+
         return render(request, 'orders/pre_orders_list.html', context={
             'pre_orders': pre_orders,
             'title': "Предзаказы"

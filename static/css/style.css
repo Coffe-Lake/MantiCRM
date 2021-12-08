@@ -23,8 +23,8 @@ nav {
 }
 
 .nav_button {
-    padding: 20px !important;
-    max-width: 10em;
+    padding: 12px !important;
+    width: 15%;
 }
 
 .hide_scroll {

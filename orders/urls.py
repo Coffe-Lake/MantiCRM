@@ -14,5 +14,5 @@ urlpatterns = [
 
     # ________ CRUD ________
     path('create_update_order', CreateOrder.as_view(), name='create_order'),
-    # path('get_client_data', )
+
 ]
