@@ -62,7 +62,10 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <a href="{% url 'orders:check' order.id %}" class="btn btn-success text-center" target="_blank">Печать чека</a>
+            <a href="{% url 'orders:check' order.id %}"
+               class="btn btn-success text-center"
+               target="_blank">Печать чека
+            </a>
         </div>
     </div>
 {% endblock content %}

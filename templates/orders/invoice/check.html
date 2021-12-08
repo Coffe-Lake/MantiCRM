@@ -61,12 +61,7 @@
         <div class="pr_price sum_left"><strong>1066.0</strong></div>
     </div>
     <br>
-    <div class="pr_name">Способ оплаты:</div>
-    <div class="pr_price method_left">
-        <strong>
-            {{ order.get_pay_method_display }}
-        </strong>
-    </div>
+    <div class="pr_name" style="width: 260px">Способ оплаты: <strong>{{ order.get_pay_method_display }}</strong></div>
     <div class="pr_name">Приборы</div>
     <div class="pr_price">{{ order.persons|default_if_none:'' }}</div>
     <br>
@@ -74,4 +69,4 @@
     <div class="break_check"></div>
 </div>
 </body>
-<script src="{% static 'js/oder_scripts.js' %}"></script>
+<script src="{% static 'js/printCheck.js' %}"></script>

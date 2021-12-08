@@ -22,8 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
     path('', include('orders.urls', namespace='orders')),
-    path('cart/', include('cart.urls', namespace='cart')),
+    # path('cart/', include('cart.urls', namespace='cart')),
 
+    # <--- AUTH --->
     path('accounts/', include('django.contrib.auth.urls')),
     path('login/', auth_views.LoginView.as_view(
         template_name='auth/login.html', redirect_authenticated_user=True), name='login'),

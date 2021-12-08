@@ -11,12 +11,13 @@
             <div class="row">
                 <!-- СЕКЦИЯ КЛИЕНТА -->
                 <section class="col hide_scroll new_order_section block_shadow ">
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex">
                         <table class="mb-3 mt-3">
                             <tbody>
                             <tr>
                                 <th colspan="1">Статус заказа:</th>
                                 <td colspan="2">{{ form_order.order_status }}</td>
+                                <td colspan="2"><h5>Заказ №{{ new_order_pk }}</h5></td>
                             </tr>
                             <tr>
                                 <th colspan="1">Телефон:</th>
@@ -202,10 +203,10 @@
                             <h3 class="fw-bold">К оплате: 512 ₽</h3>
                         </div>
                         <div class="text-center">
-                            {#                            <a class ="btn btn-success" href="{% url "orders:invoice_detail" order.pk %}" target="_blank">Чек</a>#}
-                            <button class="btn btn-success" id="print" value onclick="printOrder('order')">
-                                Печатать
-                            </button>
+                            <input type="submit"
+                                   class="btn btn-success mb-2 mt-2 pe-5 ps-5 text-center"
+                                   value="Печать"
+                                   onclick="CallPrint('check_print')">
                             <input type="submit" class="btn btn-primary m-5" value="Сохранить"/>
                         </div>
                     </div>

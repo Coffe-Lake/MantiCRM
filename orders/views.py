@@ -3,6 +3,7 @@ import phonenumbers
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.urls import reverse_lazy
 
 from orders.forms import *
@@ -10,11 +11,27 @@ from orders.forms import *
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.views import View
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView
+
+from products.models import Category
 
 
-class NewOrderView(LoginRequiredMixin, View):
+class NewOrderView(View):
     """Новый заказ"""
+    redirect_to_login = True
+
+    def get(self, request, *args, **kwargs):
+        context = {
+            'categories': Category.objects.filter(available=True),
+            'form_client': ClientForm,
+            'form_order': OrderForm,
+            'new_order_pk': Order.objects.all().count() + 1,
+            'title': "Новый заказ"
+        }
+        return render(request, 'orders/new_order.html', context)
+
+
+class CreateOrder(LoginRequiredMixin, View):
     raise_exception = True
 
     def post(self, request):
@@ -79,7 +96,7 @@ class OrdersListView(LoginRequiredMixin, View):
 
 class PreOrdersListView(LoginRequiredMixin, View):
     """Предзаказы"""
-    raise_exception = True
+    redirect_to_login = True
 
     def get(self, request, *args, **kwargs):
         pre_orders = Order.objects.filter(order_status="PRO")
@@ -91,7 +108,7 @@ class PreOrdersListView(LoginRequiredMixin, View):
 
 class CompletedOrdersListView(LoginRequiredMixin, View):
     """Завершенные"""
-    raise_exception = True
+    redirect_to_login = True
 
     def get(self, request, *args, **kwargs):
         completed_orders = Order.objects.filter(Q(order_status="COM") |
@@ -106,7 +123,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     """Детали заказа"""
     model = Order
     extra_context = {'title': "Детали заказа"}
-    raise_exception = True
+    redirect_to_login = True
     success_url = reverse_lazy('order_detail')
 
 
@@ -114,5 +131,13 @@ class CheckDetailView(LoginRequiredMixin, DetailView):
     model = Order
     template_name = 'orders/invoice/check.html'
     extra_context = {'title': "Печать чека"}
-    raise_exception = True
+    redirect_to_login = True
     success_url = reverse_lazy('check')
+
+# @login_required
+# def clientPhone(request, phone):
+#     client_phone = request.GET.get('phone', None)
+#     response = {
+#         'is_taken': Order.objects.filter(phone=client_phone)
+#     }
+#     return JsonResponse(response)

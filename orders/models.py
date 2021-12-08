@@ -120,8 +120,6 @@ class Order(models.Model):
     def ordersCount(self):
         orders_count = Order.objects.filter(id=self.client_data_id).count()
 
-
-
     # def get_absolute_url(self):
     #     return reverse("order_detail", kwargs={'pk': self.pk})
     #
