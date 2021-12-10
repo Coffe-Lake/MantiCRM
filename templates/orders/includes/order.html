@@ -5,11 +5,25 @@
 
             <th scope="col" class="col-1">
                 <label>
-                    <select name="select" class="form-select" form="form_order">
-                        <option value="{{ order.NEW }}">Новый</option>
-                        <option value="{{ order.PRO }}">Предзаказ</option>
-                        <option value="{{ order.PRP }}">Готовится</option>
-                        <option value="{{ order.order_status }}">{{ order.order_status }}</option>
+                    <select name="order_status"
+                            class="form-select"
+                            id="id_order_status"
+                            onchange=""
+                    >
+                        <option value="NEW" selected="">Новый</option>
+
+                        <option value="PRO">Предзаказ</option>
+
+                        <option value="PRP">Готовится</option>
+
+                        <option value="RDY">Готов</option>
+
+                        <option value="DLV">Доставляется</option>
+
+                        <option value="COM">Выполнен</option>
+
+                        <option value="CAN">Отменен</option>
+
                     </select>
                 </label>
             </th>

@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
     path('', include('orders.urls', namespace='orders')),
+    path('', include('clients.urls', namespace='clients')),
     # path('cart/', include('cart.urls', namespace='cart')),
 
     # <--- AUTH --->

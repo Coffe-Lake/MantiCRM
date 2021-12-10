@@ -1,38 +1,37 @@
+from django.http import JsonResponse, HttpResponse
+
 from django.shortcuts import render
+
 from django.views import View
+from .models import Client
+from orders.models import Order
 
 
-class ClientView(View):
-    def post(self, request, *args, **kwargs):
-        pass
+def validate_client(request):
+    """Проверка наличия клиента по номеру телефона"""
 
-# TODO доработать
-# class AddClient(View):
-#     """Добавить клиент"""
-#
-#     def post(self, request, pk):
-#         form = NewOrderForm(request.POST)
-#         client = Client.objects.create(form)
-#         if form.is_valid():
-#             form = form.save(commit=False)
-#             form.client = client
-#             form.save()
-#         return redirect(client.get_absolute_url())
+    client_phone = request.GET.get('phone')
+    print(request.GET)
+    client = Client.objects.all()
+    count_orders = Order.objects.filter(client_data__phone=client_phone).count()
+    client_exist = client.filter(phone=client_phone).exists()
 
-# def get_client(request):
-#     check = request.POST.get("submit")
-#
-#     firstname = ''
-#     emailvalue = ''
-#
-#     form = UserForm(request.POST or None)
-#     if form.is_valid():
-#         firstname = form.cleaned_data.get("first_name")
-#         lastname = form.cleaned_data.get("last_name")
-#         emailvalue = form.cleaned_data.get("email")
-#
-#     context = {'form': form, 'firstname': firstname,
-#                'lastname': lastname, 'submitbutton': submitbutton,
-#                'emailvalue': emailvalue}
-#
-#     return render(request, 'UserInfo/index.html', context)
+    if client_exist:
+        client_data = client.get(phone=client_phone)
+        response = {
+            'is_taken': client_exist,
+            'name': client_data.name,
+            'address': client_data.address,
+            'home': client_data.home,
+            'building': client_data.building,
+            'room': client_data.room,
+            'entrance': client_data.entrance,
+            'floor': client_data.floor,
+            'code': client_data.code,
+            'mark': client_data.mark,
+            'count_orders': count_orders,
+        }
+        print(response)
+        return JsonResponse(response)
+    else:
+        return HttpResponse('Клиента не существует!')

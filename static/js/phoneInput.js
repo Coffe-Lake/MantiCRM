@@ -40,14 +40,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"].indexOf(inputNumbersValue[0]) > -1) {
-            if (inputNumbersValue[0] === "9") inputNumbersValue = "7" + inputNumbersValue;
-            let firstSymbols = "+7" // (inputNumbersValue[0] === "8") ? "8" : "+7";
-            formattedInputValue = input.value = firstSymbols + " ";
+            if (inputNumbersValue[0] === "9") inputNumbersValue += inputNumbersValue  //"7" + inputNumbersValue;
+            let firstSymbols = "8" // (inputNumbersValue[0] === "8") ? "8" : "+7";
+            formattedInputValue = input.value = firstSymbols;
             if (inputNumbersValue.length > 1) {
                 formattedInputValue += '(' + inputNumbersValue.substring(1, 4);
             }
             if (inputNumbersValue.length >= 5) {
-                formattedInputValue += ') ' + inputNumbersValue.substring(4, 7);
+                formattedInputValue += ')' + inputNumbersValue.substring(4, 7);
             }
             if (inputNumbersValue.length >= 8) {
                 formattedInputValue += '-' + inputNumbersValue.substring(7, 9);

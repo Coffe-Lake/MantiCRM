@@ -1,10 +1,9 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 from pprint import pprint
 
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
 from django.urls import reverse_lazy
 
 from orders.forms import *
@@ -15,10 +14,12 @@ from django.views import View
 from django.views.generic import DetailView
 
 from products.models import Category
+from .models import Order, OrderItem
 
 
 class NewOrderView(View):
     """Новый заказ"""
+
     redirect_to_login = True
 
     def get(self, request, *args, **kwargs):
@@ -33,6 +34,8 @@ class NewOrderView(View):
 
 
 class CreateOrder(LoginRequiredMixin, View):
+    """Форма создания заказа"""
+
     raise_exception = True
 
     def post(self, request):
@@ -80,7 +83,8 @@ class CreateOrder(LoginRequiredMixin, View):
 
 
 class OrdersListView(LoginRequiredMixin, View):
-    """Список заказов"""
+    """Список заказов в работе"""
+
     redirect_to_login = True
 
     def get(self, request, *args, **kwargs):
@@ -98,10 +102,10 @@ class OrdersListView(LoginRequiredMixin, View):
 
 
 class PreOrdersListView(LoginRequiredMixin, View):
-    """Предзаказы"""
+    """Список предзаказов"""
+
     redirect_to_login = True
 
-    # TODO решить время предзаказа
     def get(self, request, *args, **kwargs):
         current_time = timezone.localtime()
         before_time_preparing = current_time + timedelta(hours=2)
@@ -117,8 +121,6 @@ class PreOrdersListView(LoginRequiredMixin, View):
                 print('Через 2 часа', before_time_preparing.time())
                 print("Текущее время", current_time.time())
                 pre_orders.update(order_status="PRO")
-            else:
-                pre_orders.update(order_status="NEW")
 
         return render(request, 'orders/pre_orders_list.html', context={
             'pre_orders': pre_orders,
@@ -127,7 +129,8 @@ class PreOrdersListView(LoginRequiredMixin, View):
 
 
 class CompletedOrdersListView(LoginRequiredMixin, View):
-    """Завершенные"""
+    """Список завершенных заказов"""
+
     redirect_to_login = True
 
     def get(self, request, *args, **kwargs):
@@ -141,6 +144,7 @@ class CompletedOrdersListView(LoginRequiredMixin, View):
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
     """Детали заказа"""
+
     model = Order
     extra_context = {'title': "Детали заказа"}
     redirect_to_login = True
@@ -148,16 +152,10 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 
 class CheckDetailView(LoginRequiredMixin, DetailView):
+    """Чек"""
+
     model = Order
     template_name = 'orders/invoice/check.html'
     extra_context = {'title': "Печать чека"}
     redirect_to_login = True
     success_url = reverse_lazy('check')
-
-# @login_required
-# def clientPhone(request, phone):
-#     client_phone = request.GET.get('phone', None)
-#     response = {
-#         'is_taken': Order.objects.filter(phone=client_phone)
-#     }
-#     return JsonResponse(response)
