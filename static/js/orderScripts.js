@@ -39,20 +39,13 @@ $(document).ready(function () {
             }
         )
 
-        // $('#order').keydown(function (event) {
-        //     if (event.keyCode === 13) {
-        //         event.preventDefault();
-        //         return false;
-        //     }
-        // });
 
-        $(document).keypress(function (event) {
+        $('#order').keydown(function (event) {
             if (event.keyCode === 13) {
-                $(event.target).tab();
                 event.preventDefault();
+                return false;
             }
         });
-
 
     }
 )
