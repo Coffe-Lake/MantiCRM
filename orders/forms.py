@@ -22,49 +22,49 @@ class OrderForm(forms.ModelForm):
         widgets = {
             'order_status': forms.Select(
                 attrs={
-                    'class': "form-select fw-bold w-75",
+                    'class': "form-select form-select-sm fw-bold w-75",
                 }
             ),
             'pre_order': forms.TextInput(
                 attrs={
                     'type': "datetime-local",
-                    'class': "col form-control w-100 fw-bold",
+                    'class': "col form-control form-control-sm w-100 fw-bold",
                 }
             ),
             'staff_comment': forms.Textarea(
                 attrs={
-                    'class': "col form-control w-75",
+                    'class': "col form-control form-control-sm w-75",
                     'rows': '3',
                 }
             ),
             'sales_channel': forms.Select(
                 attrs={
-                    'class': "form-select w-50"
+                    'class': "form-select form-select-sm w-75"
                 }
             ),
             'courier': forms.Select(
                 attrs={
-                    'class': "form-select w-50"
+                    'class': "form-select form-select-sm w-75"
                 }
             ),
             'persons': forms.NumberInput(
                 attrs={
-                    'class': "form-control w-25 p-2"
+                    'class': "form-control form-control-sm w-50 p-2"
                 }
             ),
             'delivery_price': forms.Select(
                 attrs={
-                    'class': "form-select w-50"
+                    'class': "form-select form-select-sm w-50"
                 }
             ),
             'discount_sum': forms.Select(
                 attrs={
-                    'class': "form-select w-100"
+                    'class': "form-select form-select-sm w-100"
                 }
             ),
             'pay_method': forms.Select(
                 attrs={
-                    'class': "form-select w-75"
+                    'class': "form-select form-select-sm w-75"
                 }
             ),
             'paid': forms.CheckboxInput(
@@ -85,7 +85,7 @@ class ClientForm(forms.ModelForm):
             'phone': forms.TextInput(
                 attrs={
                     "type": "tel",
-                    "class": "col form-control w-75 fw-bold text-center",
+                    "class": "col form-control form-control-sm w-75 fw-bold text-center",
                     "placeholder": "8(___)___-__-__",
                     "max-length": "18",
                     "autofocus": "True",
@@ -95,57 +95,57 @@ class ClientForm(forms.ModelForm):
             ),
             'name': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md w-75",
+                    'class': "form-control form-control-sm w-75",
                     "max-length": "30",
                 }
             ),
             'address': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md",
-                    'style': 'width: 393px',
+                    'class': "form-control form-control-sm",
+                    'style': 'width: 345px',
                     'cols': "30",
                     'rows': "3",
                 }
             ),
             'home': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md",
+                    'class': "form-control form-control-sm",
                     'style': "width: 130px",
                 }
             ),
             'building': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md",
+                    'class': "form-control form-control-sm",
                     'style': "width: 130px",
                 }
             ),
             'room': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md",
+                    'class': "form-control form-control-sm",
                     'style': "width: 130px",
                 }
             ),
             'entrance': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md",
+                    'class': "form-control form-control-sm",
                     'style': "width: 130px",
                 }
             ),
             'floor': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md ",
+                    'class': "form-control form-control-sm ",
                     'style': "width: 130px",
                 }
             ),
             'code': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-md",
+                    'class': "form-control form-control-sm",
                     'style': "width: 130px",
                 }
             ),
             'mark': forms.Textarea(
                 attrs={
-                    'class': "col form-control w-75",
+                    'class': "col form-control form-control-sm w-75",
                     'rows': '3',
                 }
             ),

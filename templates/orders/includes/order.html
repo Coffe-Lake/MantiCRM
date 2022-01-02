@@ -6,10 +6,8 @@
             <th scope="col" class="col-1">
                 <label>
                     <select name="order_status"
-                            class="form-select"
-                            id="id_order_status"
-                            onchange=""
-                    >
+                            class="form-select form-select-sm"
+                            id="id_order_status">
                         <option value="NEW" selected="">Новый</option>
 
                         <option value="PRO">Предзаказ</option>
@@ -84,10 +82,10 @@
     <div class="text-end mb-2 mt-2">
         <a href="{% url 'orders:order_detail' order.id %}"
            style="text-decoration: none"
-           class="btn btn-md btn-warning">Редактировать
+           class="btn btn-sm btn-warning">Редактировать
         </a>
         <a href="{% url 'orders:check' order.id %}"
-           class="btn btn-md btn-info text-decoration-none"
+           class="btn btn-sm btn-info text-decoration-none"
            target="_blank">Печать чека
         </a>
     </div>
