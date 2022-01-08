@@ -109,6 +109,8 @@ class Order(models.Model):
         verbose_name="Оператор",
     )
 
+    # order_pk = models.AutoField(primary_key=True, db_index=True)
+
     class Meta:
         verbose_name = "заказ"
         verbose_name_plural = "заказы"
@@ -116,9 +118,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ №{self.pk}"
-
-    def ordersCount(self):
-        orders_count = Order.objects.filter(id=self.client_data_id).count()
 
     # def get_absolute_url(self):
     #     return reverse("order_detail", kwargs={'pk': self.pk})

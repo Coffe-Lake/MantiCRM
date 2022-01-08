@@ -2,12 +2,16 @@ $(document).ready(function () {
 
 
         $('#id_phone').on('change', function getClientData() {
-                let phone = $(this).val()
+                let phone = $(this).val();
+                const csrfToken = $("input[name=csrfmiddlewaretoken]").val();
                 $.ajax({
-                        async: true,
                         url: '/validate_client',
-                        data: {'phone': phone},
-                        type: 'GET',
+                        data: {
+                            'phone': phone,
+                            'csrfmiddlewaretoken': csrfToken,
+                        },
+                        method: 'POST',
+                        mode: 'same-origin',
                         success: function (response) {
                             if (response.is_taken === true) {
                                 $('#id_name').val(response.name);
@@ -31,9 +35,51 @@ $(document).ready(function () {
                                 $('#id_floor').val(null);
                                 $('#id_code').val(null);
                                 $('#id_mark').val(null);
-
                             }
                         },
+                    }
+                )
+            }
+        )
+
+
+        $(document).on('change', '#list_order_status', function setOrderStatus() {
+                let order_status = $(this).val();
+                const order_id = $('#hide_id').val();
+                const csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                        url: '/set_status',
+                        data: {
+                            'order_status': order_status,
+                            'order_id': order_id,
+                            'csrfmiddlewaretoken': csrfToken,
+                        },
+                        method: 'POST',
+                        success: function (taken_status) {
+                            document.getElementById('stat')
+                                .innerHTML = taken_status.new_status
+                        }
+                    }
+                )
+            }
+        )
+
+        $(document).on('change', function setOrderStatus() {
+                let courier_id = $('#list_order_courier').val();
+                const order_id = $('#hide_id').val();
+                const csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                        url: '/set_courier',
+                        data: {
+                            'courier_id': courier_id,
+                            'order_id': order_id,
+                            'csrfmiddlewaretoken': csrfToken,
+
+                        },
+                        method: 'POST',
+                        success: function (taken_courier) {
+                            alert("Заказ доставит " + taken_courier.courier)
+                        }
                     }
                 )
             }

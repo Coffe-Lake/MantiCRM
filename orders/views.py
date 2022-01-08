@@ -1,8 +1,8 @@
 from datetime import timedelta
 from pprint import pprint
 
+from django.http import JsonResponse
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
@@ -23,11 +23,16 @@ class NewOrderView(View):
     redirect_to_login = True
 
     def get(self, request, *args, **kwargs):
+        new_order_pk = Order.objects.first()
+        if new_order_pk is None:
+            new_order_pk = 'Заказ №1'
+        else:
+            new_order_pk = f'Заказ №{Order.objects.first().id + 1}'
         context = {
             'categories': Category.objects.filter(available=True),
             'form_client': ClientForm,
             'form_order': OrderForm,
-            'new_order_pk': Order.objects.all().count() + 1,
+            'new_order_pk': new_order_pk,
             'title': "Новый заказ"
         }
         return render(request, 'orders/new_order.html', context)
@@ -90,13 +95,12 @@ class OrdersListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         orders = Order.objects.exclude(
             Q(pre_order__gt=timezone.now() + timedelta(hours=2)) |
-            # Q(order_status="PRO") |
             Q(order_status="COM") |
             Q(order_status="CAN")
         )
-
         return render(request, 'orders/orders_list.html', context={
             'orders': orders,
+            'form_status': OrderCourierForm(),
             'title': "Заказы"
         })
 
@@ -124,6 +128,7 @@ class PreOrdersListView(LoginRequiredMixin, View):
 
         return render(request, 'orders/pre_orders_list.html', context={
             'pre_orders': pre_orders,
+            'form_status': OrderCourierForm(),
             'title': "Предзаказы"
         })
 
@@ -138,6 +143,7 @@ class CompletedOrdersListView(LoginRequiredMixin, View):
                                                 Q(order_status="CAN"))
         return render(request, 'orders/complete_orders_list.html', context={
             'completed_orders': completed_orders,
+            'form_status': OrderCourierForm(),
             'title': "Завершенные"
         })
 
@@ -159,3 +165,37 @@ class CheckDetailView(LoginRequiredMixin, DetailView):
     extra_context = {'title': "Печать чека"}
     redirect_to_login = True
     success_url = reverse_lazy('check')
+
+
+def set_status(request):
+    """Смена статуса заказа"""
+
+    updated_order_status = request.POST.get('order_status')
+    order_id = request.POST.get('order_id')
+    print(request.POST)
+    order = Order.objects.get(pk=order_id)
+    print("Старый статус", order.order_status, order_id)
+    order.order_status = updated_order_status
+    order.save()
+    print("Новый статус", order.order_status, order_id)
+    taken_status = {
+        'new_status': order.order_status,
+    }
+    return JsonResponse(taken_status)
+
+
+def set_courier(request):
+    """Смена статуса курьера"""
+
+    updated_order_courier = request.POST.get('courier_id')
+    order_id = request.POST.get('order_id')
+    print(request.POST)
+    order = Order.objects.get(pk=order_id)
+    print("Старый курьер", order.order_status, order_id)
+    order.courier_id = updated_order_courier
+    order.save()
+    print("Новый курьер", order.courier_id, order_id)
+    taken_courier = {
+        'courier': order.courier_id,
+    }
+    return JsonResponse(taken_courier)

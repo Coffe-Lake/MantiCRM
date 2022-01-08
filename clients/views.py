@@ -1,17 +1,18 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 
 from django.shortcuts import render
 
-from django.views import View
 from .models import Client
 from orders.models import Order
 
 
+@login_required
 def validate_client(request):
     """Проверка наличия клиента по номеру телефона"""
 
-    client_phone = request.GET.get('phone')
-    print(request.GET)
+    client_phone = request.POST.get('phone')
+    print(request.POST)
     client = Client.objects.all()
     count_orders = Order.objects.filter(client_data__phone=client_phone).count()
     client_exist = client.filter(phone=client_phone).exists()

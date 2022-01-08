@@ -150,3 +150,17 @@ class ClientForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class OrderCourierForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ('courier',)
+        widgets = {
+            'courier': forms.Select(
+                attrs={
+                    'class': "form-select fw-bold",
+                    'id': 'list_order_courier'
+                }
+            ),
+        }

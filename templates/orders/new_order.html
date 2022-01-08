@@ -17,8 +17,7 @@
                             <tr>
                                 <th colspan="1">Статус заказа:</th>
                                 <td colspan="2">{{ form_order.order_status }}</td>
-                                <td colspan="2" class="alert-secondary text-center"><h5>Заказ
-                                    №{{ new_order_pk }}</h5></td>
+                                <td colspan="2" class="alert-secondary text-center"><h5>{{ new_order_pk }}</h5></td>
                             </tr>
                             <tr>
                                 <th colspan="1">Телефон:</th>
@@ -96,7 +95,7 @@
                             <tr>
                                 <th>Промокод:</th>
                                 <td>{{ form_order.discount_sum.coupon }}</td>
-                            </tr
+                            </tr>
                             <tr>
                                 <th>Скидка:</th>
                                 <td>{{ form_order.discount_sum }}</td>

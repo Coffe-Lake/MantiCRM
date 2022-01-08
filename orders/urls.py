@@ -15,4 +15,8 @@ urlpatterns = [
     # ________ CRUD ________
     path('create_update_order', CreateOrder.as_view(), name='create_order'),
 
+    # ________ AJAX ________
+    path('set_status', set_status, name='set_status'),
+    path('set_courier', set_courier, name='set_courier'),
+
 ]

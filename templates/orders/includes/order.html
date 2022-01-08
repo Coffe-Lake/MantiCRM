@@ -1,84 +1,86 @@
 <div class="shadow-sm mb-2">
     <table class="table table-bordered mb-1 mt-1" style="background-color: #eaf7ff; border-color: steelblue">
         <tr class="text-center" style="vertical-align: middle;">
-            <th scope="col" class="col-1" style="width: 5%">#{{ order.id }}</th>
 
-            <th scope="col" class="col-1">
-                <label>
+
+            <form method="post">
+                {% csrf_token %}
+                <th scope="col" class="col-1" style="width: 5%">#{{ order.pk }}</th>
+                <th scope="col" class="col-1" id="status_data">
+                    <input type="hidden" value="{{ order.pk }}" id="hide_id">
                     <select name="order_status"
-                            class="form-select"
-                            id="id_order_status"
-                            onchange=""
-                    >
-                        <option value="NEW" selected="">Новый</option>
+                            class="form-select fw-bold"
+                            id="list_order_status">
 
-                        <option value="PRO">Предзаказ</option>
+                        <option value="NEW" selected>новый</option>
 
-                        <option value="PRP">Готовится</option>
+                        <option value="PRP">готовится</option>
 
-                        <option value="RDY">Готов</option>
+                        <option value="RDY">готов</option>
 
-                        <option value="DLV">Доставляется</option>
+                        <option value="DLV">доставляется</option>
 
-                        <option value="COM">Выполнен</option>
+                        <option value="COM">выполнен</option>
 
-                        <option value="CAN">Отменен</option>
+                        <option value="CAN">отменен</option>
 
                     </select>
-                </label>
-            </th>
-            <td class="col-1">
-                <table class="m-auto">
-                    <tbody>
-                    <tr>
-                        <td class="">
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        {{ order.created_at|time:'H:i' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        {{ order.updated_at|date:'d.m' }}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="ps-4 pe-0">
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td style="color: blue">
-                                        {{ order.pre_order|time:'H:i'|default:'-------' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="color: blue">
-                                        {{ order.pre_order|date:'d.m'|default:'-------' }}
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
-            <th scope="col" class="col-2 text-start">{{ order.client_data.address|default_if_none:'' }}</th>
-            <th scope="col" class="col-1">
-                <span>{{ order.client_data.name.title|default_if_none:'' }}</span><br>
-                <span>{{ order.client_data.phone|default_if_none:'' }}</span>
-            </th>
-            {% if order.paid == True %}
-                <th scope="col" class="col-1 fs-3" style="background-color: limegreen">1616 ₽</th>
-            {% else %}
-                <th scope="col" class="col-1 fs-3" style="background-color: indianred">1616 ₽</th>
-            {% endif %}
-            <th scope="col" class="col-1">{{ order.courier|default_if_none:'--------' }}</th>
-            <th scope="col" class="col-1">{{ order.operator.first_name|default:order.operator }}</th>
+                    <p id="stat">{{ order.get_order_status_display }}</p>
+                </th>
+
+                <td class="col-1">
+                    <table class="m-auto">
+                        <tbody>
+                        <tr>
+                            <td class="">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            {{ order.created_at|time:'H:i' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {{ order.updated_at|date:'d.m' }}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="ps-4 pe-0">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td style="color: blue">
+                                            {{ order.pre_order|time:'H:i'|default:'-------' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: blue">
+                                            {{ order.pre_order|date:'d.m'|default:'-------' }}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <th scope="col" class="col-2 text-start">{{ order.client_data.address|default_if_none:'' }}</th>
+                <th scope="col" class="col-1">
+                    <span>{{ order.client_data.name.title|default_if_none:'' }}</span><br>
+                    <span id="id_phone_for_status">{{ order.client_data.phone|default_if_none:'' }}</span>
+                </th>
+                {% if order.paid == True %}
+                    <th scope="col" class="col-1 fs-3" style="background-color: limegreen">1616 ₽</th>
+                {% else %}
+                    <th scope="col" class="col-1 fs-3" style="background-color: indianred">1616 ₽</th>
+                {% endif %}
+                <th scope="col" class="col-1">{{ form_status.courier }}</th>
+                <th scope="col" class="col-1">{{ order.operator.first_name|default:order.operator }}</th>
+            </form>
         </tr>
     </table>
     <div class="text-end mb-2 mt-2">
@@ -92,4 +94,3 @@
         </a>
     </div>
 </div>
-
