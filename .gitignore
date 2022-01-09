@@ -2,7 +2,7 @@
 *venv
 
 # igrnore db
-db.sqlite3
+old_db.sqlite3
 
 # ignore idea
 .idea

@@ -8,17 +8,10 @@
                 <th scope="col" class="col-1" style="width: 5%">#{{ order.pk }}</th>
                 <th scope="col" class="col-1" id="status_data">
                     <input type="hidden" value="{{ order.pk }}" id="hide_id">
-                    <select name="order_status"
-<<<<<<< HEAD
-                            class="form-select fw-bold"
-                            id="list_order_status">
-=======
-                            class="form-select form-select-sm"
-                            id="id_order_status">
-                        <option value="NEW" selected="">Новый</option>
->>>>>>> refs/remotes/origin/master
-
-                        <option value="NEW" selected>новый</option>
+                    <label for="id_order_status"></label><select name="order_status"
+                                                                 class="form-select fw-bold"
+                                                                 id="id_order_status">
+                        <option value="NEW">новый</option>
 
                         <option value="PRP">готовится</option>
 
