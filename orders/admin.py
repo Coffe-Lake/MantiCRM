@@ -19,3 +19,5 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('created_at', 'updated_at')
     save_on_top = True
     inlines = [OrderItemLine]
+
+

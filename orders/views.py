@@ -28,6 +28,8 @@ class NewOrderView(View):
             new_order_pk = 'Заказ №1'
         else:
             new_order_pk = f'Заказ №{Order.objects.first().id + 1}'
+        # Номер нового заказа
+
         context = {
             'categories': Category.objects.filter(available=True),
             'form_client': ClientForm,
@@ -67,14 +69,14 @@ class CreateOrder(LoginRequiredMixin, View):
                 phone=client_instance.phone,
                 defaults=update_values
             )
-            # Создание и обновление клиента
+            # Создать или обновить данные клиента
             if created:
                 print(f"Клиент {update_client} создан ")
             else:
                 print(f"Данные {update_client} обновлены")
+            # Показать статус добавления клиента в запросах
             update_client.save()
             # Сохраняем клиента перед сохранением заказа, для передачи заказу id клиента
-
             client_pk = Client.objects.get(phone=client_instance.phone).id
             # Возвращаем из БД "ID" клиента
             order_instance = form_order.save(commit=False)
@@ -83,8 +85,10 @@ class CreateOrder(LoginRequiredMixin, View):
             # Сохраняем в экземпляр оператора создавшего заказ
             order_instance.client_data_id = client_pk
             # Присваиваем клиенту заказ по client_id
-            form_order.save()  # Сохраняем заказа
+            form_order.save()
+            # Сохраняем заказа
         return redirect('orders:orders_list')
+        # TODO доработать формсет, добавить корзину
 
 
 class OrdersListView(LoginRequiredMixin, View):
@@ -98,6 +102,7 @@ class OrdersListView(LoginRequiredMixin, View):
             Q(order_status="COM") |
             Q(order_status="CAN")
         )
+        # Вывести все заказы и предзаказы за 2 часа до доставки
         return render(request, 'orders/orders_list.html', context={
             'orders': orders,
             'form_status': OrderCourierForm(),
@@ -115,16 +120,12 @@ class PreOrdersListView(LoginRequiredMixin, View):
         before_time_preparing = current_time + timedelta(hours=2)
         pre_orders = Order.objects.filter(
             Q(pre_order__gt=before_time_preparing)
-            # Q(order_status='NEW')
-            # Q(order_status="PRO")
         )
+        # Перенести в предзаказы, время которых более 2х часов
         for item in pre_orders:
             if item.pre_order > before_time_preparing:
-                print("\n___________")
-                print('Доставить к', item.pre_order.time())
-                print('Через 2 часа', before_time_preparing.time())
-                print("Текущее время", current_time.time())
                 pre_orders.update(order_status="PRO")
+        # Поменять статус заказа на предзаказ
 
         return render(request, 'orders/pre_orders_list.html', context={
             'pre_orders': pre_orders,
@@ -141,6 +142,7 @@ class CompletedOrdersListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         completed_orders = Order.objects.filter(Q(order_status="COM") |
                                                 Q(order_status="CAN"))
+        # Фильтровать отмененные и завершенные заказы
         return render(request, 'orders/complete_orders_list.html', context={
             'completed_orders': completed_orders,
             'form_status': OrderCourierForm(),
@@ -173,11 +175,11 @@ def set_status(request):
     updated_order_status = request.POST.get('order_status')
     order_id = request.POST.get('order_id')
     print(request.POST)
-    order = Order.objects.get(pk=order_id)
-    print("Старый статус", order.order_status, order_id)
+    print(updated_order_status)
+    print(order_id)
+    order = Order.objects.get(id=order_id)
     order.order_status = updated_order_status
     order.save()
-    print("Новый статус", order.order_status, order_id)
     taken_status = {
         'new_status': order.order_status,
     }
@@ -185,16 +187,13 @@ def set_status(request):
 
 
 def set_courier(request):
-    """Смена статуса курьера"""
+    """Установка курьера"""
 
     updated_order_courier = request.POST.get('courier_id')
     order_id = request.POST.get('order_id')
-    print(request.POST)
     order = Order.objects.get(pk=order_id)
-    print("Старый курьер", order.order_status, order_id)
     order.courier_id = updated_order_courier
     order.save()
-    print("Новый курьер", order.courier_id, order_id)
     taken_courier = {
         'courier': order.courier_id,
     }

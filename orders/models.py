@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 
 from django.db import models
 
-
 from clients.models import *
 from delivery.models import *
 from marketing.models import *

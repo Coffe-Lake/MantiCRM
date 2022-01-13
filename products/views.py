@@ -1,3 +1,6 @@
+from django.shortcuts import get_object_or_404, render
+
+from cart.forms import CartAddProductForm
 from products.models import *
 from orders.models import Order
 from orders.forms import OrderForm, ClientForm
@@ -30,3 +33,13 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 
     def get_queryset(self):
         return Product.objects.filter(available=True)
+
+
+def product_detail(request, id, slug):
+    product = get_object_or_404(Product,
+                                id=id,
+                                slug=slug,
+                                available=True)
+    cart_product_form = CartAddProductForm()
+    return render(request, "products/product_detail.html", {'product': product,
+                                                        'cart_product_form': cart_product_form})

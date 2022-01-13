@@ -7,11 +7,12 @@
                 {% csrf_token %}
                 <th scope="col" class="col-1" style="width: 5%">#{{ order.pk }}</th>
                 <th scope="col" class="col-1" id="status_data">
-                    <input type="hidden" value="{{ order.pk }}" id="hide_id">
-                    <label for="id_order_status"></label><select name="order_status"
-                                                                 class="form-select fw-bold"
-                                                                 id="id_order_status">
-                        <option value="NEW">новый</option>
+                    {#                    <input type="hidden" id="order-pk" data-order-id="{{ order.pk }}">#}
+                    <select name="order_status"
+                            class="form-select fw-bold"
+                            id="id_order_status"
+                            data-order-id="{{ order.pk }}">
+                        <option value="NEW" selected>новый</option>
 
                         <option value="PRP">готовится</option>
 
@@ -83,10 +84,13 @@
         </tr>
     </table>
     <div class="text-end mb-2 mt-2">
+
+        <!-- #TODO Заменить заглушку на order_update -->
         <a href="{% url 'orders:order_detail' order.id %}"
            style="text-decoration: none"
            class="btn btn-sm btn-warning">Редактировать
         </a>
+
         <a href="{% url 'orders:check' order.id %}"
            class="btn btn-sm btn-info text-decoration-none"
            target="_blank">Печать чека

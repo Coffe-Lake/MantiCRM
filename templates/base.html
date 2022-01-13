@@ -13,7 +13,7 @@
           crossorigin="anonymous">
     <title>{% block title %}{% endblock title %}</title>
 </head>
-<body>
+<body id="content">
 
 <!-- БЛОК НАВИГАЦИИ -->
 {% block navbar %}{% endblock navbar %}
@@ -23,7 +23,7 @@
 
 <!-- БЛОК КОНТЕНТА -->
 {% block content %}{% endblock content %}
-
+{#<div id="content"></div>#}
 <!-- БЛОК ПОДВАЛА -->
 {% block javascript %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

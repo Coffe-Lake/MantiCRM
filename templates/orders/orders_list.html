@@ -13,11 +13,11 @@
 
 {% block content %}
     <section class="container-fluid">
-        <div class="row m-1 bg-white sticky_description">
+        <div class="row m-1 bg-white sticky_description" id="order_list_block">
             {% for order in orders %}
                 {% include 'orders/includes/order.html' %}
             {% endfor %}
         </div>
     </section>
-{% endblock content %}
 
+{% endblock content %}

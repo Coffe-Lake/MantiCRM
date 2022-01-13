@@ -49,7 +49,7 @@ class OrderForm(forms.ModelForm):
             ),
             'persons': forms.NumberInput(
                 attrs={
-                    'class': "form-control form-control-sm w-50 p-2"
+                    'class': "form-control form-control-sm w-25 p-2"
                 }
             ),
             'delivery_price': forms.Select(
@@ -85,7 +85,7 @@ class ClientForm(forms.ModelForm):
             'phone': forms.TextInput(
                 attrs={
                     "type": "tel",
-                    "class": "col form-control form-control-sm w-75 fw-bold text-center",
+                    "class": "col form-control form-control-md w-75 fw-bold text-center",
                     "placeholder": "8(___)___-__-__",
                     "max-length": "18",
                     "autofocus": "True",
@@ -95,7 +95,7 @@ class ClientForm(forms.ModelForm):
             ),
             'name': forms.TextInput(
                 attrs={
-                    'class': "form-control form-control-sm w-75",
+                    'class': "form-control form-control-md w-75",
                     "max-length": "30",
                 }
             ),
@@ -104,7 +104,7 @@ class ClientForm(forms.ModelForm):
                     'class': "form-control form-control-sm",
                     'style': 'width: 345px',
                     'cols': "30",
-                    'rows': "3",
+                    # 'rows': "3",
                 }
             ),
             'home': forms.TextInput(
@@ -116,7 +116,7 @@ class ClientForm(forms.ModelForm):
             'building': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-sm",
-                    'style': "width: 130px",
+                    'style': "width: 115px",
                 }
             ),
             'room': forms.TextInput(
@@ -128,7 +128,7 @@ class ClientForm(forms.ModelForm):
             'entrance': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-sm",
-                    'style': "width: 130px",
+                    'style': "width: 115px",
                 }
             ),
             'floor': forms.TextInput(
@@ -140,7 +140,7 @@ class ClientForm(forms.ModelForm):
             'code': forms.TextInput(
                 attrs={
                     'class': "form-control form-control-sm",
-                    'style': "width: 130px",
+                    'style': "width: 115px",
                 }
             ),
             'mark': forms.Textarea(

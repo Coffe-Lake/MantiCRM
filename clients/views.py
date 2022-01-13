@@ -12,7 +12,7 @@ def validate_client(request):
     """Проверка наличия клиента по номеру телефона"""
 
     client_phone = request.POST.get('phone')
-    print(request.POST)
+    print(request.POST)  # Вывести в терминал запрос
     client = Client.objects.all()
     count_orders = Order.objects.filter(client_data__phone=client_phone).count()
     client_exist = client.filter(phone=client_phone).exists()
