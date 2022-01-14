@@ -1,7 +1,7 @@
-var WinPrint, timer;
+let WinPrint, timer;
 
 function CallPrint(strid) {
-    var prtContent = document.getElementById(strid), s = '';
+    let prtContent = document.getElementById(strid), s = '';
     s += '<html><head>';
     s += '<link rel="stylesheet" type="text/css" href="/static/css/check.css">';
     s += prtContent.innerHTML;

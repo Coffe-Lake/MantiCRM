@@ -6,26 +6,59 @@
             <form method="post">
                 {% csrf_token %}
                 <th scope="col" class="col-1" style="width: 5%">#{{ order.pk }}</th>
-                <th scope="col" class="col-1" id="status_data">
-                    {#                    <input type="hidden" id="order-pk" data-order-id="{{ order.pk }}">#}
-                    <select name="order_status"
-                            class="form-select fw-bold"
-                            id="id_order_status"
-                            data-order-id="{{ order.pk }}">
-                        <option value="NEW" selected>новый</option>
+                <th scope="col"
+                    class="col-1 {{ order.order_status }}-order"
+                    id="status_data">
+                    {% if order.order_status == 'COM' %}
+                        <h5 class="{{ order.order_status }}-order">Выполнено</h5>
+                    {% elif order.order_status == 'CAN' %}
+                        <h5 class="{{ order.order_status }}-order">Отменен</h5>
+                    {% else %}
+                        <select name="order_status"
+                                class="form-select fw-bold"
+                                id="id_order_status"
+                                data-order-id="{{ order.pk }}">
 
-                        <option value="PRP">готовится</option>
+                            {% if order.order_status == "NEW" %}
+                                <option value="NEW" selected>Новый</option>
+                            {% endif %}
 
-                        <option value="RDY">готов</option>
 
-                        <option value="DLV">доставляется</option>
+                            {% if order.order_status == "PRO" %}
+                                <option value="PRO" selected>Предзаказ</option>
+                            {% endif %}
 
-                        <option value="COM">выполнен</option>
+                            {% if order.order_status == "PRP" %}
+                                <option value="PRP" selected>Готовится</option>
+                            {% else %}
+                                <option value="PRP">Готовится</option>
+                            {% endif %}
 
-                        <option value="CAN">отменен</option>
+                            {% if order.order_status == "RDY" %}
+                                <option value="RDY" selected>Готов</option>
+                            {% else %}
+                                <option value="RDY">Готов</option>
+                            {% endif %}
 
-                    </select>
-                    <p id="stat">{{ order.get_order_status_display }}</p>
+                            {% if order.order_status == "DLV" %}
+                                <option value="DLV" selected>Доставляется</option>
+                            {% else %}
+                                <option value="DLV">Доставляется</option>
+                            {% endif %}
+
+                            {#                            {% if order.order_status == "COM" %}#}
+                            {#                                <option value="COM" selected>Выполнен</option>#}
+                            {#                            {% else %}#}
+                            <option value="COM">Выполнен</option>
+                            {#                            {% endif %}#}
+
+                            {#                            {% if order.order_status == "CAN" %}#}
+                            {#                                <option value="CAN" selected>Отменен</option>#}
+                            {#                            {% else %}#}
+                            <option value="CAN">Отменен</option>
+                            {#                            {% endif %}#}
+                        </select>
+                    {% endif %}
                 </th>
 
                 <td class="col-1">
@@ -78,6 +111,8 @@
                 {% else %}
                     <th scope="col" class="col-1 fs-3" style="background-color: indianred">1616 ₽</th>
                 {% endif %}
+
+                <!-- #TODO сделать сборку select+option курьера во view -->
                 <th scope="col" class="col-1">{{ form_status.courier }}</th>
                 <th scope="col" class="col-1">{{ order.operator.first_name|default:order.operator }}</th>
             </form>

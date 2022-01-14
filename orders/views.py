@@ -1,7 +1,7 @@
 from datetime import timedelta
 from pprint import pprint
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -17,10 +17,16 @@ from products.models import Category
 from .models import Order, OrderItem
 
 
-class NewOrderView(View):
-    """Новый заказ"""
+# class NewOrderView(View):
+#     """Новый заказ"""
+#
+#     redirect_to_login = True
 
-    redirect_to_login = True
+
+class CreateOrder(LoginRequiredMixin, View):
+    """Форма создания заказа"""
+
+    raise_exception = True
 
     def get(self, request, *args, **kwargs):
         new_order_pk = Order.objects.first()
@@ -38,12 +44,6 @@ class NewOrderView(View):
             'title': "Новый заказ"
         }
         return render(request, 'orders/new_order.html', context)
-
-
-class CreateOrder(LoginRequiredMixin, View):
-    """Форма создания заказа"""
-
-    raise_exception = True
 
     def post(self, request):
         form_client = ClientForm(request.POST)
@@ -109,6 +109,15 @@ class OrdersListView(LoginRequiredMixin, View):
             'title': "Заказы"
         })
 
+    def post(self, request, *args, **kwargs):
+        updated_order_status = request.POST.get('order_status')
+        order_id = request.POST.get('order_id')
+        print(request.POST)
+        order = Order.objects.get(id=order_id)
+        order.order_status = updated_order_status
+        order.save()
+        return HttpResponse(status=200)
+
 
 class PreOrdersListView(LoginRequiredMixin, View):
     """Список предзаказов"""
@@ -121,10 +130,13 @@ class PreOrdersListView(LoginRequiredMixin, View):
         pre_orders = Order.objects.filter(
             Q(pre_order__gt=before_time_preparing)
         )
-        # Перенести в предзаказы, время которых более 2х часов
+        # Перенести в предзаказы, время до доставки более 2х часов
         for item in pre_orders:
             if item.pre_order > before_time_preparing:
                 pre_orders.update(order_status="PRO")
+
+            if item.pre_order < before_time_preparing:
+                pre_orders.update(order_status="NEW")
         # Поменять статус заказа на предзаказ
 
         return render(request, 'orders/pre_orders_list.html', context={
@@ -167,34 +179,3 @@ class CheckDetailView(LoginRequiredMixin, DetailView):
     extra_context = {'title': "Печать чека"}
     redirect_to_login = True
     success_url = reverse_lazy('check')
-
-
-def set_status(request):
-    """Смена статуса заказа"""
-
-    updated_order_status = request.POST.get('order_status')
-    order_id = request.POST.get('order_id')
-    print(request.POST)
-    print(updated_order_status)
-    print(order_id)
-    order = Order.objects.get(id=order_id)
-    order.order_status = updated_order_status
-    order.save()
-    taken_status = {
-        'new_status': order.order_status,
-    }
-    return JsonResponse(taken_status)
-
-
-def set_courier(request):
-    """Установка курьера"""
-
-    updated_order_courier = request.POST.get('courier_id')
-    order_id = request.POST.get('order_id')
-    order = Order.objects.get(pk=order_id)
-    order.courier_id = updated_order_courier
-    order.save()
-    taken_courier = {
-        'courier': order.courier_id,
-    }
-    return JsonResponse(taken_courier)

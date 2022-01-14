@@ -149,3 +149,45 @@ nav {
 /*
 Конец стилизации стрелок input=number
 */
+
+
+/*
+Цвета статусов заказа
+*/
+.NEW-order {
+    background-color: #0d6efd !important;
+}
+
+.PRO-order {
+    background-color: #ffc107 !important;
+}
+
+.PRP-order {
+    background-color: #0dcaf0 !important;
+}
+
+.RDY-order {
+    background-color: #a407ff !important;
+}
+
+.DLV-order {
+    background-color: #f66c06 !important;
+}
+
+.COM-order {
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    background-color: #119617 !important;
+}
+
+.CAN-order {
+    font-weight: bold;
+    margin: 0;
+    color: white;
+    background-color: #aa0000 !important;
+}
+
+/*
+Конец цвета статусов заказа
+*/

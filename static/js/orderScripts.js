@@ -48,55 +48,26 @@ $(document).ready(function () {
                 const order_id = $(this).attr('data-order-id')
                 const csrfToken = $("input[name=csrfmiddlewaretoken]").val();
                 $.ajax({
-                        url: '/set_status',
+                        url: '/',
                         data: {
                             'order_status': order_status,
                             'order_id': order_id,
                             'csrfmiddlewaretoken': csrfToken,
                         },
                         method: 'POST',
-                        success: function (taken_status) {
-                            document.getElementById('stat')
-                                .innerHTML = taken_status.new_status
-                            alert(taken_status.new_status)
+                        success: function () {
+                            $('#order_list_block')
+                                .load(document.location.pathname + " #order_list_block > *")
                         }
                     }
                 )
             }
         )
-        //
-        // $(document).on('change', function setOrderStatus() {
-        //         let courier_id = $('#list_order_courier').val();
-        //         const order_id = $('#hide_id').val();
-        //         const csrfToken = $("input[name=csrfmiddlewaretoken]").val();
-        //         $.ajax({
-        //                 url: '/set_courier',
-        //                 data: {
-        //                     'courier_id': courier_id,
-        //                     'order_id': order_id,
-        //                     'csrfmiddlewaretoken': csrfToken,
-        //
-        //                 },
-        //                 method: 'POST',
-        //                 success: function (taken_courier) {
-        //                     alert("Заказ доставит " + taken_courier.courier)
-        //                 }
-        //             }
-        //         )
-        //     }
-        // )
-
-        $('#order').keydown(function (event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                return false;
-            }
-        });
 
         setInterval(function () {
-            let page = document.location.pathname
-            $('#order_list_block').load(page + " #order_list_block > *")
-        }, 377700);
+            $('#order_list_block')
+                .load(document.location.pathname + " #order_list_block > *")
+        }, 10000);
 
 
         // $('#orders_nav a').click(function () {
@@ -156,6 +127,12 @@ $(document).ready(function () {
         )
 
 
+        $('#order').keydown(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
         // Конец $document
     }
 )

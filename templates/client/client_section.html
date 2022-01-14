@@ -1,0 +1,72 @@
+<section class="col hide_scroll new_order_section block_shadow ">
+    <div class="d-flex">
+        <table class="mb-3 mt-3">
+            <tbody>
+            <tr>
+                <th colspan="1">Статус заказа:</th>
+                <td colspan="2">{{ form_order.order_status }}</td>
+                <td colspan="2" class="alert-secondary text-center"><h5>{{ new_order_pk }}</h5></td>
+            </tr>
+            <tr>
+                <th colspan="1">Телефон:</th>
+                <td colspan="3">{{ form_client.phone }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Имя:</th>
+                <td colspan="3">{{ form_client.name }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Адрес:</th>
+                <td colspan="3">{{ form_client.address }}</td>
+            </tr>
+            <tr>
+                <th style="width: 0">Дом</th>
+                <td style="width: 130px">{{ form_client.home }}</td>
+                <th style="width: 0">Корпус</th>
+                <td style="width: 130px">{{ form_client.building }}</td>
+            </tr>
+            <tr>
+                <th style="width: 0">Квартира:</th>
+                <td style="width: 130px">{{ form_client.room }}</td>
+                <th style="width: 0">Подъезд</th>
+                <td style="width: 130px">{{ form_client.entrance }}</td>
+            </tr>
+            <tr>
+                <th>Этаж:</th>
+                <td style="width: 130px">{{ form_client.floor }}</td>
+                <th style="width: 0">Домофон:</th>
+                <td style="width: 130px">{{ form_client.code }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Доставить:</th>
+                <td colspan="2">{{ form_order.pre_order }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Отметка:</th>
+                <td colspan="3">{{ form_client.mark }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Комментарий:</th>
+                <td colspan="3">{{ form_order.staff_comment }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Канал продаж:</th>
+                <td colspan="3">{{ form_order.sales_channel }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Курьер:</th>
+                <td colspan="3">{{ form_order.courier }}</td>
+            </tr>
+            <tr>
+                <th colspan="1">Количество заказов:</th>
+                <td colspan="3"><p id="count_orders" class="fw-bold">0</p></td>
+            </tr>
+            <tr>
+                <th colspan="1">Общ. сумма заказов:</th>
+                <td colspan="3">16.845₽</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</section>
