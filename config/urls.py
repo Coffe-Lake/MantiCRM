@@ -21,9 +21,10 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
-    path('', include('orders.urls', namespace='orders')),
     path('', include('clients.urls', namespace='clients')),
-    # path('cart/', include('cart.urls', namespace='cart')),
+    path('', include('orders.urls', namespace='orders')),
+    path('', include('cart.urls', namespace='cart')),
+    path('', include('products.urls', namespace='products')),
 
     # <--- AUTH --->
     path('accounts/', include('django.contrib.auth.urls')),

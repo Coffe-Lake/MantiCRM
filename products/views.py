@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # class CategoryListView(LoginRequiredMixin, ListView):
 #     model = Category
 #     context_object_name = "categories"
-#     template_name = "orders/new_order.html"
+#     template_name = "products/products_section.html"
 #     raise_exception = True
 #
 #     def get_context_data(self, *args, **kwargs):
@@ -25,21 +25,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 #         return Category.objects.filter(available=True)
 
 
-class ProductDetailView(LoginRequiredMixin, DetailView):
-    model = Product
-    context_object_name = "product"
-    template_name = "products/product_detail.html"
-    raise_exception = True
+# class ProductDetailView(LoginRequiredMixin, DetailView):
+#     model = Product
+#     context_object_name = "product"
+#     template_name = "products/product_detail.html"
+#     raise_exception = True
+#
+#     def get_queryset(self):
+#         return Product.objects.filter(available=True)
+#
 
-    def get_queryset(self):
-        return Product.objects.filter(available=True)
-
-
-def product_detail(request, id, slug):
-    product = get_object_or_404(Product,
-                                id=id,
-                                slug=slug,
-                                available=True)
-    cart_product_form = CartAddProductForm()
-    return render(request, "products/product_detail.html", {'product': product,
-                                                        'cart_product_form': cart_product_form})
+# def product_list(request, category_slug=None):
+#     category = None
+#     categories = Category.objects.all()
+#     product = get_object_or_404(Product,
+#                                 id=pk,
+#                                 slug=slug,
+#                                 available=True)
+#     cart_product_form = CartAddProductForm()
+#     return render(request, "products/products_section.html", {'product': product,
+#                                                               'cart_product_form': cart_product_form})

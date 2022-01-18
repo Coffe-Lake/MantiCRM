@@ -10,9 +10,22 @@
                     class="col-1 {{ order.order_status }}-order"
                     id="status_data">
                     {% if order.order_status == 'COM' %}
-                        <h5 class="{{ order.order_status }}-order">Выполнено</h5>
+                        {#                        <h5 class="{{ order.order_status }}-order">Выполнено</h5>#}
+                        {#                        <h5 class="{{ order.order_status }}-order">Отменен</h5>#}
+                        <select name="order_status"
+                                class="form-select fw-bold"
+                                id="id_order_status"
+                                data-order-id="{{ order.pk }}">
+                        <option value="COM" selected>Выполнен</option>
+                        <option value="CAN">Отмена</option>
                     {% elif order.order_status == 'CAN' %}
-                        <h5 class="{{ order.order_status }}-order">Отменен</h5>
+                        <select name="order_status"
+                                class="form-select fw-bold"
+                                id="id_order_status"
+                                data-order-id="{{ order.pk }}">
+                            <option value="COM">Выполнен</option>
+                            <option value="CAN" selected>Отменен</option>
+                        </select>
                     {% else %}
                         <select name="order_status"
                                 class="form-select fw-bold"
@@ -45,18 +58,8 @@
                             {% else %}
                                 <option value="DLV">Доставляется</option>
                             {% endif %}
-
-                            {#                            {% if order.order_status == "COM" %}#}
-                            {#                                <option value="COM" selected>Выполнен</option>#}
-                            {#                            {% else %}#}
                             <option value="COM">Выполнен</option>
-                            {#                            {% endif %}#}
-
-                            {#                            {% if order.order_status == "CAN" %}#}
-                            {#                                <option value="CAN" selected>Отменен</option>#}
-                            {#                            {% else %}#}
                             <option value="CAN">Отменен</option>
-                            {#                            {% endif %}#}
                         </select>
                     {% endif %}
                 </th>
@@ -121,12 +124,12 @@
     <div class="text-end mb-2 mt-2">
 
         <!-- #TODO Заменить заглушку на order_update -->
-        <a href="{% url 'orders:order_detail' order.id %}"
+        <a href="{% url 'orders:update_order' order.pk %}"
            style="text-decoration: none"
            class="btn btn-sm btn-warning">Редактировать
         </a>
 
-        <a href="{% url 'orders:check' order.id %}"
+        <a href="{% url 'orders:check' order.pk %}"
            class="btn btn-sm btn-info text-decoration-none"
            target="_blank">Печать чека
         </a>

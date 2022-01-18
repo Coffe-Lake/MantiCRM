@@ -33,7 +33,7 @@ class Category(MPTTModel):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("products", kwargs={'slug': self.slug})
+        return reverse("products:category_list", kwargs={'slug': self.slug})
 
 
 class Product(models.Model):

@@ -77,6 +77,12 @@ $(document).ready(function () {
         //     }
         // )
 
+
+        //Кнопка добавить в корзину
+
+
+
+
         // Убавляем кол-во по клику
         $('.quantity_inner .bt_minus').click(function () {
             let $input = $(this).parent().find('.quantity');

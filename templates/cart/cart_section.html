@@ -27,17 +27,17 @@
             <tbody style="font-size: 14px">
             <tr>
                 <th scope="row" class="text-center">1</th>
-                <td class="col-9 fs-6">Гранде-Ман (с говядиной)</td>
+                <td class="col-9 fs-6">{{ product.name }}</td>
                 <td class="text-center align-middle">
                     <div class="quantity_inner">
-                        <button class="bt_minus">
+                        <button type="button" class="bt_minus">
                             <svg viewBox="0 0 24 24">
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                             </svg>
                         </button>
-                        <input type="text" value="1" size="2" class="quantity" data-max-count="999"
+                        <input type="text" value="{{ item.quantity }}" class="quantity" data-max-count="999"
                                data-id="{{ product.id }}"/>
-                        <button class="bt_plus">
+                        <button class="bt_plus" type="button">
                             <svg viewBox="0 0 24 24">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -45,20 +45,22 @@
                         </button>
                     </div>
                 </td>
-                <td class="text-center fs-6">798 ₽</td>
+                <td class="text-center fs-6">{{ item.total_price|default:'0' }} ₽</td>
             </tr>
+
+
             <tr>
                 <th scope="row" class="text-center">2</th>
                 <td class="col-9 fs-6">Спайси-Ман (острые с говядиной)</td>
                 <td class="text-center align-middle">
                     <div class="quantity_inner">
-                        <button class="bt_minus">
+                        <button type="button" class="bt_minus">
                             <svg viewBox="0 0 24 24">
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                             </svg>
                         </button>
                         <input type="text" value="1" size="2" class="quantity" data-max-count="999"/>
-                        <button class="bt_plus">
+                        <button type="button" class="bt_plus">
                             <svg viewBox="0 0 24 24">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -278,7 +280,8 @@
             </tr>
         </table>
         <div class="mt-4 mb-3 text-center">
-            <h3 class="fw-bold">К оплате: 512 ₽</h3>
+            {#            <h3 class="fw-bold">К оплате: 512 ₽</h3>#}
+            <h3 class="fw-bold">К оплате: {{ cart.get_total_price|default:'0' }} ₽</h3>
         </div>
         <div class="text-center">
             <input type="submit" class="btn btn-primary" value="Сохранить"/>

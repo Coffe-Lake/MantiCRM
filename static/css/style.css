@@ -36,7 +36,7 @@ nav {
 }
 
 .block_shadow {
-    box-shadow: 7px 0 20px 6px rgb(0 0 0 / 8%) !important;
+    box-shadow: 7px -20px 20px 6px rgb(0 0 0 / 8%) !important;
 }
 
 .product_block {
@@ -45,11 +45,11 @@ nav {
     box-shadow: 6px 9px 7px 0 rgb(0 0 0 / 8%) !important;
 }
 
-.product_button {
+.prod_True {
     background-color: #ffc108 !important;
 }
 
-.product_button:active {
+.prod_True:active {
     background-color: goldenrod !important;
 }
 
@@ -64,7 +64,7 @@ nav {
     position: absolute
 }
 
-.prod_not_available {
+.prod_False {
     background-color: #ab0000 !important;
     color: white !important;
 }

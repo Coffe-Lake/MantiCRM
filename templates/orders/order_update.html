@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+
+{% block navbar %}{% include 'orders/includes/navbar.html' %}{% endblock navbar %}
+
+{% block  content %}
+    <form method="post" action="{% url 'orders:update_order' order.id %}" id="order">
+        {% csrf_token %}
+        <div class="container-fluid">
+            <div class="row">
+
+                <!-- СЕКЦИЯ КЛИЕНТА -->
+                {% block client %}
+                    {% include 'client/client_section.html' %}
+                {% endblock client %}
+
+                <!-- СЕКЦИЯ ТОВАРОВ -->
+                {% block products %}
+                    {% include 'products/products_section.html' %}
+                {% endblock products %}
+
+                <!-- СЕКЦИЯ КОРЗИНЫ -->
+                {% block cart %}
+                    {% include 'cart/cart_section.html' %}
+                {% endblock cart %}
+            </div>
+        </div>
+    </form>
+
+{% endblock content %}
+

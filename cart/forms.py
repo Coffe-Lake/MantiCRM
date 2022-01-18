@@ -1,6 +1,7 @@
 from django import forms
 
-PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 999)]
+# PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 999)]
+PRODUCT_QUANTITY_CHOICES = '1'
 
 
 class CartAddProductForm(forms.Form):

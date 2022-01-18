@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 
 from django.db import models
+from django.db.models import Count, Q
 
 from clients.models import *
 from delivery.models import *
@@ -120,6 +121,10 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ №{self.pk}"
+
+    def new_orders_count(self):
+        return Order.objects.filter(Q(order_status="COM") |
+                                    Q(order_status="CAN"))
 
     # def get_absolute_url(self):
     #     return reverse("order_detail", kwargs={'pk': self.pk})
