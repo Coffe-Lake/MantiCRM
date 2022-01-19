@@ -191,3 +191,8 @@ nav {
 /*
 Конец цвета статусов заказа
 */
+
+
+select option[disabled] {
+    display: none;
+}

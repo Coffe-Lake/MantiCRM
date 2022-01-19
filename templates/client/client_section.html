@@ -5,7 +5,12 @@
             <tr>
                 <th colspan="1">Статус заказа:</th>
                 <td colspan="2">{{ form_order.order_status }}</td>
-                <td colspan="2" class="alert-secondary text-center"><h5>{{ new_order_pk }}</h5></td>
+                <td colspan="2" class="alert-secondary text-center">
+                    <h5>
+                        {{ new_order_num }}
+                        {{ saved_order_num }}
+                    </h5>
+                </td>
             </tr>
             <tr>
                 <th colspan="1">Телефон:</th>
@@ -59,7 +64,11 @@
             </tr>
             <tr>
                 <th colspan="1">Количество заказов:</th>
-                <td colspan="3"><p id="count_orders" class="fw-bold">0</p></td>
+                <td colspan="3">
+                    <p id="count_orders" class="fw-bold">
+                        {{ count_orders|default:'0' }}
+                    </p>
+                </td>
             </tr>
             <tr>
                 <th colspan="1">Общ. сумма заказов:</th>

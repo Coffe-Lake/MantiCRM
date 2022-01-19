@@ -29,7 +29,7 @@ class OrderForm(forms.ModelForm):
                 attrs={
                     'type': "datetime-local",
                     'class': "col form-control form-control-sm w-100 fw-bold",
-                }
+                },
             ),
             'staff_comment': forms.Textarea(
                 attrs={
@@ -54,7 +54,8 @@ class OrderForm(forms.ModelForm):
             ),
             'delivery_price': forms.Select(
                 attrs={
-                    'class': "form-select form-select-sm w-50"
+                    'class': "form-select form-select-sm",
+                    'style': "width: 35%"
                 }
             ),
             'discount_sum': forms.Select(
@@ -146,7 +147,7 @@ class ClientForm(forms.ModelForm):
             'mark': forms.Textarea(
                 attrs={
                     'class': "col form-control form-control-sm w-75",
-                    'rows': '3',
+                    'rows': "3",
                 }
             ),
         }
@@ -160,7 +161,8 @@ class OrderCourierForm(forms.ModelForm):
             'courier': forms.Select(
                 attrs={
                     'class': "form-select fw-bold",
-                    'id': 'list_order_courier'
+                    'id': "list_order_courier",
+                    "data-order-courier-id": '{{ order.pk }}'
                 }
             ),
         }

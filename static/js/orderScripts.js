@@ -1,6 +1,13 @@
 $(document).ready(function () {
 
+        // Обновление страницы по интервалу
+        setInterval(function () {
+            $('#order_list_block')
+                .load(document.location.pathname + " #order_list_block > *")
+        }, 10000);
 
+
+        // Получение данных клиента по номеру тел
         $('#id_phone').on('change', function getClientData() {
                 let phone = $(this).val();
                 const csrfToken = $("input[name=csrfmiddlewaretoken]").val();
@@ -43,6 +50,7 @@ $(document).ready(function () {
         )
 
 
+        // Изменение статуса заказа
         $(document).on('change', '#id_order_status', function setOrderStatus() {
                 let order_status = $(this).val();
                 const order_id = $(this).attr('data-order-id')
@@ -64,10 +72,55 @@ $(document).ready(function () {
             }
         )
 
-        setInterval(function () {
-            $('#order_list_block')
-                .load(document.location.pathname + " #order_list_block > *")
-        }, 10000);
+
+        // Изменение курьера
+        $(document).on('change', '#list_order_courier', function setOrderCourier() {
+                let order_courier = $(this).val();
+                const order_id = $(this).attr('order-courier-id')
+                const csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                        url: '/',
+                        data: {
+                            'order_courier': order_courier,
+                            'order_id': order_id,
+                            'csrfmiddlewaretoken': csrfToken,
+                        },
+                        method: 'POST',
+                        success: function () {
+                            $('#order_list_block')
+                                .load(document.location.pathname + " #order_list_block > *")
+                        }
+                    }
+                )
+            }
+        )
+
+
+        // Добавление продукта в корзину
+        $('#product-button').on('click', function addProductOnCart() {
+                let product = $(this).attr('data-product-id');
+                const csrfToken = $("input[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                        url: '/cart_add',
+                        data: {
+                            'product': product,
+                            'csrfmiddlewaretoken': csrfToken,
+                        },
+                        method: 'POST',
+                        success: function () {
+                            alert("Продукт добавлен в корзину")
+                        }
+                    }
+                )
+            }
+        )
+
+
+        //Скрыть ненужные значения в выпадающем списке
+        $('select#id_order_status option[value=PRO]').hide();
+        $('select#id_order_status option[value=""]').remove();
+        $('select#id_delivery_price option[value=""]').remove();
+        $('select#id_pay_method option[value=""]').remove();
 
 
         // $('#orders_nav a').click(function () {
@@ -81,8 +134,6 @@ $(document).ready(function () {
         //Кнопка добавить в корзину
 
 
-
-
         // Убавляем кол-во по клику
         $('.quantity_inner .bt_minus').click(function () {
             let $input = $(this).parent().find('.quantity');
@@ -90,6 +141,7 @@ $(document).ready(function () {
             count = count < 0 ? 0 : count;
             $input.val(count);
         });
+
         // Прибавляем кол-во по клику
         $('.quantity_inner .bt_plus').click(function () {
             let $input = $(this).parent().find('.quantity');
@@ -97,6 +149,7 @@ $(document).ready(function () {
             count = count > parseInt($input.data('max-count')) ? parseInt($input.data('max-count')) : count;
             $input.val(parseInt(count));
         });
+
         // Убираем все лишнее и невозможное при изменении поля
         $('.quantity_inner .quantity').bind("change keyup input click", function () {
             if (this.value.match(/[^0-9]/g)) {

@@ -13,6 +13,9 @@ class Discounts(models.Model):
     discount_type = models.CharField('Вид скидки', max_length=255, choices=DISCOUNT_CHOICES, blank=True)
     discount = models.PositiveIntegerField('Скидка', default=0)
     coupon = models.CharField('Промокод', max_length=10, blank=True)
+    start_date = models.DateTimeField('Дата начала', blank=True, null=True)
+    end_date = models.DateTimeField('Дата окончания', blank=True, null=True)
+
     create_ad = models.DateTimeField('Создано', auto_now_add=True, blank=True)
 
     class Meta:

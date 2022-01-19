@@ -6,6 +6,9 @@
                 <div class="row row-cols-4 mb-3 justify-content-center">
                     {% for product in category.products.values %}
                         <button type="button"
+                                value="{{ product.id }}"
+                                id="product-button"
+                                data-product-id="{{ product.id }}"
                                 {% if product.available %}
                                 class="btn btn-sm p-1 m-1 prod_{{ product.available }} position-relative shadow-sm">
                                 {% else %}

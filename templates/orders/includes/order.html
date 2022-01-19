@@ -5,7 +5,7 @@
 
             <form method="post">
                 {% csrf_token %}
-                <th scope="col" class="col-1" style="width: 5%">#{{ order.pk }}</th>
+                <th scope="col" class="col-1" style="width: 5%">{{ order.pk }}</th>
                 <th scope="col"
                     class="col-1 {{ order.order_status }}-order"
                     id="status_data">
@@ -130,8 +130,9 @@
         </a>
 
         <a href="{% url 'orders:check' order.pk %}"
-           class="btn btn-sm btn-info text-decoration-none"
-           target="_blank">Печать чека
+           target="_blank"
+           class="btn btn-sm btn-info text-decoration-none">
+            Печать чека
         </a>
     </div>
 </div>
