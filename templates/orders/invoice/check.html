@@ -20,8 +20,8 @@
 <div class="print" id="check_print">
     <div class="print_logo">Манты-Ман</div>
     <br>Заказ: <b>#{{ order.id }}</b>
-    <br>Оформлен: {{ order.created_at|date:'d-m-y H:i'|default_if_none:'' }}
-    <br>
+    {#    <br>Оформлен: {{ order.created_at|date:'d-m-y H:i'|default_if_none:'' }}#}
+    <br>Оформлен: 19-01-22 03:01
     {% if order.pre_order.date != None %}
         Доставить: <strong>{{ order.pre_order|date:'d.m к H:i'|default_if_none:'' }}</strong>
     {% endif %}
@@ -42,31 +42,55 @@
     <div class="pr_kol"><strong>Кол</strong></div>
     <div class="pr_price"><strong>Сумма</strong></div>
     <div class="pr_separator mt-2"></div>
-    <div class="pr_name">Чесночный кисл-мол. соус</div>
+    <div class="pr_name">Чикен-Ман (манты с курицей)</div>
     <div class="pr_kol">2</div>
-    <div class="pr_price">118.0</div>
-    <div class="pr_name">Спайси-Ман (острые с гов.)</div>
+    <div class="pr_price">778.0</div>
+    <div class="pr_name">Веджи-Ман (манты с тыквой)</div>
     <div class="pr_kol">1</div>
-    <div class="pr_price">469.0</div>
-    <div class="pr_name">Тейсти-Ман (с бараниной)</div>
-    <div class="pr_kol">2</div>
-    <div class="pr_price">998.0</div>
+    <div class="pr_price">389.0</div>
+    <div class="pr_name">Тейсти-Ман (манты с бараниной)</div>
+    <div class="pr_kol">3</div>
+    <div class="pr_price">1197.0</div>
+    <div class="pr_name">Картоф-Ман (манты с картофелем)</div>
+    <div class="pr_kol">1</div>
+    <div class="pr_price">389.0</div>
+    <div class="pr_name">Ман-Гетсы (жареные пельмени 12шт/100г.)</div>
+    <div class="pr_kol">1</div>
+    <div class="pr_price">199.0</div>
+    <div class="pr_name">Греческий салат (200 г.)</div>
+    <div class="pr_kol">1</div>
+    <div class="pr_price">299.0</div>
+    <div class="pr_name">Coca-Cola Classic</div>
+    <div class="pr_kol">1</div>
+    <div class="pr_price">79.0</div>
+    <div class="pr_name">Sprite</div>
+    <div class="pr_kol">1</div>
+    <div class="pr_price">79.0</div>
     <div class="pr_separator mt-3"></div>
     <div class="pr_name">ИТОГО</div>
-    <div class="pr_price">1066.0</div>
+    <div class="pr_price">3409.0</div>
     <div class="pr_name">Скидка</div>
-    <div class="pr_price">0.0</div>
+    <div class="pr_price">681.8</div>
+    <div class="pr_name">Доставка</div>
+    <div class="pr_price">190</div>
     <div class="print_contact" style="text-align: left;">
         <div class="pr_name"><strong>К ОПЛАТЕ</strong></div>
-        <div class="pr_price"><strong>1066.0</strong></div>
+        <div class="pr_price"><strong>2917.2</strong></div>
     </div>
-    <br>
     <div class="pr_name" style="width: 260px">Способ оплаты: <strong>{{ order.get_pay_method_display }}</strong></div>
     <div class="pr_name">Приборы</div>
-    <div class="pr_price">{{ order.persons|default_if_none:'' }}</div>
+{#    <div class="pr_price">{{ order.persons|default_if_none:'' }}</div>#}
+    <div class="pr_price">3</div>
     <br>
     <div class="print_comment2"><strong>{{ order.staff_comment|default_if_none:'' }}</strong></div>
     <div class="break_check"></div>
 </div>
 </body>
 <script src="{% static 'js/printCheck.js' %}"></script>
+
+
+{#<div class="print" id="check_print">#}
+{#    <div class="print_logo">Манты-Ман</div>#}
+{#    <br>Заказ: <b>#97</b>#}
+{#    <br>Оформлен: 19-01-22 03:01#}
+{#    <br>#}
