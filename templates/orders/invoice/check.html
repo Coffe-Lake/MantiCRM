@@ -20,8 +20,8 @@
 <div class="print" id="check_print">
     <div class="print_logo">Манты-Ман</div>
     <br>Заказ: <b>#{{ order.id }}</b>
-    {#    <br>Оформлен: {{ order.created_at|date:'d-m-y H:i'|default_if_none:'' }}#}
-    <br>Оформлен: 19-01-22 03:01
+    <br>Оформлен: {{ order.created_at|date:'d-m-y H:i'|default_if_none:'' }}
+    <br>
     {% if order.pre_order.date != None %}
         Доставить: <strong>{{ order.pre_order|date:'d.m к H:i'|default_if_none:'' }}</strong>
     {% endif %}
@@ -38,7 +38,7 @@
     <br>домофон: <b>{{ order.client_data.code|default_if_none:'' }}</b>
     <br>
     <br>
-    <div class="pr_name"><strong>Товар</strong></div>
+        <div class="pr_name"><strong>Товар</strong></div>
     <div class="pr_kol"><strong>Кол</strong></div>
     <div class="pr_price"><strong>Сумма</strong></div>
     <div class="pr_separator mt-2"></div>
@@ -79,18 +79,10 @@
     </div>
     <div class="pr_name" style="width: 260px">Способ оплаты: <strong>{{ order.get_pay_method_display }}</strong></div>
     <div class="pr_name">Приборы</div>
-{#    <div class="pr_price">{{ order.persons|default_if_none:'' }}</div>#}
-    <div class="pr_price">3</div>
+    <div class="pr_price">{{ order.persons|default_if_none:'' }}</div>
     <br>
     <div class="print_comment2"><strong>{{ order.staff_comment|default_if_none:'' }}</strong></div>
     <div class="break_check"></div>
 </div>
 </body>
 <script src="{% static 'js/printCheck.js' %}"></script>
-
-
-{#<div class="print" id="check_print">#}
-{#    <div class="print_logo">Манты-Ман</div>#}
-{#    <br>Заказ: <b>#97</b>#}
-{#    <br>Оформлен: 19-01-22 03:01#}
-{#    <br>#}

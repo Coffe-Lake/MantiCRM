@@ -15,8 +15,7 @@ class Discounts(models.Model):
     coupon = models.CharField('Промокод', max_length=10, blank=True)
     start_date = models.DateTimeField('Дата начала', blank=True, null=True)
     end_date = models.DateTimeField('Дата окончания', blank=True, null=True)
-
-    create_ad = models.DateTimeField('Создано', auto_now_add=True, blank=True)
+    create_at = models.DateTimeField('Создано', auto_now_add=True, blank=True)
 
     class Meta:
         verbose_name = "скидки и акции"

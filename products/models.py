@@ -38,6 +38,7 @@ class Category(MPTTModel):
 
 class Product(models.Model):
     available = models.BooleanField("Активный")
+    number_of_stock = models.PositiveIntegerField('Количество на наличии', blank=True, default=0)
     name = models.CharField("Название", max_length=50)
     category = models.ForeignKey(
         Category,

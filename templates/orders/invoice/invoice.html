@@ -1,0 +1,284 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/invoice.css' %}" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous">
+    <title>Накладная</title>
+
+</head>
+<body>
+<div>
+    <input type="button"
+           class="btn btn-success mb-2 mt-2 pe-5 ps-5 text-center"
+           style="width: 90mm"
+           value="Печать"
+           onclick="CallPrintInvoice('invoice_print')">
+</div>
+
+<div class="print" id="invoice_print" style="width: 210mm;">
+    <table width="100%" border="0">
+        <tbody>
+        <tr>
+            <td class="Regular14" align="center" colspan="2"> МАНТЫ-МАН</td>
+        </tr>
+        <tr>
+            <td align="left" colspan="2" style="padding-bottom: 10px;">
+                <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%" valign="top">
+                <table width="100%" border="0">
+                    <tbody>
+                    <tr>
+                        <td align="left" class="Regular27">Заказ № 97</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">оформлен 19-01-22 03:01</td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="padding-top: 10px; padding-bottom: 10px;">
+                            <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="left" class="Regular17">Фарзон Аслонов</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular17">8(969)039-22-60</td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="padding-top: 10px; padding-bottom: 10px;">
+                            <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="Regular17">г.Химки, 9-мая 4а, корп. 2 - 63</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">подъезд 1, этаж 8, домофон 63</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">Приборы: 3</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular17"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular17">Доставить горячими!</td>
+                    </tr>
+                    <tr>
+                        <td align="left" style="padding-top: 10px; padding-bottom: 10px;">
+                            <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular17"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">Организация: Манты-Ман</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">ИНН: 500511617608</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">Расч. счет: 4564564654</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">Корр. счет: 4567456456546</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">БИК: 1231231223424</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">г. Москва, Алтуфьевское ш., д. 27Ас44</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">тел: 8(495)203-43-00</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">e-mail: info@manti-man.ru</td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12">https://manti-man.ru</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="2" style="padding-bottom: 5px;">
+                <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="Regular14" colspan="2" align="center"></td>
+        </tr>
+        <tr>
+            <td align="left" style="padding-top: 5px;" colspan="2">
+                <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" width="100%">
+                <table width="100%" border="0">
+                    <tbody>
+                    <tr>
+                        <td align="left" class="Regular12" width="70%" height="24px">Чикен-Ман (манты с курицей)</td>
+                        <td align="left" class="Bold12" width="10%" rowspan="2" valign="top">389.0</td>
+                        <td align="center" class="Regular12" width="10%" rowspan="2" valign="top">2</td>
+                        <td align="right" class="Bold12" width="10%" rowspan="2" valign="top">778.0</td>
+                        <td align="center" class="Regular12" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="RegularOption"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12" width="70%" height="24px">Веджи-Ман (манты с тыквой)</td>
+                        <td align="left" class="Bold12" width="10%" rowspan="2" valign="top">389.0</td>
+                        <td align="center" class="Regular12" width="10%" rowspan="2" valign="top">1</td>
+                        <td align="right" class="Bold12" width="10%" rowspan="2" valign="top">389.0</td>
+                        <td align="center" class="Regular12" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="RegularOption"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12" width="70%" height="24px">Тейсти-Ман (манты с бараниной)</td>
+                        <td align="left" class="Bold12" width="10%" rowspan="2" valign="top">399.0</td>
+                        <td align="center" class="Regular12" width="10%" rowspan="2" valign="top">3</td>
+                        <td align="right" class="Bold12" width="10%" rowspan="2" valign="top">1197.0</td>
+                        <td align="center" class="Regular12" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="RegularOption"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12" width="70%" height="24px">Картоф-Ман (манты с картофелем)
+                        </td>
+                        <td align="left" class="Bold12" width="10%" rowspan="2" valign="top">389.0</td>
+                        <td align="center" class="Regular12" width="10%" rowspan="2" valign="top">1</td>
+                        <td align="right" class="Bold12" width="10%" rowspan="2" valign="top">389.0</td>
+                        <td align="center" class="Regular12" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="RegularOption"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12" width="70%" height="24px">Ман-Гетсы (жареные пельмени
+                            12шт/100г.)
+                        </td>
+                        <td align="left" class="Bold12" width="10%" rowspan="2" valign="top">199.0</td>
+                        <td align="center" class="Regular12" width="10%" rowspan="2" valign="top">1</td>
+                        <td align="right" class="Bold12" width="10%" rowspan="2" valign="top">199.0</td>
+                        <td align="center" class="Regular12" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="RegularOption"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12" width="70%" height="24px">Греческий салат(200 г.)</td>
+                        <td align="left" class="Bold12" width="10%" rowspan="2" valign="top">299.0</td>
+                        <td align="center" class="Regular12" width="10%" rowspan="2" valign="top">1</td>
+                        <td align="right" class="Bold12" width="10%" rowspan="2" valign="top">299.0</td>
+                        <td align="center" class="Regular12" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="RegularOption"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12" width="70%" height="24px">Coca-Cola Classic</td>
+                        <td align="left" class="Bold12" width="10%" rowspan="2" valign="top">79.0</td>
+                        <td align="center" class="Regular12" width="10%" rowspan="2" valign="top">1</td>
+                        <td align="right" class="Bold12" width="10%" rowspan="2" valign="top">79.0</td>
+                        <td align="center" class="Regular12" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="RegularOption"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="Regular12" width="70%" height="24px">Sprite</td>
+                        <td align="left" class="Bold12" width="10%" rowspan="2" valign="top">79.0</td>
+                        <td align="center" class="Regular12" width="10%" rowspan="2" valign="top">1</td>
+                        <td align="right" class="Bold12" width="10%" rowspan="2" valign="top">79.0</td>
+                        <td align="center" class="Regular12" rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td align="left" class="RegularOption"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="2" style="padding-bottom: 5px;">
+                <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="Regular14" colspan="2" align="center"></td>
+        </tr>
+        <tr>
+            <td align="left" colspan="2" style="padding-bottom: 5px; padding-top: 5px;">
+                <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top">
+                <table width="100%" border="0">
+                    <tbody>
+                    <tr>
+                        <td valign="top" width="50%">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td align="left" class="Regular12" height="18px">Оплата:</td>
+                                    <td align="left" style="padding-left:15px;" class="Bold12">Терминал</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td align="right" valign="top">
+                            <table width="100%">
+                                <tbody>
+                                <tr>
+                                    <td class="Regular12" align="right" height="18px">Стоимость доставки</td>
+                                    <td align="right" class="Bold12">190.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="Regular12" align="right" height="18px">Общая сумма</td>
+                                    <td align="right" class="Bold12">3409.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="Regular12" align="right" height="18px">Сумма скидки</td>
+                                    <td class="Bold12" align="right">681.8</td>
+                                </tr>
+                                <tr>
+                                    <td class="Regular17" style="font-weight: bold" align="right" height="28px">К
+                                        оплате
+                                    </td>
+                                    <td class="Bold17" align="right">2917.2</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" colspan="2" style="padding-bottom: 10px;">
+                <div style="width: 100%; height: 1px; border-bottom: 1px dotted #808080;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="Regular14" colspan="2" align="center"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="{% static 'js/printCheck.js' %}"></script>

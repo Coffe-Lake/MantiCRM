@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
         // Обновление страницы по интервалу
-        setInterval(function () {
-            $('#order_list_block')
-                .load(document.location.pathname + " #order_list_block > *")
-        }, 10000);
+    setInterval(function () {
+        $('#dash')
+            .load("/dashboard #dash > *")
+    }, 2000);
 
 
         // Получение данных клиента по номеру тел
@@ -107,9 +107,9 @@ $(document).ready(function () {
                             'csrfmiddlewaretoken': csrfToken,
                         },
                         method: 'POST',
-                        success: function () {
-                            alert("Продукт добавлен в корзину")
-                        }
+                        // success: function () {
+                        //     alert("Продукт добавлен в корзину")
+                        // }
                     }
                 )
             }

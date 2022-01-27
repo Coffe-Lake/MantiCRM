@@ -10,8 +10,6 @@
                     class="col-1 {{ order.order_status }}-order"
                     id="status_data">
                     {% if order.order_status == 'COM' %}
-                        {#                        <h5 class="{{ order.order_status }}-order">Выполнено</h5>#}
-                        {#                        <h5 class="{{ order.order_status }}-order">Отменен</h5>#}
                         <select name="order_status"
                                 class="form-select fw-bold"
                                 id="id_order_status"
@@ -104,7 +102,36 @@
                         </tbody>
                     </table>
                 </td>
-                <th scope="col" class="col-2 text-start">{{ order.client_data.address|default_if_none:'' }}</th>
+                <th scope="col" class="col-2 text-start">
+                    {{ order.client_data.address|default_if_none:'' }}
+                    {% if  order.client_data.home != None %}
+                        {{ order.client_data.home }},
+                    {% else %}
+                        {{ order.client_data.home|default_if_none:'' }}
+                    {% endif %}
+
+                    {% if  order.client_data.building != None %}
+                        корп {{ order.client_data.building }},
+                    {% else %}
+                        {{ order.client_data.building|default_if_none:'' }}
+                    {% endif %}
+
+                    {% if  order.client_data.entrance != None %}
+                        подъезд {{ order.client_data.entrance }},
+                    {% else %}
+                        {{ order.client_data.entrance|default_if_none:'' }}
+                    {% endif %}
+
+                    {% if  order.client_data.floor != None %}
+                        этаж {{ order.client_data.floor }},
+                    {% else %}
+                        {{ order.client_data.floor|default_if_none:'' }}
+                    {% endif %}
+
+                    {% if  order.client_data.room != None %}
+                        кв {{ order.client_data.room|default_if_none:'' }}
+                    {% endif %}
+                </th>
                 <th scope="col" class="col-1">
                     <span>{{ order.client_data.name.title|default_if_none:'' }}</span><br>
                     <span id="id_phone_for_status">{{ order.client_data.phone|default_if_none:'' }}</span>
@@ -115,7 +142,6 @@
                     <th scope="col" class="col-1 fs-3" style="background-color: indianred">1616 ₽</th>
                 {% endif %}
 
-                <!-- #TODO сделать сборку select+option курьера во view -->
                 <th scope="col" class="col-1">{{ form_status.courier }}</th>
                 <th scope="col" class="col-1">{{ order.operator.first_name|default:order.operator }}</th>
             </form>
@@ -123,7 +149,6 @@
     </table>
     <div class="text-end mb-2 mt-2">
 
-        <!-- #TODO Заменить заглушку на order_update -->
         <a href="{% url 'orders:update_order' order.pk %}"
            style="text-decoration: none"
            class="btn btn-sm btn-warning">Редактировать
@@ -133,6 +158,11 @@
            target="_blank"
            class="btn btn-sm btn-info text-decoration-none">
             Печать чека
+        </a>
+        <a href="{% url 'orders:invoice' order.pk %}"
+           target="_blank"
+           class="btn btn-sm btn-secondary text-decoration-none">
+            Накладная
         </a>
     </div>
 </div>

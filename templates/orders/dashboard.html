@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+
+{% block navbar %}
+    {% include 'orders/includes/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+    <section id="dash">
+
+        <div class="container-fluid d-flex h-75 justify-content-center
+         position-absolute align-items-center v-align p-0 flex-wrap flex-column">
+        <div class="flex text-center">
+            <h2 class="text-center m-4">{{ orders_date|date:"d-M-Y H:i:s" }}</h2>
+        </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mt-1">
+                <div class="col card-body card text-center m-3 shadow-sm">
+                    <h5>В РАБОТЕ</h5>
+                    <h1 class="dash-process-color">{{ order_progress.count }}</h1>
+                </div>
+                <div class="col card-body card text-center m-3 shadow-sm">
+                    <h5>ДОСТАВЛЯЕТСЯ</h5>
+                    <h1 class="dash-delivery-color">{{ delivery_orders.count }}</h1>
+                </div>
+                <div class="col card-body card text-center m-3 shadow-sm">
+                    <h5>ПРЕДЗАКАЗЫ</h5>
+                    <h1 class="dash-preorder-color">{{ pre_orders.count }}</h1>
+                </div>
+                <div class="col card-body card text-center m-3 shadow-sm">
+                    <h5>ЗАВЕРШЕНО</h5>
+                    <h1 class="dash-completed-color">{{ completed_orders.count }}</h1>
+                </div>
+                <div class="col card-body card text-center m-3 shadow-sm">
+                    <h5>ОТМЕНЕНО</h5>
+                    <h1 class="dash-cancel-color">{{ canceled_orders.count }}</h1>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 mb-5 nowrap w-50">
+                <div class="col card-body card text-center m-3 shadow-sm">
+                    <h5>ВЫРУЧКА ЗА СЕГОДНЯ</h5>
+                    <h1>{{ order_progress.count }} ₽</h1>
+                </div>
+                <div class="col card-body card text-center m-3 shadow-sm">
+                    <h5>ПРЕДЗАКАЗЫ НА ЗАВТРА</h5>
+                    <h1 class="dash-preorder-sum-color">{{ order_progress.count }} ₽</h1>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock content %}

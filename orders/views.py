@@ -1,4 +1,7 @@
 from datetime import timedelta
+
+from django.contrib.auth.decorators import user_passes_test
+from django.utils import timezone
 from pprint import pprint
 from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
@@ -81,7 +84,6 @@ class CreateOrderView(LoginRequiredMixin, View):
             form_order.save()
             # Сохраняем заказа
         return redirect('orders:orders_list')
-        # TODO доработать формсет, добавить корзину
 
 
 class UpdateOrderView(LoginRequiredMixin, View):
@@ -238,3 +240,46 @@ class CheckDetailView(LoginRequiredMixin, DetailView):
     extra_context = {'title': "Печать чека"}
     redirect_to_login = True
     success_url = reverse_lazy('check')
+
+
+class InvoiceDetailView(LoginRequiredMixin, DetailView):
+    """Чек"""
+
+    model = Order
+    template_name = 'orders/invoice/invoice.html'
+    extra_context = {'title': "Накладная"}
+    redirect_to_login = True
+    success_url = reverse_lazy('invoice')
+
+
+class DashBoardView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        now = timezone.now()
+
+        orders_in_progress = Order.objects.filter(Q(order_status='NEW') |
+                                                  Q(order_status='PRP') |
+                                                  Q(order_status='RDY') |
+                                                  Q(created_at=now.date()
+                                                    )
+                                                  )
+        delivery_orders = Order.objects.filter(Q(order_status='DLV') |
+                                               Q(created_at=now.date()
+                                                 ))
+        pre_orders = Order.objects.filter(Q(order_status='PRO') |
+                                          Q(created_at=now.date()
+                                            ))
+        completed_orders = Order.objects.filter(Q(order_status='COM') |
+                                                Q(created_at=now.date()
+                                                  ))
+        canceled_orders = Order.objects.filter(Q(order_status='CAN') |
+                                               Q(created_at__gte=(now - timedelta(hours=24)).date()
+                                                 ))
+        return render(request, 'orders/dashboard.html', context={
+            'order_progress': orders_in_progress,
+            'pre_orders': pre_orders,
+            'completed_orders': completed_orders,
+            'canceled_orders': canceled_orders,
+            'delivery_orders': delivery_orders,
+            'orders_date': timezone.now(),
+            'title': 'Дашборд'
+        })

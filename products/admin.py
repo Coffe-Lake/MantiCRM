@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     save_as = True
     save_on_top = True
-    list_display = ['name', 'price', 'category', 'composition', 'slug', 'available', 'id']
+    list_display = ['name', 'price', 'category', 'composition', 'slug', 'available', 'number_of_stock', 'id']
     search_fields = ('name', 'price', 'slug')
     list_editable = ['available']
     prepopulated_fields = {'slug': ('name',)}

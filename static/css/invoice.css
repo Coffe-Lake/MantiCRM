@@ -1,0 +1,225 @@
+TABLE {
+    border-collapse: collapse;
+    margin: 0px;
+    padding: 0px;
+    border-spacing: 0;
+}
+
+.orderNumberTitle {
+}
+
+.orderNumber {
+    border-radius: 7px 7px 7px 7px;
+    border: 1px solid #FA0332;
+    padding: 5px;
+    margin: 0;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.deliveryDetails {
+    padding: 5px;
+    margin: 0;
+}
+
+.deliveryDetailsTitle {
+    padding: 5px;
+    margin: 0;
+    color: #FA0332;
+}
+
+.deliveryDetailsName {
+}
+
+.deliveryDetailsValue {
+}
+
+.box {
+    border: 1px solid #FA0332;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
+    width: 102mm;
+}
+
+.lineBox {
+    background: #FA0332;
+    height: 30px;
+    padding-left: 20px;
+    border: 1px solid #FA0332;
+}
+
+.numberBox {
+    border-radius: 20px 20px 20px 20px;
+    background: white;
+    color: #FA0332;
+    text-align: center;
+    vertical-align: middle;
+    width: 20px;
+}
+
+.headerBox {
+    color: white;
+    padding-left: 5px;
+    vertical-align: middle;
+}
+
+.bodyBox {
+    background: white;
+    height: 150px;
+}
+
+.rusHeaderBody {
+    padding-left: 10px;
+    color: #FA0332;
+}
+
+.itemBody {
+    padding-left: 10px;
+}
+
+.engHeaderBody {
+    padding-left: 10px;
+}
+
+.dateComment {
+    margin: 0;
+    color: #FA0332;
+}
+
+.dateString {
+    margin: 0;
+    color: #FA0332;
+}
+
+.courierSignature {
+    margin: 0;
+    color: black;
+}
+
+.summs {
+    margin: 0;
+    padding-left: 10px;
+    color: black;
+}
+
+.articles {
+    margin: 0;
+    padding-left: 10px;
+    color: black;
+}
+
+.articleName {
+}
+
+.articlePrice {
+}
+
+.articleQuantity {
+}
+
+.articleSumm {
+}
+
+.articleSemiproductName {
+    padding-left: 20px;
+}
+
+.articleSemiproductPrice {
+}
+
+.articleSemiproductQuantity {
+}
+
+.articleSemiproductSumm {
+}
+
+.summName {
+}
+
+.summValue {
+}
+
+.resultSummName {
+}
+
+.resultSummValue {
+}
+
+.deliverybold {
+    font-weight: bold;
+}
+
+/* ========================================================================
+   Component: Print
+ ========================================================================== */
+@media print {
+    .lineBox {
+        background: #eee !important;
+        border: 1px solid #000000;
+    }
+
+    .headerBox {
+        color: black !important;
+    }
+
+    .box {
+        border: 1px solid #000000;
+    }
+
+    .rusHeaderBody {
+        color: black !important;
+        font-weight: bold;
+    }
+
+    .numberBox,
+    .dateString,
+    .rusHeaderBody,
+    .deliveryDetailsTitle {
+        color: #000000;
+    }
+
+    .numberBox,
+    .orderNumber {
+        border: 1px solid #000000;
+    }
+}
+
+.Regular27 {
+    font-size: 27px;
+    color: #000000;
+}
+
+.Regular12 {
+    font-size: 12px;
+    color: #000000;
+}
+
+.RegularOption {
+    font-size: 11px;
+    color: #000000;
+    padding-left: 20px;
+    font-style: italic;
+}
+
+.Regular14 {
+    font-size: 14px;
+    color: #000000;
+}
+
+.Regular17 {
+    color: #000000;
+}
+
+.Bold12 {
+    font-size: 12px;
+    cursor: pointer;
+    color: #000000;
+}
+
+.Bold17 {
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #000000;
+}

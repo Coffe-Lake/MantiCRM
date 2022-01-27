@@ -196,3 +196,28 @@ nav {
 select option[disabled] {
     display: none;
 }
+
+
+.dash-process-color {
+    color: #0896b2 !important;
+}
+
+.dash-preorder-color {
+    color: #ffc107 !important;
+}
+
+.dash-delivery-color {
+    color: #f66c05 !important;
+}
+
+.dash-cancel-color {
+    color: #aa0000 !important;
+}
+
+.dash-completed-color {
+    color: #119617 !important;
+}
+
+.dash-preorder-sum-color {
+    color: #4b26d3 !important;
+}

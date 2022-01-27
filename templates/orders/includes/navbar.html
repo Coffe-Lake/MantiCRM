@@ -1,27 +1,30 @@
 <nav class="container-fluid shadow-sm bg-white sticky-top rounded" style="z-index: 1999">
     <div class="col-7 p-2" id="orders_nav">
+        {#        {% if not user.is_superuser %}#}
         <a href="{% url "orders:create_order" %}"
            class="btn btn-sm btn-primary nav_button">+ НОВЫЙ
         </a>
         <a href="{% url "orders:orders_list" %}"
            class="btn btn-sm btn-info nav_button">
-            В РАБОТЕ | 6
+            В РАБОТЕ
         </a>
         <a href="{% url "orders:pre_orders_list" %}"
            class="btn btn-sm btn-warning nav_button">
 
-            ПРЕДЗАКАЗЫ | 3
+            ПРЕДЗАКАЗЫ
         </a>
         <a href="{% url "orders:completed_orders_list" %}"
            class="btn btn-sm btn-success active nav_button">
-            ЗАВЕРШЕНО | 11
+            ЗАВЕРШЕНО
         </a>
-
+        {#        {% endif %}#}
         {#        <button type="button" class="btn btn-sm btn-secondary nav_button">КАЛЕНДАРЬ</button>#}
     </div>
     <div class="col-5" style="text-align: right;">
-        {#        <a href="" class="btn btn-sm btn-dark nav_button">ДАШБОРД</a>#}
-        <a href="{% url "admin:index" %}" class="btn btn-sm btn-dark nav_button">Админка</a>
+        {% if user.is_superuser %}
+            <a href="{% url "orders:dash" %}" class="btn btn-sm btn-dark nav_button">ДАШБОРД</a>
+            <a href="{% url "admin:index" %}" class="btn btn-sm btn-dark nav_button">Админ</a>
+        {% endif %}
         <a href="{% url "logout" %}" class="btn btn-sm p-1" style="width: 9rem">
             <div class="alert-info p-1 rounded-2">{{ user }}</div>
             <div>Выйти</div>
