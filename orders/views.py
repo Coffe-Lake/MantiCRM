@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.contrib.auth.decorators import user_passes_test
 from django.utils import timezone
 from pprint import pprint
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, Http404
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -253,33 +253,37 @@ class InvoiceDetailView(LoginRequiredMixin, DetailView):
 
 
 class DashBoardView(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        now = timezone.now()
+    """"Дашборд"""
 
-        orders_in_progress = Order.objects.filter(Q(order_status='NEW') |
-                                                  Q(order_status='PRP') |
-                                                  Q(order_status='RDY') |
-                                                  Q(created_at=now.date()
-                                                    )
-                                                  )
-        delivery_orders = Order.objects.filter(Q(order_status='DLV') |
-                                               Q(created_at=now.date()
-                                                 ))
-        pre_orders = Order.objects.filter(Q(order_status='PRO') |
-                                          Q(created_at=now.date()
-                                            ))
-        completed_orders = Order.objects.filter(Q(order_status='COM') |
-                                                Q(created_at=now.date()
-                                                  ))
-        canceled_orders = Order.objects.filter(Q(order_status='CAN') |
-                                               Q(created_at__gte=(now - timedelta(hours=24)).date()
-                                                 ))
-        return render(request, 'orders/dashboard.html', context={
-            'order_progress': orders_in_progress,
-            'pre_orders': pre_orders,
-            'completed_orders': completed_orders,
-            'canceled_orders': canceled_orders,
-            'delivery_orders': delivery_orders,
-            'orders_date': timezone.now(),
-            'title': 'Дашборд'
-        })
+    redirect_to_login = True
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            now = timezone.now()
+
+            orders_in_progress = Order.objects.filter(Q(order_status='NEW') |
+                                                      Q(order_status='PRP') |
+                                                      Q(order_status='RDY') |
+                                                      Q(created_at=now.date()))
+            delivery_orders = Order.objects.filter(Q(order_status='DLV') |
+                                                   Q(created_at=now.date()))
+            pre_orders = Order.objects.filter(Q(order_status='PRO') |
+                                              Q(created_at=now.date()))
+            completed_orders = Order.objects.filter(Q(order_status='COM') |
+                                                    Q(created_at=now.date()))
+            canceled_orders = Order.objects.filter(Q(order_status='CAN') |
+                                                   Q(created_at__gte=(now - timedelta(hours=24)).date()))
+            # revenue_today = completed_orders.aggregate(Sum('price'))
+            # tommorows_pre_orders_sum = pre_orders.aggregate(Sum('price'))
+            return render(request, 'orders/dashboard.html', context={
+                'order_progress': orders_in_progress,
+                'pre_orders': pre_orders,
+                'completed_orders': completed_orders,
+                'canceled_orders': canceled_orders,
+                'delivery_orders': delivery_orders,
+                # 'tommorows_pre_orders_sum': tommorows_pre_orders_sum,
+                # 'revenue_today': revenue_today,
+                'orders_date': timezone.now(),
+                'title': 'Дашборд'
+            })
+        return render(request, '404.html', context={'title': "Страница не найдена"})

@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
         // Обновление страницы по интервалу
-    setInterval(function () {
-        $('#dash')
-            .load("/dashboard #dash > *")
-    }, 2000);
+    // setInterval(function () {
+    //     $('#dash')
+    //         .load("/dashboard #dash > *")
+    // }, 2000);
 
 
         // Получение данных клиента по номеру тел
