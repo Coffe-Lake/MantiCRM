@@ -13,19 +13,26 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+
 from django.urls import path
 from django.urls.conf import include
+
+from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
+    # <--- API --->
+    path('api-auth/', include('rest_framework.urls')),
+
+    # <--- CUSTOM APPS --->
     path('', include('clients.urls', namespace='clients')),
     path('', include('orders.urls', namespace='orders')),
     path('', include('cart.urls', namespace='cart')),
     path('', include('products.urls', namespace='products')),
-    # path('', include('document.urls', namespace='document')),
 
     # <--- AUTH --->
     path('accounts/', include('django.contrib.auth.urls')),
@@ -33,4 +40,12 @@ urlpatterns = [
         template_name='auth/login.html', redirect_authenticated_user=True), name='login'),
     path('logout/', auth_views.LogoutView.as_view(
         next_page="login"), name='logout'),
+
+    # <--- DEBUG --->
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "orders.views.handler404"

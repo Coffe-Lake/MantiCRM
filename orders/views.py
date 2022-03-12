@@ -19,6 +19,10 @@ from products.models import Category
 from .models import Order, OrderItem
 
 
+def handler404(request, exception):
+    return render(request, '404.html', status=404)
+
+
 class CreateOrderView(LoginRequiredMixin, View):
     """Форма создания заказа"""
 
@@ -286,4 +290,4 @@ class DashBoardView(LoginRequiredMixin, View):
                 'orders_date': timezone.now(),
                 'title': 'Дашборд'
             })
-        return render(request, '404.html', context={'title': "Страница не найдена"})
+        return handler404(request, exception=404)

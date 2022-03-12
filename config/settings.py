@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'crispy_forms',
     'crispy_bootstrap5',
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 # CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin",)
@@ -135,6 +137,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -160,11 +166,10 @@ STATIC_URL = '/static/'
 
 if not DEBUG:
     STATIC_ROOT = ''
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/'),
 ]
-# STATIC_URL = '/static/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = '/media/'
 
