@@ -1,0 +1,1 @@
+web: gunicorn mantis.wsgi --log-gile -
