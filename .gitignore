@@ -18,3 +18,7 @@ media/*
 
 # ignore tasks
 Tasks
+
+
+# ignore req.txt
+req.txt

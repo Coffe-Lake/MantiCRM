@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_l+v7^r)p*m3e6_a0u8xvh-+fvg*^0q)*%m_%c^n9$15dy7a^a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -223,4 +223,4 @@ CART_SESSION_ID = 'cart'
 # }
 
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

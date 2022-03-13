@@ -41,10 +41,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(
         next_page="login"), name='logout'),
 
-    # <--- DEBUG --->
-    path('__debug__/', include('debug_toolbar.urls')),
 ]
 
+# <--- DEBUG --->
 if settings.DEBUG:
     import debug_toolbar
 
