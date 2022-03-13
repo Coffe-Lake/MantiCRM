@@ -59,7 +59,6 @@ optional-django==0.1.0
 packaging==21.3
 paramiko==2.10.1
 passlib==1.7.4
-pgadmin4==6.6
 phonenumbers==8.12.45
 Pillow==9.0.1
 pip-review==1.1.1
