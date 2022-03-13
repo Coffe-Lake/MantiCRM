@@ -13,6 +13,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+import dj_database_url
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +29,7 @@ SECRET_KEY = 'django-insecure-_l+v7^r)p*m3e6_a0u8xvh-+fvg*^0q)*%m_%c^n9$15dy7a^a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # Application definition
 
@@ -63,6 +64,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # <- DRF CORS HEADERS
     'django.middleware.common.CommonMiddleware',
@@ -77,6 +80,9 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'config.urls'
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
@@ -157,20 +163,27 @@ USE_L10N = True
 USE_TZ = True
 
 DATETIME_INPUT_FORMATS = '%d.%m.%Y %H:%M'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# STATIC_URL = '/static/'
+#
+# if not DEBUG:
+#     STATIC_ROOT = ''
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static/'),
+# ]
 
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
 
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
-if not DEBUG:
-    STATIC_ROOT = ''
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/'),
-]
+# Extra lookup directories for collectstatic to find static files
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = '/media/'
@@ -223,4 +236,7 @@ CART_SESSION_ID = 'cart'
 # }
 
 
-# django_heroku.settings(locals())
+prod_db = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
+
+django_heroku.settings(locals())
