@@ -81,8 +81,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'config.urls'
 
-LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
+# LOGIN_REDIRECT_URL = '/'
+# LOGIN_URL = '/login/'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
