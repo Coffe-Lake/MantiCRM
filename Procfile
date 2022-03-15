@@ -1,1 +1,1 @@
-web: gunicorn mantis.wsgi
+web: gunicorn config.wsgi
