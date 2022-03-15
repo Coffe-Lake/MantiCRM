@@ -18,12 +18,13 @@ import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = os.environ['SECRET_KEY']
 SECRET_KEY = 'django-insecure-_l+v7^r)p*m3e6_a0u8xvh-+fvg*^0q)*%m_%c^n9$15dy7a^a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -51,14 +52,14 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
 
     # other apps
-    'phonenumber_field',
+    # 'phonenumber_field',
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
     'mptt',
     'django_extensions',
-    'crispy_forms',
-    'crispy_bootstrap5',
+    # 'crispy_forms',
+    # 'crispy_bootstrap5',
     "debug_toolbar",
 ]
 
@@ -81,11 +82,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'config.urls'
 
-# LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+# CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 TEMPLATES = [
     {
@@ -111,21 +112,24 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'old_db.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'test_db',
-#         'USER': 'test_user',
-#         'PASSWORD': 'test',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'test_db',
+        'USER': 'test_user',
+        'PASSWORD': 'test',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+if not DEBUG:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=500)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -167,20 +171,9 @@ DATETIME_INPUT_FORMATS = '%d.%m.%Y %H:%M'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-# STATIC_URL = '/static/'
-#
-# if not DEBUG:
-#     STATIC_ROOT = ''
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static/'),
-# ]
 
-
-PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
-# Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -218,23 +211,40 @@ CART_SESSION_ID = 'cart'
 # }
 
 # Логгирование БД
-LOGGING = {
-    'version': 1,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-    }
-}
+# LOGGING = {
+#     'version': 1,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#         },
+#     },
+#     'root': {
+#         'handlers': ['console'],
+#     }
+# }
 
-DATABASES = {'default': dj_database_url.config(conn_max_age=500)}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': 'debug.log',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 django_heroku.settings(locals())

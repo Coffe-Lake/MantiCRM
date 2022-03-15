@@ -16,5 +16,5 @@ media/*
 # ignore migrate
 *migrations
 
-# ignore tasks
-Tasks
+# ignore staticfiles
+staticfiles
