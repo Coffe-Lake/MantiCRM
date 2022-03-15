@@ -22,6 +22,8 @@ from django.urls.conf import include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
+from .views import error404, error500
+
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
 
@@ -51,5 +53,5 @@ if settings.DEBUG:
                    ] + urlpatterns
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = "orders.views.handler404"
-handler500 = "orders.views.handler500"
+handler404 = error404
+handler500 = error500

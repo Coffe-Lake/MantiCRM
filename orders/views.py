@@ -1,8 +1,6 @@
 from datetime import timedelta
-
-from django.contrib.auth.decorators import user_passes_test
-from django.utils import timezone
 from pprint import pprint
+
 from django.http import JsonResponse, HttpResponse, Http404
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,14 +15,6 @@ from django.views.generic import DetailView
 
 from products.models import Category
 from .models import Order, OrderItem
-
-
-def handler404(request, exception):
-    return render(request, '404.html', status=404)
-
-
-def handler500(request, exception):
-    return render(request, '500.html', status=500)
 
 
 class CreateOrderView(LoginRequiredMixin, View):
