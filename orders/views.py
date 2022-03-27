@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
+from config.views import error404
 from orders.forms import *
 
 from django.shortcuts import render, redirect, get_object_or_404
@@ -241,7 +242,7 @@ class CheckDetailView(LoginRequiredMixin, DetailView):
 
 
 class InvoiceDetailView(LoginRequiredMixin, DetailView):
-    """Чек"""
+    """Накладная"""
 
     model = Order
     template_name = 'orders/invoice/invoice.html'
@@ -284,4 +285,4 @@ class DashBoardView(LoginRequiredMixin, View):
                 'orders_date': timezone.now(),
                 'title': 'Дашборд'
             })
-        return handler404(request, exception=404)
+        return error404(request, exception=404)

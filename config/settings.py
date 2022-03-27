@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-_l+v7^r)p*m3e6_a0u8xvh-+fvg*^0q)*%m_%c^n9$15dy7a^a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -80,13 +80,14 @@ MIDDLEWARE = [
 # CORS_ALLOW_HEADERS = default_headers + ("Access-Control-Allow-Origin",)
 CORS_ORIGIN_ALLOW_ALL = True
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+# SSL
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
 
 SECURE_HSTS_SECONDS = 15780000  # 6 месяцев рекомендация
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_PRELOAD = False
 
 ROOT_URLCONF = 'config.urls'
 
@@ -137,7 +138,7 @@ if not DEBUG:
         }
     }
 
-    # DATABASES['default'] = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'] = dj_database_url.config(conn_max_age=500)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -255,4 +256,5 @@ CART_SESSION_ID = 'cart'
 #     },
 # }
 
-django_heroku.settings(locals())
+if not DEBUG:
+    django_heroku.settings(locals())
